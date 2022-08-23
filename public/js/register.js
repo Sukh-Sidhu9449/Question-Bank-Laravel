@@ -11,7 +11,7 @@ $('#register').click(function(e){
     let email= $('#email').val();
     let password= $('#password').val();
     let password_confirmation= $('#password_confirmation').val();
-    let url ='{{route("userRegister")}}';
+   // let url ='{{route("userRegister")}}';
 
     // let mydata={};
     // mydata.name=name;
@@ -30,8 +30,19 @@ $('#register').click(function(e){
         },
         // dataType:"JSON",
         success:function(response){
-            alert('Registration Successfully');
-        }
+            //console.log(response);
+            var success=response.success;
+            //console.log(success);
+				$('#invalid').append('<div class="alert alert-success"style="margin-bottom:15px;">'+success+'</div');
+                window.location="/login";
+        },
+        error:function(xhr){
+
+            $('#invalid').html('');
+                  $.each(xhr.responseJSON.errors, function(key,value) {
+                $('#invalid').append('<div class="alert alert-danger"style="margin-bottom:15px; height:70px;">'+value+'</div');
+            }); 
+       }
 
     });
 

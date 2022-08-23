@@ -8,14 +8,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-	@if($errors->any())
-  @foreach($errors->all() as $error)
-  <p style="color:red;">{{$error}}</p>
-  @endforeach
-@endif
-@if(Session::has('error'))
-    <p style="color:red;">{{ Session::get('error')}}</p>
-@endif
+
 	<img class="wave" src="img/wave.png">
 	<div class="container">
 		<div class="img">
@@ -26,6 +19,7 @@
 				@csrf
 				<img src="img/avatar.svg">
 				<h2 class="title">Welcome</h2>
+                <span id="invalid"></span>
            		<div class="input-div one">
            		   <div class="i">
            		   		<i class="fas fa-user"></i>
@@ -36,7 +30,7 @@
            		   </div>
            		</div>
            		<div class="input-div pass">
-           		   <div class="i"> 
+           		   <div class="i">
            		    	<i class="fas fa-lock"></i>
            		   </div>
            		   <div class="div">

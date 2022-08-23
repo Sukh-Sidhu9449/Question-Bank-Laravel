@@ -36,7 +36,8 @@ class AuthController extends Controller
          $user->password=bcrypt($request->password);
          $user->save();
 
-         return back()->with('success',"Your registration has been successfully ");
+         return response()->json(['success'=>'succesfully']);
+
 
     }
     public function loadlogin()
@@ -71,8 +72,7 @@ class AuthController extends Controller
                 }
         }
         else{
-            return  back()->with('error','Credential is invalid');
-
+        return response()->json(['error'=>'invalid credentials']);
         }
     }
      public function loadDashboard(){

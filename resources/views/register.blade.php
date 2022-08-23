@@ -22,6 +22,7 @@
 		<div class="login-content">
 			<form method="post">
 				@csrf
+                <span id="invalid"></span>
 				<img src="img/avatar.svg">
 				<h2 class="title">Welcome</h2>
                 <div class="input-div one">
@@ -61,8 +62,8 @@
 
                     </div>
                 </div>
-           		
-            	
+
+
             	<a href="#">Forgot Password?</a>
             	<input type="submit" class="btn" id="register" value="Register">
             </form>
