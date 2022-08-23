@@ -431,6 +431,7 @@
                                     class="fa-solid fa-pencil"></i></span>
                         </div>
                     </div>
+                    {{-- <div> --}}
                     <div class="col-lg-12 col-md-12">
                         <div id="white_boxes">
                             <h4><span>Q2.</span> What is the latest version of Laravel and its release date ?</h4>
