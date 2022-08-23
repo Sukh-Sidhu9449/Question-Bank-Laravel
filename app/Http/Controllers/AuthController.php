@@ -65,10 +65,10 @@ class AuthController extends Controller
         {
                 if(Auth::user()->role=='admin')
                 {
-                    return redirect('/admin/dashboard');
+                    return response()->json('admin');
                 }
                 else{
-                    return redirect('/dashboard');
+                    return response()->json('user');
                 }
         }
         else{

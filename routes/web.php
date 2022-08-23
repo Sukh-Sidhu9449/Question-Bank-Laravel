@@ -57,6 +57,7 @@ Route::group(['middleware'=>['web','checkadmin']],function(){
 
     Route::get('/admin/questions',[QuestionController::class,'index']);
     Route::post('/admin/questions',[QuestionController::class,'store']);
+    Route::post('/admin/answers',[QuestionController::class,'storeAnswer']);
     Route::get('/admin/questions/edit/{id}',[QuestionController::class,'edit']);
     Route::post('/admin/questions/edit/{id}',[QuestionController::class,'update']);
     Route::delete('/admin/questions/delete/{id}',[QuestionController::class,'destroy']);

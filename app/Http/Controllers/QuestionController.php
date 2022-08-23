@@ -57,15 +57,24 @@ class QuestionController extends Controller
             'question' => $request->question,
             "created_at" => carbon::now()
         ];
-        // $answer_data=[
-        //     'experience_name' => $request->experience_name,
-        //     "created_at" => carbon::now()
-        // ];
-        // return response()->json($request);
+
         DB::table('questions')->insert($question_data);
         // DB::table('experiences')->insert($answer_data);
 
 
+        return response()->json([
+            'status' => 200
+        ]);
+    }
+
+    public function storeAnswer(Request $request)
+    {
+        $answer_data = [
+            'question_id' => $request->store_question_id,
+            'answer' => $request->answer,
+            "created_at" => carbon::now()
+        ];
+        DB::table('answers')->insert($answer_data);
         return response()->json([
             'status' => 200
         ]);
@@ -90,7 +99,13 @@ class QuestionController extends Controller
      */
     public function edit($id)
     {
-        //
+        $ques_ans=DB::table('answers as a')
+                        ->join('questions as q','q.id','=','a.question_id')
+                        ->where('a.question_id','=',$id)
+                        ->select('q.question','a.question_id','a.answer')
+                        ->first();
+        return response()->json($ques_ans);
+
     }
 
     /**
@@ -102,7 +117,20 @@ class QuestionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $Question_data = [
+            'question' => $request->edit_question,
+            "updated_at" => carbon::now()
+        ];
+        DB::table('questions')->where('id','=',$id)->update($Question_data);
+
+        $Answer_data = [
+            'answer' => $request->edit_answer,
+            "updated_at" => carbon::now()
+        ];
+        DB::table('answers')->where('question_id','=',$id)->update($Answer_data);
+        return response()->json([
+            'status' => 200
+        ]);
     }
 
     /**
@@ -113,6 +141,14 @@ class QuestionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $query = DB::table('questions')->find($id);
+        // $emp= $query->first();
+        if ($query) {
+            DB::table('questions')->delete($query->id);
+            // $emp->delete();
+            return response()->json([
+                'status' => 200
+            ]);
+        }
     }
 }

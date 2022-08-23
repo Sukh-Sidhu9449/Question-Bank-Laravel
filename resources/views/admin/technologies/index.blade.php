@@ -360,6 +360,38 @@
                 </div>
             </div>
         </div>
+        <!--Add Answer Modal -->
+        <div class="modal fade" id="addAnswerModal" tabindex="-1" aria-labelledby="addAnswerModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addAnswerModalLabel">Add Question</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="addAnswerForm" action="{{ url('admin/answers') }}" method="POST">
+                            @csrf
+                            <div class="form-group">
+                                <label for="question">Question</label>
+                                <input type="text" class="form-control" name="store_question" id="store_question" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="answer">Answer</label>
+                                <textarea class="form-control" name="answer" id="answer" rows="4"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="store_question_id" id="store_question_id" hidden>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" id="add_question" class="btn btn-primary">Add Answer</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!--Edit Question Modal -->
         <div class="modal fade" id="editQuestionModal" tabindex="-1" aria-labelledby="editQuestionModalLabel"
             aria-hidden="true">
@@ -373,26 +405,21 @@
                         <form id="editQuestionForm" action="{{ url('/admin/questions/edit') }}" method="POST">
                             @csrf
                             <div class="form-group">
-                                <label for="edit_experience_name">Question</label>
+                                <label for="edit_question">Question</label>
                                 <input type="text" class="form-control" name="edit_question"
                                     id="edit_question" >
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" name="question_id" id="question_id" hidden>
+                                <label for="edit_answer">Answer</label>
+                                <textarea class="form-control" name="edit_answer" id="edit_answer" rows="4"></textarea>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" name="editques_experience_id" id="editques_experience_id" hidden>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="editques_framework_id" id="editques_framework_id" hidden>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="editques_technology_id" id="editques_technology_id" hidden>
+                                <input type="text" class="form-control" name="edit_question_id" id="edit_question_id" hidden>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 <button type="submit" id="update_question" class="btn btn-primary">Update
-                                    Question</button>
+                                    </button>
                             </div>
                         </form>
                     </div>
@@ -416,84 +443,6 @@
             </div>
             <div id="dynamic_question" class="container-fluid">
 
-            </div>
-            <div class="container-fluid">
-                <div class="row justify-content-center">
-                    <div class="col-lg-12 col-md-12">
-                        <div id="white_boxes">
-                            <h4><span>Q1.</span> What do you mean by Laravel ?</h4>
-                            <p><span><i class="fa-regular fa-equals"></i><i
-                                        class="fa-solid fa-greater-than"></i></span>&nbsp;&nbsp;&nbsp;Laravel is a
-                                free and open-source PHP web framework, created by Taylor Otwell and intended for
-                                the development of web applications following the model–view–controller
-                                architectural pattern and based on Symfony.</p>
-                            <span><i class="fa-solid fa-trash-can text-danger"></i>&nbsp;&nbsp;<i
-                                    class="fa-solid fa-pencil"></i></span>
-                        </div>
-                    </div>
-                    {{-- <div> --}}
-                    <div class="col-lg-12 col-md-12">
-                        <div id="white_boxes">
-                            <h4><span>Q2.</span> What is the latest version of Laravel and its release date ?</h4>
-                            <p><span><i class="fa-regular fa-equals"></i><i
-                                        class="fa-solid fa-greater-than"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;The
-                                Latest version of Laravel is 9.2.1 and its release date is 27 April 2022.</p>
-                            <span><i class="fa-solid fa-trash-can text-danger"></i>&nbsp;&nbsp;<i
-                                    class="fa-solid fa-pencil"></i></span>
-                        </div>
-                    </div>
-                    <div class="col-lg-12 col-md-12">
-                        <div id="white_boxes">
-                            <h4><span>Q3.</span> What is Composer ?</h4>
-                            <p><span><i class="fa-regular fa-equals"></i><i
-                                        class="fa-solid fa-greater-than"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;Composer
-                                is the package manager for the framework. It helps in adding new packages from the
-                                huge community into your laravel application.</p>
-                            <span><i class="fa-solid fa-trash-can text-danger"></i>&nbsp;&nbsp;<i
-                                    class="fa-solid fa-pencil"></i></span>
-                        </div>
-                    </div>
-                    <div class="col-lg-12 col-md-12">
-                        <div id="white_boxes">
-                            <h4><span>Q4.</span> What are available databases supported by Laravel?
-                            </h4>
-                            <p><span><i class="fa-regular fa-equals"></i><i
-                                        class="fa-solid fa-greater-than"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;The
-                                supported databases in laravel are: <br>
-                                &nbsp;&nbsp;<i class="fa-regular fa-1"></i>.&nbsp;&nbsp;&nbsp;PostgreSQL <br>
-                                &nbsp;&nbsp;<i class="fa-regular fa-2"></i>.&nbsp;&nbsp;&nbsp;SQL Server <br>
-                                &nbsp;&nbsp;<i class="fa-regular fa-3"></i>.&nbsp;&nbsp;&nbsp;SQLite <br>
-                                &nbsp;&nbsp;<i class="fa-regular fa-4"></i>.&nbsp;&nbsp;&nbsp;MySQL</p>
-                            <span><i class="fa-solid fa-trash-can text-danger"></i>&nbsp;&nbsp;<i
-                                    class="fa-solid fa-pencil"></i></span>
-                        </div>
-                    </div>
-                    <div class="col-lg-12 col-md-12">
-                        <div id="white_boxes">
-                            <h4><span>Q5.</span> What is Composer ?</h4>
-                            <p><span><i class="fa-regular fa-equals"></i><i
-                                        class="fa-solid fa-greater-than"></i></span>&nbsp;&nbsp;&nbsp;&nbsp;Composer
-                                is the package manager for the framework. It helps in adding new packages from the
-                                huge community into your laravel application.</p>
-                            <span><i class="fa-solid fa-trash-can text-danger"></i>&nbsp;&nbsp;<i
-                                    class="fa-solid fa-pencil"></i></span>
-                        </div>
-                    </div>
-                    <div class="col-lg-12 col-md-12">
-                        <div id="white_boxes">
-                            <h4><span>Q6.</span> What is the templating engine used in Laravel?</h4>
-                            <p><span><i class="fa-regular fa-equals"></i><i
-                                        class="fa-solid fa-greater-than"></i></span>&nbsp;&nbsp;&nbsp;
-                                The templating engine used in Laravel is Blade. The blade gives the ability to use
-                                its mustache-like syntax with the plain PHP and gets compiled into plain PHP and
-                                cached until any other change happens in the blade file. The blade file has
-                                .blade.php extension.
-                            </p>
-                            <span><i class="fa-solid fa-trash-can text-danger"></i>&nbsp;&nbsp;<i
-                                    class="fa-solid fa-pencil"></i></span>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

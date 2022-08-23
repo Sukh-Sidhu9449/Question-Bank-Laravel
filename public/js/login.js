@@ -46,6 +46,7 @@ $(document).ready(function(){
 			},
 			//dataType: "dataType",
 			success: function (response) {
+                console.log(response);
 
 				var result =response;
 				if (result=='admin') {
@@ -62,7 +63,9 @@ $(document).ready(function(){
 	//error code area--------------------------------------------------------------------------
 				var error=response.error;
                 if(error==""){
-				$('#invalid').append('<div class="alert alert-danger"style="margin-bottom:15px;">'+error+'</div');
+                    $('#invalid').append('<div class="alert alert-danger"style="margin-bottom:15px;">'+error+'</div');
+
+                }else{
                 }
 			},
 

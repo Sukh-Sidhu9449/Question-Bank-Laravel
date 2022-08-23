@@ -5,6 +5,8 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('/css/login.css') }}">
 	<link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
 	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
@@ -22,9 +24,10 @@
 		<div class="login-content">
 			<form method="post">
 				@csrf
-                <span id="invalid"></span>
+
 				<img src="img/avatar.svg">
 				<h2 class="title">Welcome</h2>
+                <span id="invalid"></span>
                 <div class="input-div one">
 					<div class="i">
 						<i class="fas fa-user"></i>
