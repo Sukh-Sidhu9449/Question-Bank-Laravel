@@ -614,14 +614,14 @@ $(document).ready(function () {
     });
 
     //Fetch Question Function
-    function FetchQuestion() {
+    function FetchQuestion(id) {
         $('#dynamic_question').empty();
         $.ajax({
             type: "get",
-            url: "/admin/questions",
+            url: "/admin/questions/"+id,
             dataType: "json",
             success: function (response) {
-                // console.log(response);
+                console.log(response);
                 if (response.status == 200) {
                     $question_data = '<div class="row justify-content-center">';
                     let i = 1;
@@ -667,7 +667,7 @@ $(document).ready(function () {
         $('#load_experience_data').hide();
         $('#load_question_data').show();
 
-        FetchQuestion();
+        FetchQuestion(id);
 
     });
 
@@ -692,6 +692,7 @@ $(document).ready(function () {
     // Insert new Question
     $('#addQuestionForm').submit(function (e) {
         e.preventDefault();
+        let id=$('#store_experience_id').val();
         var Ques_form = new FormData(this);
         $('#add_question').text('Adding...');
         $.ajax({
@@ -713,7 +714,7 @@ $(document).ready(function () {
                         'success'
                     ).then(function () {
 
-                        FetchQuestion();
+                        FetchQuestion(id);
 
                     });
                 }
@@ -736,8 +737,9 @@ $(document).ready(function () {
     // Insert new Answer
     $('#addAnswerForm').submit(function (e) {
         e.preventDefault();
+        let id=$('#store_experience_id').val();
         var Ans_form = new FormData(document.getElementById("addAnswerForm"));
-        console.log(Ans_form);
+        // console.log(Ans_form);
         $('#add_answer').text('Adding...');
         $.ajax({
             type: "POST",
@@ -757,7 +759,7 @@ $(document).ready(function () {
                         'Answer Added Successfully',
                         'success'
                     ).then(function () {
-                        FetchQuestion();
+                        FetchQuestion(id);
                     });
                 }
 
@@ -789,6 +791,7 @@ $(document).ready(function () {
 
         var url = $('#editQuestionForm').attr('action');
         var id = $('#edit_question_id').val();
+        let experience_id =$('#store_experience_id').val();
         // console.log(id);
         $('#update_question').text('Updating...');
         $.ajax({
@@ -812,7 +815,7 @@ $(document).ready(function () {
                         type: "success"
                     }).then(function () {
 
-                        FetchQuestion();
+                        FetchQuestion(experience_id);
 
                     });
                 }
@@ -822,7 +825,8 @@ $(document).ready(function () {
 
     //Delete Question Answer Function
     function deleteQuestion(id) {
-        console.log(id);
+        let experience_id =$('#store_experience_id').val();
+        // console.log(id);
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -843,7 +847,7 @@ $(document).ready(function () {
                                 'Your file has been deleted.',
                                 'success'
                             ).then(function () {
-                                FetchQuestion();
+                                FetchQuestion(experience_id);
                             });
                         }
                     }

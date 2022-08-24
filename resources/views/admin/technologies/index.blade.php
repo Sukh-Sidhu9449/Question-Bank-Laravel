@@ -1,11 +1,11 @@
 @extends('admin_layout.template')
 @section('main-content')
-    <input type="text" name="store_technology_id" id="store_technology_id">
-    <input type="text" name="store_technology_name" id="store_technology_name">
-    <input type="text" name="store_framework_id" id="store_framework_id">
-    <input type="text" name="store_framework_name" id="store_framework_name">
-    <input type="text" name="store_experience_id" id="store_experience_id">
-    <input type="text" name="store_experience_name" id="store_experience_name">
+    <input type="text" name="store_technology_id" id="store_technology_id" hidden>
+    <input type="text" name="store_technology_name" id="store_technology_name" hidden>
+    <input type="text" name="store_framework_id" id="store_framework_id" hidden>
+    <input type="text" name="store_framework_name" id="store_framework_name" hidden>
+    <input type="text" name="store_experience_id" id="store_experience_id" hidden>
+    <input type="text" name="store_experience_name" id="store_experience_name" hidden>
 
     <div id='load_technologies_data'>
         <!--Add Technology Modal -->
@@ -106,11 +106,11 @@
                                     <h4>{{ $technology->technology_name }}</h4>
                                 </div>
                                 <div id="icons_gap">
-                                    <a id="delete_technology" data-id="{{ $technology->id }}" href="">
+                                    <a id="delete_technology" data-id="{{ $technology->id }}">
                                         <i class="fa-solid fa-trash-can text-danger"></i>&nbsp;&nbsp;
                                     </a>
                                     <a id="edit_technology" data-id="{{ $technology->id }}" data-bs-toggle="modal"
-                                        data-bs-target="#editTechnologyModal" href="">
+                                        data-bs-target="#editTechnologyModal">
                                         <i class="fa-solid fa-pencil"></i>
                                     </a>
                                 </div>

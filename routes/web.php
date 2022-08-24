@@ -55,7 +55,7 @@ Route::group(['middleware'=>['web','checkadmin']],function(){
     Route::post('/admin/experiences/edit/{id}',[ExperienceController::class,'update']);
     Route::delete('/admin/experiences/delete/{id}',[ExperienceController::class,'destroy']);
 
-    Route::get('/admin/questions',[QuestionController::class,'index']);
+    Route::get('/admin/questions/{id}',[QuestionController::class,'index']);
     Route::post('/admin/questions',[QuestionController::class,'store']);
     Route::post('/admin/answers',[QuestionController::class,'storeAnswer']);
     Route::get('/admin/questions/edit/{id}',[QuestionController::class,'edit']);

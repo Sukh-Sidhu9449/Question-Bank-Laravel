@@ -76,7 +76,7 @@
                 <div class="user_icon">
                     <!-- <a class="profile-pic" href="#"> -->
                         <img src="{{ asset('/img/user.jpg') }}" alt="user-img" width="36" class="img-circle">
-                        <div class="text-white font-medium">Ravi Sah</div>
+                        <div class="text-white font-medium">{{Auth::user()->name}}</div>
                     <!-- </a> -->
                     <div class="dropdown-content">
                         <button type="button" class="profile_details" data-bs-toggle="modal" data-bs-target="#update_info">Update Profile</button>

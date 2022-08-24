@@ -6,14 +6,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
-
 class QuestionController extends Controller
 {
-
-    public function index()
+    //Fetch Question
+    public function index($id)
     {
         $ques_ans=DB::table('answers as a')
                         ->join('questions as q','q.id','=','a.question_id')
+                        ->where('q.experience_id',$id)
                         ->select('q.question','a.question_id','a.answer')
                         ->get();
         $ques= DB::table('questions as q')
@@ -21,33 +21,17 @@ class QuestionController extends Controller
                     'q.id',
                     'q.question'
                     )
+                    ->where('q.experience_id',$id)
                     ->leftJoin('answers as a', 'a.question_id', '=', 'q.id')
                     ->whereNull('a.question_id')
                     ->get();
-
         return response()->json([
             'Ques' => $ques,
             'QuesAnswer' => $ques_ans,
             'status' => 200
         ]);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    // Add Question
     public function store(Request $request)
     {
         $question_data = [
@@ -57,16 +41,12 @@ class QuestionController extends Controller
             'question' => $request->question,
             "created_at" => carbon::now()
         ];
-
         DB::table('questions')->insert($question_data);
-        // DB::table('experiences')->insert($answer_data);
-
-
         return response()->json([
             'status' => 200
         ]);
     }
-
+    // Add Answer
     public function storeAnswer(Request $request)
     {
         $answer_data = [
@@ -79,42 +59,17 @@ class QuestionController extends Controller
             'status' => 200
         ]);
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    //Fetch for editing
     public function edit($id)
     {
         $ques_ans=DB::table('answers as a')
                         ->join('questions as q','q.id','=','a.question_id')
-                        ->where('a.question_id','=',$id)
+                        ->where('a.question_id',$id)
                         ->select('q.question','a.question_id','a.answer')
                         ->first();
         return response()->json($ques_ans);
-
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    //Update Question Answer
     public function update(Request $request, $id)
     {
         $Question_data = [
@@ -122,7 +77,6 @@ class QuestionController extends Controller
             "updated_at" => carbon::now()
         ];
         DB::table('questions')->where('id','=',$id)->update($Question_data);
-
         $Answer_data = [
             'answer' => $request->edit_answer,
             "updated_at" => carbon::now()
@@ -133,19 +87,12 @@ class QuestionController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   //Delete Question Answer
     public function destroy($id)
     {
         $query = DB::table('questions')->find($id);
-        // $emp= $query->first();
         if ($query) {
             DB::table('questions')->delete($query->id);
-            // $emp->delete();
             return response()->json([
                 'status' => 200
             ]);
