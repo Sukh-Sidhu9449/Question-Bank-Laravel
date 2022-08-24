@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\user;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+
 
 class AuthController extends Controller
 {
@@ -75,6 +77,28 @@ class AuthController extends Controller
         return response()->json(['error'=>'invalid credentials']);
         }
     }
+
+    public function index()
+    {
+        $user_id = Auth::user()->id;
+        $data = DB::table('users')->where('id','=',$user_id)->get();
+        return view('admin.profile',['data'=> $data]);
+
+    }
+
+        public function update(Request $request)
+        {
+          $id= $request->id;
+          $data = [
+        "name" => $request->name,
+        "email" => $request->email,
+        "gender" => $request->gender,
+        ];
+
+        DB::table('users')->where('id','=',$id)->update($data);
+        return redirect()->back()->with('status','Student Updated Successfully');
+        }
+
      public function loadDashboard(){
         return view('/dashboard');
      }

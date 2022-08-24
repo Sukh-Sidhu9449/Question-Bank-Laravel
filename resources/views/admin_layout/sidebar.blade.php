@@ -26,7 +26,7 @@
                 </a>
             </li>
             <li class="sidebar-item pt-3">
-                <a class="sidebar-link" href="users.html"
+                <a class="sidebar-link" href="{{url('/admin/users')}}"
                     aria-expanded="false">
                     <i class="fa-solid fa-users"></i>
                     <span class="hide-menu">Users</span>

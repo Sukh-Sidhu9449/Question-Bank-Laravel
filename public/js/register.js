@@ -30,6 +30,7 @@ $('#register').click(function(e){
         },
         // dataType:"JSON",
         success:function(response){
+            $('#invalid').html('');
             //console.log(response);
             var success=response.success;
             //console.log(success);
@@ -41,7 +42,7 @@ $('#register').click(function(e){
             $('#invalid').html('');
                   $.each(xhr.responseJSON.errors, function(key,value) {
                 $('#invalid').append('<div class="alert alert-danger"style="margin-bottom:15px; height:70px;">'+value+'</div');
-            }); 
+            });
        }
 
     });

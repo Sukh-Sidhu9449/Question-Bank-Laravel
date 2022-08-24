@@ -618,7 +618,7 @@ $(document).ready(function () {
         $('#dynamic_question').empty();
         $.ajax({
             type: "get",
-            url: "/admin/questions/"+id,
+            url: "/admin/questions/" + id,
             dataType: "json",
             success: function (response) {
                 console.log(response);
@@ -692,7 +692,7 @@ $(document).ready(function () {
     // Insert new Question
     $('#addQuestionForm').submit(function (e) {
         e.preventDefault();
-        let id=$('#store_experience_id').val();
+        let id = $('#store_experience_id').val();
         var Ques_form = new FormData(this);
         $('#add_question').text('Adding...');
         $.ajax({
@@ -737,7 +737,7 @@ $(document).ready(function () {
     // Insert new Answer
     $('#addAnswerForm').submit(function (e) {
         e.preventDefault();
-        let id=$('#store_experience_id').val();
+        let id = $('#store_experience_id').val();
         var Ans_form = new FormData(document.getElementById("addAnswerForm"));
         // console.log(Ans_form);
         $('#add_answer').text('Adding...');
@@ -791,7 +791,7 @@ $(document).ready(function () {
 
         var url = $('#editQuestionForm').attr('action');
         var id = $('#edit_question_id').val();
-        let experience_id =$('#store_experience_id').val();
+        let experience_id = $('#store_experience_id').val();
         // console.log(id);
         $('#update_question').text('Updating...');
         $.ajax({
@@ -825,7 +825,7 @@ $(document).ready(function () {
 
     //Delete Question Answer Function
     function deleteQuestion(id) {
-        let experience_id =$('#store_experience_id').val();
+        let experience_id = $('#store_experience_id').val();
         // console.log(id);
         Swal.fire({
             title: 'Are you sure?',
@@ -868,5 +868,13 @@ $(document).ready(function () {
         e.preventDefault();
         let id = $(this).data('id');
         deleteQuestion(id);
+    });
+
+    // load more
+    $('.page_loader_image').hide();
+    $('#pageloader_button').click(function () {
+        $('.pageloader_button').hide();
+        $('.page_loader_image').show();
+
     });
 });
