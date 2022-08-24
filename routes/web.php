@@ -9,12 +9,12 @@ use App\Http\Controllers\AuthController;
 // Route::get('/', function () {
 //     return view('admin.dashboard');
 // });
-Route::get('/login',function(){
-    return view('admin.login');
-});
-Route::get('/signup',function(){
-    return view('admin.signup');
- });
+// Route::get('/login',function(){
+//     return view('admin.login');
+// });
+// Route::get('/signup',function(){
+//     return view('admin.signup');
+//  });
 Route::get('/register',[AuthController::class,'loadRegister']);
 
 Route::post('/register',[AuthController::class,'userRegister'])->name('userRegister');

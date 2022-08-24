@@ -28,14 +28,17 @@
 				@csrf
 				<img src="img/avatar.svg">
 				<h2 class="title">Welcome</h2>
-				<span id="invalid"></span>
+				{{-- <span id="invalid"></span> --}}
            		<div class="input-div one">
            		   <div class="i">
            		   		<i class="fas fa-user"></i>
            		   </div>
            		   <div class="div">
+					
            		   		<h5>Email</h5>
            		   		<input type="text" name="email" id="email"class="input">
+						<p id="email"></p>
+						
            		   </div>
            		</div>
            		<div class="input-div pass">
@@ -45,6 +48,7 @@
            		   <div class="div">
            		    	<h5>Password</h5>
            		    	<input type="password" id="password" name="password" class="input">
+						   <span id="password"></span>
             	   </div>
             	</div>
             	<a href="#">Forgot Password?</a>

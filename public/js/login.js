@@ -46,7 +46,7 @@ $(document).ready(function(){
 			},
 			//dataType: "dataType",
 			success: function (response) {
-
+				console.log(response);
 				var result =response;
 				if (result=='admin') {
 
@@ -61,15 +61,23 @@ $(document).ready(function(){
 
 	//error code area--------------------------------------------------------------------------
 				var error=response.error;
-				$('#invalid').append('<div class="alert alert-danger"style="margin-bottom:15px;">'+error+'</div');
-			
+				if(error==""){
+
+				}
+				else{
+					$('#invalid').append('<div class="alert alert-danger"style="margin-bottom:15px;">'+error+'</div');
+				}
 			},
 
 			error:function(xhr){
 
-				 $('#invalid').html('');
+				//  $('#invalid').html('');
    					$.each(xhr.responseJSON.errors, function(key,value) {
-     				$('#invalid').append('<div class="alert alert-danger"style="margin-bottom:15px;">'+value+'</div');
+						$('#email').append('<div class="alert alert-danger"style="margin-bottom:15px;">'+key[0]+value+'</div');
+						// $('#password').append('<div class="alert alert-danger"style="margin-bottom:15px;">'+value[1]+'</div');
+					
+							
+					
  				}); 
 			}
 		//end error area-------------------------------------------------------------------------

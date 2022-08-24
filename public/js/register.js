@@ -32,7 +32,7 @@ $('#register').click(function(e){
         success:function(response){
             //console.log(response);
             var success=response.success;
-            //console.log(success);
+           
 				$('#invalid').append('<div class="alert alert-success"style="margin-bottom:15px;">'+success+'</div');
                 window.location="/login";
         },
