@@ -41,14 +41,14 @@ class AuthController extends Controller
     }
     public function loadlogin()
     {
-    //    if(Auth::user() && Auth::user()->role=='admin')
-    //    {
-    //     return redirect('/admin/dashboard');
-    //    }
-    //    else if(Auth::user() && Auth::user()->role=='user')
-    //    {
-    //     return redirect('/dashboard');
-    //    }
+       if(Auth::user() && Auth::user()->role=='admin')
+       {
+        return redirect('/admin/dashboard');
+       }
+       else if(Auth::user() && Auth::user()->role=='user')
+       {
+        return redirect('/dashboard');
+       }
        return view('login');
     }
     public function userlogin(Request $request)
@@ -69,7 +69,9 @@ class AuthController extends Controller
                 }
                 else{
                     return "user";
+
                 }
+                return response()->json(['success'=>'login']);
         }
         else{
             // return  back()->with('error','Credential is invalid');

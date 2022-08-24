@@ -149,11 +149,16 @@
 <div class="section">
     <div class="gallery js-flickity"
     data-flickity-options='{ "wrapAround": true }'>
-    <div class="gallery-cell"></div>
-    <div class="gallery-cell"></div>
-    <div class="gallery-cell"></div>
-    <div class="gallery-cell"></div>
-    <div class="gallery-cell"></div>
+    <div class="gallery-cell ">
+      <h3>php</h3>
+
+
+
+    </div>
+    <div class="gallery-cell cell_one">2</div>
+    <div class="gallery-cell cell_one">3</div>
+    <div class="gallery-cell cell_one">4</div>
+    <div class="gallery-cell cell_one">5</div>
   </div>
 </div>
 

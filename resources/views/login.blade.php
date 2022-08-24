@@ -27,8 +27,10 @@
 			<form method="post">
 				@csrf
 				<img src="img/avatar.svg">
-				<h2 class="title">Welcome</h2>
-				{{-- <span id="invalid"></span> --}}
+				<h4 class="title">Welcome</h4>
+				<span class="slide_in" id="invalid"></span>
+				
+			
            		<div class="input-div one">
            		   <div class="i">
            		   		<i class="fas fa-user"></i>
@@ -37,7 +39,7 @@
 					
            		   		<h5>Email</h5>
            		   		<input type="text" name="email" id="email"class="input">
-						<p id="email"></p>
+						
 						
            		   </div>
            		</div>

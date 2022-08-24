@@ -27,7 +27,14 @@ $(document).ready(function(){
 				'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
 			}
 		});
+
 		e.preventDefault();
+		setInterval(function() {
+			$('#slide_in').fadeOut('linear',function(){
+					$(this).empty();
+			});
+		}, 2000);
+		
 		var email=$("#email").val();
 		var password=$("#password").val();
 		// alert(email);
@@ -46,6 +53,7 @@ $(document).ready(function(){
 			},
 			//dataType: "dataType",
 			success: function (response) {
+				$('#invalid').html('');
 				console.log(response);
 				var result =response;
 				if (result=='admin') {
@@ -61,25 +69,26 @@ $(document).ready(function(){
 
 	//error code area--------------------------------------------------------------------------
 				var error=response.error;
-				if(error==""){
-
+				console.log(error);
+				if(!$.trim(response.error)){
+				
 				}
 				else{
-					$('#invalid').append('<div class="alert alert-danger"style="margin-bottom:15px;">'+error+'</div');
+					$('#invalid').append('<div class="alert alert-success"style="margin-bottom:15px;">'+error+'</div');
 				}
 			},
 
-			error:function(xhr){
-
-				//  $('#invalid').html('');
-   					$.each(xhr.responseJSON.errors, function(key,value) {
-						$('#email').append('<div class="alert alert-danger"style="margin-bottom:15px;">'+key[0]+value+'</div');
-						// $('#password').append('<div class="alert alert-danger"style="margin-bottom:15px;">'+value[1]+'</div');
-					
+			 error:function(xhr){
+				$('#invalid').html('');
+   				$.each(xhr.responseJSON.errors, function(key,value) {
+			      $('#invalid').append('<div class="alert alert-success"style="margin-bottom:15px;  ">'+value+'</div');
+				  });
 							
 					
- 				}); 
-			}
+ 			 	
+				
+			 },
+			 
 		//end error area-------------------------------------------------------------------------
 		});
 
