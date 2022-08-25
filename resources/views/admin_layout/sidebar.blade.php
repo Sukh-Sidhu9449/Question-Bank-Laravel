@@ -12,7 +12,7 @@
                 </a>
             </li>
             <li class="sidebar-item pt-3">
-                <a class="sidebar-link" href="{{url('admin/profile')}}"
+                <a id="admin_profile" class="sidebar-link" href="{{url('admin/profile')}}"
                     aria-expanded="false">
                     <i class="fa-solid fa-user"></i>
                     <span class="hide-menu">Profile</span>
@@ -32,33 +32,12 @@
                     <span class="hide-menu">Users</span>
                 </a>
             </li>
-            <li class="sidebar-item pt-3">
-                <a class="sidebar-link" href="#"
-                    aria-expanded="false">
-                    <i class="fa-solid fa-chart-simple"></i>
-                    <span class="hide-menu">Statics</span>
-                </a>
-            </li>
-            <li class="sidebar-item pt-3">
-                <a class="sidebar-link" href="#"
-                    aria-expanded="false">
-                    <i class="fa-solid fa-folder"></i>
-                    <span class="hide-menu">Others</span>
-                </a>
-            </li>
-            <li class="sidebar-item pt-3">
-                <a class="sidebar-link" href="#"
-                    aria-expanded="false"><button type="button" class="btn btn-danger px-3">
-                    <i class="fa-solid fa-plus"></i> ADD</button>
-                    <!-- <span class="hide-menu">Add</span> -->
-                </a>
-            </li>
         </ul>
     </div>
 </div>
 <div class="main_section">
     <div class="navbar p-4">
-            <div class="search mx-5">
+            {{-- <div class="search mx-5">
                 <form role="search" class="search_bar">
                     <div class="search_btn">
                         <div>
@@ -71,16 +50,19 @@
                         </div>
                     </div>
                 </form>
-            </div>
+            </div> --}}
             <div class="dropdown">
                 <div class="user_icon">
                     <!-- <a class="profile-pic" href="#"> -->
                         <img src="{{ asset('/img/user.jpg') }}" alt="user-img" width="36" class="img-circle">
                         <div class="text-white font-medium">{{Auth::user()->name}}</div>
                     <!-- </a> -->
-                    <div class="dropdown-content">
-                        <button type="button" class="profile_details" data-bs-toggle="modal" data-bs-target="#update_info">Update Profile</button>
                     <form action="" method="">
+                    <div class="dropdown-content">
+                        <a href="{{url('admin/profile')}}">
+                        <button type="button" class="profile_details">Update Profile</button>
+                    </a>
+
                         <button type="button" class="logout" name="logout" ><a id="logout" style="text-decoration: none;" href="{{route('logout')}}">Logout</a>
                         </button>
                     </form>

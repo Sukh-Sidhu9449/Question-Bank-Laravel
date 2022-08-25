@@ -21,6 +21,8 @@ Route::get('/logout',[AuthController::class,'logout'])->name('logout');
 Route::group(['middleware'=>['web','checkadmin']],function(){
 
     Route::get('/admin/dashboard',[AuthController::class,'adminDashboard']);
+    Route::get('/admin/dashboard-data',[AuthController::class,'dashboardData']);
+
     Route::get('/admin/technologies',[TechnologyController::class,'show'])->name('show');
     Route::get('/admin/technologies/add',[TechnologyController::class,'index']);
     Route::post('/admin/technologies',[TechnologyController::class,'create'])->name('create');
@@ -53,6 +55,7 @@ Route::group(['middleware'=>['web','checkadmin']],function(){
 
 
     Route::get('/admin/profile', [AuthController::class,'index']);
+    Route::get('/admin/profile/user', [AuthController::class,'getProfileData']);
     Route::put('/admin/profile', [AuthController::class,'update'])->name('profile.update');
 });
 Route::group(['middleware'=>['web','checkuser']],function(){

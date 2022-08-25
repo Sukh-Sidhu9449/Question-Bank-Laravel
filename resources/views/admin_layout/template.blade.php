@@ -31,8 +31,8 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="{{ asset('js/technologies.js') }}"></script>
 <script src="{{ asset('js/listusers.js') }}"></script>
-
-
+<script src="{{ asset('js/profile.js') }}"></script>
+<script src="{{ asset('js/dashboard.js') }}"></script>
 
 </body>
 </html>

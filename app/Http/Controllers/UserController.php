@@ -11,10 +11,11 @@ use Yajra\Datatables\Facades\Datatables;
 class UserController extends Controller
 {
     public function index(){
-        $users=DB::table('users')->get();
-        return view('admin.ListUsers')->with(['users'=>$users]);
+
+        return view('admin.ListUsers');
     }
     public function getUsers(){
-
+        $query = DB::table('users')->select('id', 'name', 'email', 'role', 'gender');
+        return datatables($query)->make(true);
     }
 }

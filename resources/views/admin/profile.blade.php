@@ -30,40 +30,44 @@
          <div class="col-lg-8 col-xlg-9 col-md-12">
              <div class="card" id="white_box">
                  <div class="card-body">
-                     <form class="form-horizontal form-material" action="" method="post">
+                    <form class="form-horizontal form-material" action="{{ route('profile.update') }}" method="post">
                          @csrf
                          @method('put')
-
-                         <input id="id" name="id" type="hidden" value="">
-                         <div for="name" class="form-group mb-4">
+                         <div for="profile_name" class="form-group mb-4">
                              <label class="col-md-12 p-0">Name</label>
                              <div class="col-md-12 border-bottom p-0">
-                                 <input type="text" class="form-control p-2 border-0 mt-3" name="name" id="name" value="">
+                                 <input type="text" class="form-control p-2 border-0 mt-3" name="profile_name" id="profile_name" value="">
                              </div>
                          </div>
                          <div class="form-group mb-4">
-                             <label for="email" class="col-md-12 p-0">Email</label>
+                             <label for="profile_email" class="col-md-12 p-0">Email</label>
                              <div class="col-md-12 border-bottom p-0">
-                                 <input type="email" class="form-control p-2 border-0 mt-3" name="email" id="email" value="">
+                                 <input type="email" class="form-control p-2 border-0 mt-3" name="profile_email" id="profile_email" value="">
                              </div>
                          </div>
                          <div class="form-group mb-4">
                              <label class="col-md-12 p-0">Gender</label>
                              <div class="col-md-12  p-3 d-flex">
-                                 <input type="radio" value="M" class="form-check-input p-2 mt-3" name="gender" id="gender">
+                                 <input type="radio" value="M" class="form-check-input p-2 mt-3" name="profile_gender" id="profile_gender">
                                  <label class="form-check-label radio_title" for="flexRadioDefault1">
                                      Male
                                  </label>
-                                 <input type="radio" value="F" class="form-check-input p-2 mt-3 " name="gender" id="gender">
+                                 <input type="radio" value="F" class="form-check-input p-2 mt-3 " name="profile_gender" id="profile_gender">
                                  <label class="form-check-label radio_title" for="flexRadioDefault1">
                                      Female
                                  </label>
-                                 <input type="radio" value="O" class="form-check-input p-2 mt-3 " name="gender" id="gender">
+                                 <input type="radio" value="O" class="form-check-input p-2 mt-3 " name="profile_gender" id="profile_gender">
                                  <label class="form-check-label radio_title" for="flexRadioDefault1">
                                      Others
                                  </label>
                              </div>
                          </div>
+                         <div class="form-group mb-4">
+                            <label for="profile_address" class="col-md-12 p-0">Address</label>
+                            <div class="col-md-12 border-bottom p-0">
+                                <input type="text" class="form-control p-2 border-0 mt-3" name="profile_address" id="profile_address" value="">
+                            </div>
+                        </div>
                          <div class="form-group my-3">
                              <div class="col-sm-12">
                                  <button class="btn btn-success mt-3" name="updateAdmin" id="updateAdmin">Update Profile</button>

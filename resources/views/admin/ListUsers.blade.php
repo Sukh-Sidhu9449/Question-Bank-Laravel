@@ -15,15 +15,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($users as $user)
-                        <tr>
-                            <td>{{ $loop->index + 1 }}</td>
-                            <td>{{ $user->name }} </td>
-                            <td>{{ $user->email }}</td>
-                            <td>{{ $user->role }}</td>
-                            <td>{{ $user->gender }}</td>
-                        </tr>
-                    @endforeach
+                   
                 </tbody>
             </table>
         </div>
