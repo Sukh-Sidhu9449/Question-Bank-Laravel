@@ -50,17 +50,21 @@
 
 <div class="container-fluid con">
   <div class="row">
+      
+    @foreach ($menu as $items )
+      
+   
     <div class="col-md-3 col-sm-2">
       <div class="card" style="width: 18rem;">
         <img src="{{asset('user_img/img/php.jpg')}}" class="card-img-top" alt="...">
         <div class="card-body">
-          <h5 class="card-title" style="font-weight:900;">PHP</h5>
-          <p class="card-text"> PHP is a server-side designed specifically for web development.</p>
+          <h5 class="card-title" style="font-weight:400; font-size:20px;">{{ $items->technology_name }}</h5>
+          <p class="card-text">{{ $items->technology_description}}</p>
           <a href="#" class="btn btn-primary">Learn More..</a>
         </div>
       </div>
     </div>
-    <div class="col-md-3 col-sm-2">
+    {{-- <div class="col-md-3 col-sm-2">
       <div class="card" style="width: 18rem;">
         <img src="{{asset('user_img/img/images.jfif')}}" class="card-img-top" alt="..." style="height:190px;">
         <div class="card-body">
@@ -91,53 +95,11 @@
       </div>
     </div>
   </div>
-</div>
+</div> --}}
+@endforeach
 
 <!-- seccnd roww--------------------------------------------------- -->
-<div class="container-fluid con">
-  <div class="row">
-    <div class="col-md-3 col-sm-2">
-      <div class="card" style="width: 18rem;">
-        <img src="{{asset('user_img/img/php.jpg')}}" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title" style="font-weight:900;">PHP</h5>
-          <p class="card-text"> PHP is a server-side designed specifically for web development.</p>
-          <a href="#" class="btn btn-primary">Learn More..</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3 col-sm-2">
-      <div class="card" style="width: 18rem;">
-        <img src="./img/images.jfif" class="card-img-top" alt="..." style="height:190px;">
-        <div class="card-body">
-          <h5 class="card-title" style="font-weight:900;">JAVA</h5>
-          <p class="card-text">PHP is a server-side designed specifically for web development.</p>
-          <a href="#" class="btn btn-success">Go somewhere</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3  col-sm-2">
-      <div class="card" style="width: 18rem;">
-        <img src="./img/javascript.png" class="card-img-top" alt="..." style="height:190px;">
-        <div class="card-body">
-          <h5 class="card-title" style="font-weight:900;">JAVSCRIPT</h5>
-          <p class="card-text">Some quick example text to content.</p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3 col-sm-2">
-      <div class="card" style="width: 18rem;">
-        <img src="./img/python.webp" class="card-img-top" alt="..." style="height:190px;">
-        <div class="card-body">
-          <h5 class="card-title" style="font-weight:900;">Pyhton</h5>
-          <p class="card-text">Some quick example text to content.</p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+    
 <!-- few techno with large div coding area ends----------------------------------------- -->
 
 
@@ -151,14 +113,11 @@
     data-flickity-options='{ "wrapAround": true }'>
     <div class="gallery-cell ">
       <h3>php</h3>
-
-
-
     </div>
-    <div class="gallery-cell cell_one">2</div>
-    <div class="gallery-cell cell_one">3</div>
-    <div class="gallery-cell cell_one">4</div>
-    <div class="gallery-cell cell_one">5</div>
+    @foreach ($menu as $items )
+    <div class="gallery-cell cell_one">{{ $items->technology_name }}</div>
+   
+    @endforeach
   </div>
 </div>
 
