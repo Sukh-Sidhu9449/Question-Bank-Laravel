@@ -10,9 +10,9 @@ use Illuminate\Support\Facades\DB;
 class FrameworkController extends Controller
 {
 
-    public function index(Request $request)
+    public function index($id)
     {
-        $id=$request->tech_id;
+        
         $frameworks= DB::table('frameworks as f')
                     ->join('technologies as t','t.id','=','f.technology_id')
                     ->where('f.technology_id','=',$id)

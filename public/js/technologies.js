@@ -1,4 +1,29 @@
 $(document).ready(function () {
+    $("#back_btn").click(function(){
+        $(".framework_content").attr('style', 'display: none');
+        $("#load_technologies_data").removeAttr('style', 'display: none');
+        $("#clickable").click(function () {
+            $(".framework_content").removeAttr('style', 'display: none');
+        });
+    });
+
+    $("#back_btnn").click(function(){
+        $(".experience_content").attr('style', 'display: none');
+        $("#load_frameworks_data").removeAttr('style', 'display: none');
+        $("#clickframework").click(function () {
+            $(".experience_content").removeAttr('style', 'display: none');
+        });
+    });
+
+    $("#back_btnnn").click(function(){
+        $(".ques_ans_content").attr('style', 'display: none');
+        $("#load_experience_data").removeAttr('style', 'display: none');
+        $("#clickexperience").click(function () {
+            $(".ques_ans_content").removeAttr('style', 'display: none');
+        });
+
+    });
+
     $('#load_frameworks_data').hide();
     $('#load_experience_data').hide();
     $('#load_question_data').hide();
@@ -155,15 +180,15 @@ $(document).ready(function () {
         $('#load_technologies_data').hide();
         $('#load_frameworks_data').show();
         $('#dynamic_frameworks').empty();
-
         $.ajax({
             type: "get",
-            url: "/admin/frameworks",
-            data: {
-                tech_id: id
-            },
+            url: "/admin/frameworks/"+id,
+            // data: {
+            //     tech_id: id
+            // },
             dataType: "json",
             success: function (response) {
+                // window.history.pushState('new','title','/admin/frameworks/'+id);
                 if (response.status == 200) {
                     $frame_data = '<div class="row justify-content-left">';
                     // console.log(response);
@@ -174,10 +199,10 @@ $(document).ready(function () {
                                                 <h4>`+ value.framework_name + `</h4>
                                             </div>
                                             <div id="icons_gap">
-                                                <a id="delete_framework" data-id="`+ value.id + `" href="">
+                                                <a id="delete_framework" data-id="`+ value.id + `" >
                                                     <i class="fa-solid fa-trash-can text-danger"></i>&nbsp;&nbsp;
                                                 </a>
-                                                <a id="edit_framework" data-id="`+ value.id + `" data-bs-toggle="modal" data-bs-target="#editFrameworkModal" href="">
+                                                <a id="edit_framework" data-id="`+ value.id + `" data-bs-toggle="modal" data-bs-target="#editFrameworkModal" >
                                                     <i class="fa-solid fa-pencil"></i>
                                                 </a>
                                             </div>
@@ -538,6 +563,7 @@ $(document).ready(function () {
         });
 
     });
+
     // Update Experience
     $('#editExperienceForm').submit(function (e) {
         e.preventDefault();
@@ -576,7 +602,6 @@ $(document).ready(function () {
     });
 
     //Delete Experience
-
     $(document).on('click', '#delete_experience', function (e) {
         e.preventDefault();
         let id = $(this).data('id');
@@ -621,7 +646,7 @@ $(document).ready(function () {
             url: "/admin/questions/" + id,
             dataType: "json",
             success: function (response) {
-                console.log(response);
+                // console.log(response);
                 if (response.status == 200) {
                     $question_data = '<div class="row justify-content-center">';
                     let i = 1;

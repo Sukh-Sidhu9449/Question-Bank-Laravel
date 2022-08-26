@@ -30,13 +30,12 @@ $(document).ready(function () {
         e.preventDefault();
         var email = $("#email").val();
         var password = $("#password").val();
-        // alert(email);
-        // console.log(email);
-        // var mydata={};
+        setInterval(function() {
+			$('#slide_in').fadeOut('linear',function(){
+					$(this).empty();
+			});
+		}, 2000);
 
-        // mydata.email=email;
-        // mydata.password=password;
-        // console.log(mydata);
         $.ajax({
             type: "POST",
             url: "/login",
@@ -44,22 +43,31 @@ $(document).ready(function () {
                 email: email,
                 password: password
             },
-            //dataType: "dataType",
+
             success: function (response) {
-                // console.log(response);
+
                 $('#invalid').html('');
                 var result = response;
                 if (result == 'admin') {
-
-                    //window.location="{{route('admin/dashboard')}}";
-                    window.location = '/admin/dashboard';
-
+                    Swal.fire(
+                        'Success!',
+                        'Admin Login Successfully.',
+                        'success'
+                    ).then(function () {
+                        window.location = '/admin/dashboard';
+                    });
                 }
-                if (result == "user") {
-                    window.location = "/dashboard";
+                if (result =='user') {
+                    Swal.fire(
+                        'Success!',
+                        'User Login Successfully.',
+                        'success'
+                    ).then(function () {
 
+                        window.location = "/dashboard";
+
+                    });
                 }
-
                 //error code area-
                 var error = response.error;
                 if (!$.trim(response.error)){
@@ -72,7 +80,7 @@ $(document).ready(function () {
 
                 $('#invalid').html('');
                 $.each(xhr.responseJSON.errors, function (key, value) {
-                    $('#invalid').append('<div class="alert alert-danger"style="margin-bottom:15px;">' + value + '</div');
+                    $('#invalid').append('<div class="alert alert-danger "style="margin-bottom:15px;">' + value + '</div');
                 });
             }
             //end error area-------------------------------------------------------------------------

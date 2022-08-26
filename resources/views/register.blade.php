@@ -69,6 +69,7 @@
 
             	<a href="#">Forgot Password?</a>
             	<input type="submit" class="btn" id="register" value="Register">
+                <a href="{{url('/login')}}" class="login_btn">Already have an account? LogIn</a>
             </form>
 			@if(Session::has('success'))
 			<p style="color:green;">{{ Session::get('success')}}</p>
@@ -76,6 +77,8 @@
         </div>
     </div>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
     <script type="text/javascript" src="{{ asset('/js/login.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('/js/register.js') }}"></script>

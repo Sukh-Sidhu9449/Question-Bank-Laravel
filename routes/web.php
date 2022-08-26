@@ -30,7 +30,7 @@ Route::group(['middleware'=>['web','checkadmin']],function(){
     Route::post('/admin/technologies/update',[TechnologyController::class,'update']);
     Route::delete('/admin/technologies/delete/{id}',[TechnologyController::class,'destroy']);
 
-    Route::get('/admin/frameworks',[FrameworkController::class,'index']);
+    Route::get('/admin/frameworks/{id}',[FrameworkController::class,'index']);
     Route::post('/admin/frameworks',[FrameworkController::class,'store']);
     Route::get('/admin/frameworks/edit/{id}',[FrameworkController::class,'edit']);
     Route::post('/admin/frameworks/edit/{id}',[FrameworkController::class,'update']);

@@ -21,14 +21,15 @@
                         <form id="addTechnologyForm" action="{{ url('admin/technologies') }}" method="POST">
                             @csrf
                             <div class="form-group">
-                                <label for="technology_name">Technology</label>
-                                <input type="text" class="form-control" name="technology_name" id="technology_name"
+                                {{-- <label for="technology_name">Technology</label> --}}
+                                <input type="text" class="form-control mt-3" name="technology_name" id="technology_name"
                                     placeholder="Technology Name">
                             </div>
 
                             <div class="form-group">
-                                <label for="technology_description">Technology Description</label>
-                                <textarea class="form-control" name="technology_description" id="technology_description" rows="3"></textarea>
+                                {{-- <label for="technology_description">Technology Description</label> --}}
+                                <textarea class="form-control mt-4" name="technology_description" id="technology_description" rows="3"
+                                    placeholder="Description"></textarea>
                             </div>
 
                             <div class="modal-footer">
@@ -54,14 +55,15 @@
                             @csrf
 
                             <div class="form-group">
-                                <label for="edit_technology_name">Technology</label>
-                                <input type="text" class="form-control" name="edit_technology_name"
-                                    id="edit_technology_name" placeholder="Technology Name">
+                                {{-- <label for="edit_technology_name">Technology</label> --}}
+                                <input type="text" class="form-control mt-3" name="edit_technology_name"
+                                    id="edit_technology_name" placeholder="Edit Technology">
                             </div>
 
                             <div class="form-group">
-                                <label for="edit_technology_description">Technology Description</label>
-                                <textarea class="form-control" name="edit_technology_description" id="edit_technology_description" rows="3"></textarea>
+                                {{-- <label for="edit_technology_description">Technology Description</label> --}}
+                                <textarea class="form-control mt-4" name="edit_technology_description" id="edit_technology_description" rows="3"
+                                    placeholder="Edit Desciption"></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="technology_id"></label>
@@ -141,19 +143,20 @@
                                     id="frame_technology_id" hidden>
                             </div>
                             <div class="form-group">
-                                <label for="frame_technology_name">Technology</label>
-                                <input type="text" class="form-control" name="frame_technology_name"
+                                {{-- <label for="frame_technology_name">Technology</label> --}}
+                                <input type="text" class="form-control mt-3" name="frame_technology_name"
                                     id="frame_technology_name" disabled>
                             </div>
                             <div class="form-group">
-                                <label for="framework_name">Framework</label>
-                                <input type="text" class="form-control" name="framework_name" id="framework_name"
-                                    placeholder="Framework Name">
+                                {{-- <label for="framework_name">Framework</label> --}}
+                                <input type="text" class="form-control mt-4" name="framework_name"
+                                    id="framework_name" placeholder="Framework">
                             </div>
 
                             <div class="form-group">
-                                <label for="framework_description">Framework Description</label>
-                                <textarea class="form-control" name="framework_description" id="framework_description" rows="3"></textarea>
+                                {{-- <label for="framework_description">Framework Description</label> --}}
+                                <textarea class="form-control mt-4" name="framework_description" id="framework_description"
+                                    placeholder="Description" rows="3"></textarea>
                             </div>
 
                             <div class="modal-footer">
@@ -182,14 +185,15 @@
                                     id="editframe_technology_id" hidden>
                             </div>
                             <div class="form-group">
-                                <label for="edit_framework_name">Framework</label>
-                                <input type="text" class="form-control" name="edit_framework_name"
-                                    id="edit_framework_name" placeholder="Framework Name">
+                                {{-- <label for="edit_framework_name">Framework</label> --}}
+                                <input type="text" class="form-control mt-3" name="edit_framework_name"
+                                    id="edit_framework_name" placeholder="Edit Framework">
                             </div>
 
                             <div class="form-group">
-                                <label for="edit_framework_description">Framework Description</label>
-                                <textarea class="form-control" name="edit_framework_description" id="edit_framework_description" rows="3"></textarea>
+                                {{-- <label for="edit_framework_description">Framework Description</label> --}}
+                                <textarea class="form-control mt-4" name="edit_framework_description" id="edit_framework_description" rows="3"
+                                    placeholder="Edit Description"></textarea>
                             </div>
                             <div class="form-group">
                                 <input type="text" class="form-control" name="framework_id" id="framework_id" hidden>
@@ -216,8 +220,9 @@
                                             id="back_btn"></i></span> Frameworks</h5>
                             </div>
                             <div>
-                                <button type="button" id="show_Framework_Modal" data-bs-toggle="modal" data-bs-target="#addFrameworkModal"
-                                    class="btn btn-success mt-3 mx-5">Add Frameworks</button>
+                                <button type="button" id="show_Framework_Modal" data-bs-toggle="modal"
+                                    data-bs-target="#addFrameworkModal" class="btn btn-success mt-3 mx-5">Add
+                                    Frameworks</button>
                             </div>
 
                         </div>
@@ -229,7 +234,7 @@
             </div>
         </div>
     </div>
-    <div id="load_experience_data" >
+    <div id="load_experience_data">
         <!--Add Experience Modal -->
         <div class="modal fade" id="addExperienceModal" tabindex="-1" aria-labelledby="addExperienceModalLabel"
             aria-hidden="true">
@@ -243,13 +248,14 @@
                         <form id="addExperienceForm" action="{{ url('admin/experiences') }}" method="POST">
                             @csrf
                             <div class="form-group">
-                                <label for="experience_name">Experience</label>
-                                <input type="text" class="form-control" name="experience_name" id="experience_name"
-                                    placeholder="Experience Name">
+                                {{-- <label for="experience_name">Experience</label> --}}
+                                <input type="text" class="form-control mt-3" name="experience_name"
+                                    id="experience_name" placeholder="Experience">
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" id="add_experience" class="btn btn-primary">Add Experience</button>
+                                <button type="submit" id="add_experience" class="btn btn-primary">Add
+                                    Experience</button>
                             </div>
                         </form>
                     </div>
@@ -269,12 +275,13 @@
                         <form id="editExperienceForm" action="{{ url('/admin/experiences/edit') }}" method="POST">
                             @csrf
                             <div class="form-group">
-                                <label for="edit_experience_name">Experience</label>
-                                <input type="text" class="form-control" name="edit_experience_name"
-                                    id="edit_experience_name" placeholder="Experience Name">
+                                {{-- <label for="edit_experience_name">Experience</label> --}}
+                                <input type="text" class="form-control mt-3" name="edit_experience_name"
+                                    id="edit_experience_name" placeholder="Edit Experience">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" name="experience_id" id="experience_id" hidden>
+                                <input type="text" class="form-control" name="experience_id" id="experience_id"
+                                    hidden>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -292,11 +299,13 @@
                     <div class="row align-items-center">
                         <div class="page_title">
                             <div>
-                                <h5 class="page-title p-3 mt-2"><span><i class="fa-regular fa-circle-left" id="back_btn"></i></span> Experiences</h5>
+                                <h5 class="page-title p-3 mt-2"><span><i class="fa-regular fa-circle-left"
+                                            id="back_btnn"></i></span> Experiences</h5>
                             </div>
                             <div>
-                                <button type="button" id="show_Experience_Modal" data-bs-toggle="modal" data-bs-target="#addExperienceModal"
-                                    class="btn btn-success mt-3 mx-5">Add Experience</button>
+                                <button type="button" id="show_Experience_Modal" data-bs-toggle="modal"
+                                    data-bs-target="#addExperienceModal" class="btn btn-success mt-3 mx-5">Add
+                                    Experience</button>
                             </div>
 
                         </div>
@@ -308,14 +317,14 @@
             </div>
         </div>
     </div>
-    <div id="load_question_data" >
+    <div id="load_question_data">
         <!--Add Question Modal -->
         <div class="modal fade" id="addQuestionModal" tabindex="-1" aria-labelledby="addQuestionModalLabel"
             aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addQuestionModalLabel">Add Question</h5>
+                        <h5 class="modal-title" id="addQuestionModalLabel">Add Questions</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -323,33 +332,36 @@
                             @csrf
 
                             <div class="form-group">
-                                <label for="ques_technology_name">Technology</label>
-                                <input type="text" class="form-control" name="ques_technology_name" id="ques_technology_name"
-                                disabled >
+                                {{-- <label for="ques_technology_name">Technology</label> --}}
+                                <input type="text" class="form-control mt-3" name="ques_technology_name"
+                                    id="ques_technology_name" disabled>
                             </div>
                             <div class="form-group">
-                                <label for="ques_framework_name">Framework</label>
-                                <input type="text" class="form-control" name="ques_framework_name" id="ques_framework_name"
-                                disabled >
+                                {{-- <label for="ques_framework_name">Framework</label> --}}
+                                <input type="text" class="form-control mt-4" name="ques_framework_name"
+                                    id="ques_framework_name" disabled>
                             </div>
                             <div class="form-group">
-                                <label for="ques_experience_name">Experience</label>
-                                <input type="text" class="form-control" name="ques_experience_name" id="ques_experience_name"
-                                  disabled >
+                                {{-- <label for="ques_experience_name">Experience</label> --}}
+                                <input type="text" class="form-control mt-4" name="ques_experience_name"
+                                    id="ques_experience_name" disabled>
                             </div>
                             <div class="form-group">
-                                <label for="question">Question</label>
-                                <input type="text" class="form-control" name="question" id="question"
-                                    placeholder="Question">
+                                {{-- <label for="question">Question</label> --}}
+                                <input type="text" class="form-control mt-4" name="question" id="question"
+                                    placeholder="Add Question">
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" name="ques_experience_id" id="ques_experience_id" hidden>
+                                <input type="text" class="form-control mt-4" name="ques_experience_id"
+                                    id="ques_experience_id" hidden>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" name="ques_framework_id" id="ques_framework_id" hidden>
+                                <input type="text" class="form-control mt-4" name="ques_framework_id"
+                                    id="ques_framework_id" hidden>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" name="ques_technology_id" id="ques_technology_id" hidden>
+                                <input type="text" class="form-control mt-4" name="ques_technology_id"
+                                    id="ques_technology_id" hidden>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -374,14 +386,16 @@
                             @csrf
                             <div class="form-group">
                                 <label for="question">Question</label>
-                                <input type="text" class="form-control" name="store_question" id="store_question" disabled>
+                                <input type="text" class="form-control" name="store_question" id="store_question"
+                                    disabled>
                             </div>
                             <div class="form-group">
                                 <label for="answer">Answer</label>
                                 <textarea class="form-control" name="answer" id="answer" rows="4"></textarea>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" name="store_question_id" id="store_question_id" hidden>
+                                <input type="text" class="form-control" name="store_question_id"
+                                    id="store_question_id" hidden>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -405,21 +419,28 @@
                         <form id="editQuestionForm" action="{{ url('/admin/questions/edit') }}" method="POST">
                             @csrf
                             <div class="form-group">
-                                <label for="edit_question">Question</label>
-                                <input type="text" class="form-control" name="edit_question"
-                                    id="edit_question" >
+                                <label for="edit_experience_name">Question</label>
+                                <input type="text" class="form-control" name="edit_question" id="edit_question">
                             </div>
                             <div class="form-group">
-                                <label for="edit_answer">Answer</label>
-                                <textarea class="form-control" name="edit_answer" id="edit_answer" rows="4"></textarea>
+                                <input type="text" class="form-control" name="question_id" id="question_id" hidden>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" name="edit_question_id" id="edit_question_id" hidden>
+                                <input type="text" class="form-control" name="editques_experience_id"
+                                    id="editques_experience_id" hidden>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="editques_framework_id"
+                                    id="editques_framework_id" hidden>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="editques_technology_id"
+                                    id="editques_technology_id" hidden>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 <button type="submit" id="update_question" class="btn btn-primary">Update
-                                    </button>
+                                    Question</button>
                             </div>
                         </form>
                     </div>
@@ -432,10 +453,13 @@
                     <div class="row align-items-center">
                         <div class="page_title">
                             <div>
-                                <h5 class="page-title p-3 mt-2"><span><i class="fa-regular fa-circle-left" id="back_btnn"></i></span> Q&A</h5>
+                                <h5 class="page-title p-3 mt-2"><span><i class="fa-regular fa-circle-left"
+                                            id="back_btnnn"></i></span> Q&A</h5>
                             </div>
                             <div>
-                                <button type="button" id="show_Question_Modal" data-bs-toggle="modal" data-bs-target="#addQuestionModal"class="btn btn-success mt-3 mx-5">Add Questions</button>
+                                <button type="button" id="show_Question_Modal" data-bs-toggle="modal"
+                                    data-bs-target="#addQuestionModal"class="btn btn-success mt-3 mx-5">Add
+                                    Questions</button>
                             </div>
                         </div>
                     </div>
@@ -444,10 +468,19 @@
             <div id="dynamic_question" class="container-fluid">
 
             </div>
-            <div class="page_loader">
+
+
+            {{-- <div class="page_loader">
                 <button class="pageloader_button" id="pageloader_button">Load more...</button>
                 <img src="{{ asset('img/pageloader.gif') }}" alt="Show/Hide Image" class="page_loader_image"id="page_loader_image" height="80px" width="300px"/>
-            </div>
+            </div> --}}
+
+
+
         </div>
+    </div>
+
+    <div>
+        <br><br>
     </div>
 @endsection

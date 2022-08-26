@@ -89,18 +89,16 @@ class AuthController extends Controller
             "gender" => $request->profile_gender,
             "address" =>$request->profile_address,
         ];
-        // dd($data);
+
         DB::table('users')->where('id','=',$id)->update($data);
-        return redirect()->back()->with('status','Student Updated Successfully');
+        return redirect()->back()->with('status','Profile Update Successfully');
         // $query = DB::table('users')->where('id', '=', $id)->update($data);
         // if ($query) {
         //     return response()->json([
-        //         'message' => 'Student Updated Successfully',
         //         'status' => 200
         //     ]);
         // } else {
         //     return response()->json([
-        //         'message' => 'Student Update Failed',
         //         'status' => 404
         //     ]);
         // }
@@ -129,8 +127,8 @@ class AuthController extends Controller
     }
     public function logout(Request $request)
     {
-        $request->Session()->flush();
         Auth::logout();
+        $request->Session()->flush();
         return redirect('/');
     }
 }

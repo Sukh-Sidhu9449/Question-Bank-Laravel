@@ -5,9 +5,9 @@ $(document).ready( function () {
         "ajax": "/admin/users/list",
         "columns": [
             { "data": "id" },
-            { "data": "name" },
-            { "data": "email" },
-            { "data": "role" },
+            { "data": "name"},
+            { "data": "email"},
+            { "data": "role"},
             {"data":"gender"}
         ]
     });

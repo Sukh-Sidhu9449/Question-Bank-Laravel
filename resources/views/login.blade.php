@@ -42,10 +42,13 @@
             	</div>
             	<a href="#">Forgot Password?</a>
             	<input type="submit" class="btn" id="login" value="Login">
+                <a class="signup_btn" href="{{ url('/register') }}">Don't have an account? SignUp</a>
             </form>
         </div>
     </div>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
     <script type="text/javascript" src="{{ asset('/js/login.js') }}"></script>
 </body>
