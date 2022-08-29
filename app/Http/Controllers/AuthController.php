@@ -90,12 +90,13 @@ class AuthController extends Controller
         $l_menu=new DataModel();
         $l_menu=$l_menu->getmenu2();
         
-        $menu=new Datamodel();
-        $menu=$menu->get_menu();
-        //dd($menu);
+        // $s_menu=new Datamodel();
+        // $s_menu=$s_menu->getmenu3();
+        // // dd($s_menu);
+        
 
-        return view('/dashboard',$l_menu,$leftmenu,$menu);
-        return view('/dashboard',$menu);
+        return view('/dashboard',$l_menu,$leftmenu);
+      
         
 
      

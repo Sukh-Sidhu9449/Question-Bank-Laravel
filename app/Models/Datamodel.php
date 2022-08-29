@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
 use DB;
 
 class Datamodel extends Model
@@ -11,7 +12,7 @@ class Datamodel extends Model
     use HasFactory;
     public function getmenu()
     {
-            $leftmenu=DB::table('technologies')->select('technology_name','technology_description','id')->whereBetween('id', array(1,11))->get();
+            $leftmenu=DB::table('technologies')->select('technology_name','technology_description','id')->whereBetween('id', array(1,13))->get();
             return ['leftmenu'=>$leftmenu];
            
             
@@ -24,14 +25,14 @@ class Datamodel extends Model
             
          
     }
-    public function get_menu()
-    {
-            $menu=DB::table('technologies')->select('technology_name','technology_description','id')->whereBetween('id', array(1,15))->get();
+//     public function getmenu3()
+//     {
+//             $s_menu=DB::table('technologies')->select('technology_name','technology_description','id')->whereBetween('id', array(1,15))->get();
             
-            return ['menu'=>$menu];
+//             return ['s_menu'=>$s_menu];
             
          
-    }
+//     }
     
 
 }

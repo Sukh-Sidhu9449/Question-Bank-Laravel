@@ -13,9 +13,9 @@
     </div>
 
     <!-- The slideshow/carousel -->
-    <div class="carousel-inner p-0 shadow">
+    <div class="carousel-inner p-0">
       <div class="carousel-item active">
-        <img src="{{asset('user_img/img/question.png')}}" alt="Los Angeles" class="d-block" style="width:100%; height:490px; padding:0px;">
+        <img src="{{asset('user_img/img/one1.jpeg')}}" alt="Los Angeles" class="d-block" style="width:100%; height:490px; padding:0px;">
         <div class="carousel-caption">
             
         </div>
@@ -55,7 +55,7 @@
 <div class="container-fluid con">
 
   <div class="row">
-    <h2 class="text">Lets Brows All Catagori</h2>
+    <h2 class="text">Lets Brows All Technologies</h2>
     @foreach ($l_menu as $items )
     <div class="col-md-3 col-sm-3">
       <div class="card" style="width:18rem;">
@@ -74,20 +74,21 @@
 
 
 <div class="section">
+  <h2 class="text">Lets See our Popular Technologies</h2>
+    <div class="gallery js-flickity"data-flickity-options='{ "wrapAround": true }'>
  
-    <div class="gallery js-flickity"
-    data-flickity-options='{ "wrapAround": true }'>
- 
-    @foreach ($menu as $items )
+@foreach ($leftmenu as $items )
 
-    <div class="gallery-cell cell_one"><h4 style="margin-top:20%">{{ $items->technology_name }}</h4>
-      <a href="#" class="btn btn-primary" style="margin-top:2%">Learn More..</a>
-    
-    </div>
-   
+        <div class="gallery-cell cell_one"><h4 style="margin-top:20%">
+          {{$items->technology_name }}
+        </h4>
+          <a href="#" class="btn btn-primary" style="margin-top:2%">Learn More..</a>
+        
+        </div>
+    @endforeach
    
   </div>
-  @endforeach
+
 </div>
 
 {{-- multiple divss of technology--------------------------- --}}
