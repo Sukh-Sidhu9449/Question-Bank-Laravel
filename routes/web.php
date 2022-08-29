@@ -17,9 +17,6 @@ use App\Http\Controllers\AuthController;
 //  });
 
 
-Route::middleware(['disable_back_btn'])->group(function () {
-    Auth::routes();
-});
 
 
 

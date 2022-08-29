@@ -38,9 +38,9 @@
 <!--------------------- menu bar section--------------------------- -->
 <div class="container-fluid p-0 justify-content-center ">
 
-    <nav class="navbar navbar-expand-sm shadow navbar-dark  justify-content-center">
+    <nav class="navbar navbar-expand-sm  navbar-dark  justify-content-center">
         <ul class="navbar-nav justify-content-center">
-            @foreach ($menu as $items)
+            @foreach ($leftmenu as $items)
                 <li class="nav-item ">
                     <a class="nav-link" data-id="{{$items->id}}" href="#">{{ $items->technology_name }}</a>
                 </li>

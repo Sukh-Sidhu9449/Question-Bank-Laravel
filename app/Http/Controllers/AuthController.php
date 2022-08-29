@@ -6,8 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\user;
 use App\Models\Datamodel;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Collection;
+// use Illuminate\Support\Facades\Session;
 
 
 class AuthController extends Controller
@@ -84,11 +83,23 @@ class AuthController extends Controller
     }
      public function loadDashboard(){
 
-        $menu=new DataModel();
-        $leftmenu=$menu->getmenu();
+// ***************dynamic navbar****************************************************************************
+        $leftmenu=new DataModel();
+        $leftmenu=$leftmenu->getmenu();
         
-        // dd($leftmenu);
-        return view('/dashboard',$leftmenu);
+        $l_menu=new DataModel();
+        $l_menu=$l_menu->getmenu2();
+        
+        $menu=new Datamodel();
+        $menu=$menu->get_menu();
+        //dd($menu);
+
+        return view('/dashboard',$l_menu,$leftmenu,$menu);
+        return view('/dashboard',$menu);
+        
+
+     
+//***************************end here********************************************************************** */ 
      }
      public function adminDashboard(){
         return view('admin.dashboard');
