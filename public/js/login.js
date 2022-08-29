@@ -63,9 +63,7 @@ $(document).ready(function () {
                         'User Login Successfully.',
                         'success'
                     ).then(function () {
-
                         window.location = "/dashboard";
-
                     });
                 }
                 //error code area-

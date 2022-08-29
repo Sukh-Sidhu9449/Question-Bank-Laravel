@@ -42,7 +42,7 @@ Route::group(['middleware'=>['web','checkadmin']],function(){
     Route::post('/admin/experiences/edit/{id}',[ExperienceController::class,'update']);
     Route::delete('/admin/experiences/delete/{id}',[ExperienceController::class,'destroy']);
 
-    Route::get('/admin/questions/{id}',[QuestionController::class,'index']);
+    Route::get('/admin/questions/{id}/{limit}/{count}',[QuestionController::class,'index']);
     Route::post('/admin/questions',[QuestionController::class,'store']);
     Route::post('/admin/answers',[QuestionController::class,'storeAnswer']);
     Route::get('/admin/questions/edit/{id}',[QuestionController::class,'edit']);
@@ -50,6 +50,7 @@ Route::group(['middleware'=>['web','checkadmin']],function(){
     Route::delete('/admin/questions/delete/{id}',[QuestionController::class,'destroy']);
 
     Route::get('/admin/users',[UserController::class,'index'])->name('users.index');
+    Route::post('/admin/users',[UserController::class,'store']);
     Route::get('/admin/users/list', [UserController::class, 'getUsers']);
 
 

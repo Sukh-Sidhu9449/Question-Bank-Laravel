@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\user;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -33,8 +34,10 @@ class AuthController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
-        $user->save();
-
+        if($user->save()){
+            $id=DB::table('users')->select('id')->where('name',$request->name)->value('id');
+            DB::table('usertechnology')->insert(['users_id'=>$id]);
+        }
         return response()->json(['success' => 'succesfully']);
     }
     public function loadlogin()
@@ -56,6 +59,11 @@ class AuthController extends Controller
         ]);
         $userCredential = $request->only('email', 'password');
         if (Auth::attempt($userCredential)) {
+            $last_login=Auth::user()->last_login;
+            session()->put('last_login',$last_login);
+            $id=Auth::user()->id;
+            date_default_timezone_set("Asia/Calcutta");
+            DB::table('users')->where('id','=',$id)->update(['last_login'=>date('Y:m:d H:i:s')]);
             if (Auth::user()->role == 'admin') {
                 return response()->json('admin');
             } else {
@@ -68,7 +76,6 @@ class AuthController extends Controller
 
     public function index()
     {
-
         return view('admin.profile');
     }
 

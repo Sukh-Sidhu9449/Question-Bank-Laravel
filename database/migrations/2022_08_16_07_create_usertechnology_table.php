@@ -16,13 +16,15 @@ return new class extends Migration
         Schema::create('usertechnology', function (Blueprint $table) {
             $table->id('id');
             $table->unsignedBigInteger('users_id');
-            $table->unsignedBigInteger('framework_id');
-            $table->unsignedBigInteger('experience_id');
+            $table->text('technology_name')->nullable();
+            $table->string('designation')->nullable();
+            $table->string('current_company')->nullable();
+            $table->string('last_company')->nullable();
+            $table->float('experience')->nullable();
             $table->timestamps();
 
             $table->foreign('users_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('framework_id')->references('id')->on('frameworks');
-            $table->foreign('experience_id')->references('id')->on('experiences');
+
 
 
 

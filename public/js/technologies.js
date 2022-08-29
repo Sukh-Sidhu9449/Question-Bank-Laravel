@@ -27,6 +27,7 @@ $(document).ready(function () {
     $('#load_frameworks_data').hide();
     $('#load_experience_data').hide();
     $('#load_question_data').hide();
+    $('.pageloader_button').hide();
 
     $.ajaxSetup({
         headers: {
@@ -462,10 +463,10 @@ $(document).ready(function () {
                                                 <h4>`+ value.experience_name + `</h4>
                                             </div>
                                             <div id="icons_gap">
-                                                <a id="delete_experience" data-id="`+ value.id + `" href="">
+                                                <a id="delete_experience" data-id="`+ value.id + `" >
                                                     <i class="fa-solid fa-trash-can text-danger"></i>&nbsp;&nbsp;
                                                 </a>
-                                                <a id="edit_experience" data-id="`+ value.id + `" data-bs-toggle="modal" data-bs-target="#editExperienceModal" href="">
+                                                <a id="edit_experience" data-id="`+ value.id + `" data-bs-toggle="modal" data-bs-target="#editExperienceModal" >
                                                     <i class="fa-solid fa-pencil"></i>
                                                 </a>
                                             </div>
@@ -639,11 +640,12 @@ $(document).ready(function () {
     });
 
     //Fetch Question Function
-    function FetchQuestion(id) {
+    function FetchQuestion(id,limit) {
+        let count=0;
         $('#dynamic_question').empty();
         $.ajax({
             type: "get",
-            url: "/admin/questions/" + id,
+            url: "/admin/questions/" + id+"/"+limit+"/"+count,
             dataType: "json",
             success: function (response) {
                 // console.log(response);
@@ -675,6 +677,12 @@ $(document).ready(function () {
                     });
                     $ques_answer += '</div>';
                     $('#dynamic_question').append($ques_answer);
+                    if(response.QuesAnswer.length==limit){
+                        $('.pageloader_button').show();
+                    }else{
+                        $('.pageloader_button').hide();
+
+                    }
                 }
             }
         });
@@ -683,6 +691,8 @@ $(document).ready(function () {
     $(document).on('click', '#clickexperience', function (e) {
         e.preventDefault();
         let id = $(this).data('id');
+        let limit=$('#page_limit').find(":selected").text();
+        // console.log(limit);
         let experience_name = $(this).data('name');
         // console.log(framework_name);
         $('#store_experience_id').val(id);
@@ -692,7 +702,7 @@ $(document).ready(function () {
         $('#load_experience_data').hide();
         $('#load_question_data').show();
 
-        FetchQuestion(id);
+        FetchQuestion(id,limit);
 
     });
 
@@ -718,6 +728,7 @@ $(document).ready(function () {
     $('#addQuestionForm').submit(function (e) {
         e.preventDefault();
         let id = $('#store_experience_id').val();
+        let limit=$('#page_limit').find(":selected").text();
         var Ques_form = new FormData(this);
         $('#add_question').text('Adding...');
         $.ajax({
@@ -739,7 +750,7 @@ $(document).ready(function () {
                         'success'
                     ).then(function () {
 
-                        FetchQuestion(id);
+                        FetchQuestion(id,limit);
 
                     });
                 }
@@ -762,6 +773,7 @@ $(document).ready(function () {
     // Insert new Answer
     $('#addAnswerForm').submit(function (e) {
         e.preventDefault();
+        let limit=$('#page_limit').find(":selected").text();
         let id = $('#store_experience_id').val();
         var Ans_form = new FormData(document.getElementById("addAnswerForm"));
         // console.log(Ans_form);
@@ -784,7 +796,8 @@ $(document).ready(function () {
                         'Answer Added Successfully',
                         'success'
                     ).then(function () {
-                        FetchQuestion(id);
+                        FetchQuestion(id,limit);
+
                     });
                 }
 
@@ -812,6 +825,7 @@ $(document).ready(function () {
     // Update Experience
     $('#editQuestionForm').submit(function (e) {
         e.preventDefault();
+        let limit=$('#page_limit').find(":selected").text();
         var update_form = new FormData(document.getElementById("editQuestionForm"));
 
         var url = $('#editQuestionForm').attr('action');
@@ -840,7 +854,7 @@ $(document).ready(function () {
                         type: "success"
                     }).then(function () {
 
-                        FetchQuestion(experience_id);
+                        FetchQuestion(experience_id,limit);
 
                     });
                 }
@@ -850,6 +864,7 @@ $(document).ready(function () {
 
     //Delete Question Answer Function
     function deleteQuestion(id) {
+        let limit=$('#page_limit').find(":selected").text();
         let experience_id = $('#store_experience_id').val();
         // console.log(id);
         Swal.fire({
@@ -872,7 +887,7 @@ $(document).ready(function () {
                                 'Your file has been deleted.',
                                 'success'
                             ).then(function () {
-                                FetchQuestion(experience_id);
+                                FetchQuestion(experience_id,limit);
                             });
                         }
                     }
@@ -894,12 +909,55 @@ $(document).ready(function () {
         let id = $(this).data('id');
         deleteQuestion(id);
     });
-
+    var count =0;
     // load more
     $('.page_loader_image').hide();
     $('#pageloader_button').click(function () {
+        let id = $('#store_experience_id').val();
+        let limit=$('#page_limit').find(":selected").text();
+        count++;
         $('.pageloader_button').hide();
         $('.page_loader_image').show();
+        $.ajax({
+            type: "get",
+            url: "/admin/questions/" + id+"/"+limit+"/"+count,
+            dataType: "json",
+            success: function (response) {
+                // console.log(response);
+                if (response.status == 200) {
+                 let i=(count*limit)+1;
+                    $ques_answer = '<div class="row justify-content-center">';
+                    $.each(response.QuesAnswer, function (key, value) {
+                        $ques_answer += `<div class="col-lg-12 col-md-12">
+                                    <div id="white_boxes">
+                                        <h4><span>Q`+ i + `.</span>` + value.question + `</h4>
+                                        <p><span>Ans.</span>&nbsp;&nbsp;&nbsp;`+ value.answer + `</p>
+                                        <span><i data-id="`+ value.question_id + `" id="delete_QuesAnswer"  class="fa-solid fa-trash-can text-danger"></i>&nbsp;&nbsp;<i id="edit_QuesAnswer"  data-id="` + value.question_id + `" data-bs-toggle="modal" data-bs-target="#editQuestionModal" class="fa-solid fa-pencil"></i></span>
+                                    </div>
+                                </div>`;
+                        i++;
+                    });
+                    $ques_answer += '</div>';
+                    $('#dynamic_question').append($ques_answer);
+                    $('.page_loader_image').hide();
+                    let total=(count*limit)+limit;
+                    let totalrecord=(count*limit)+(response.QuesAnswer.length);
+                    if(total==totalrecord){
+                         $('.pageloader_button').show();
+                    }else{
+                        $('.pageloader_button').hide();
+
+                    }
+                }
+            }
+        });
 
     });
+
+    $('#page_limit').on('change', function() {
+        let page_limit= this.value ;
+        let id = $('#store_experience_id').val();
+        FetchQuestion(id,page_limit);
+        // alert($page_limit);
+      });
 });

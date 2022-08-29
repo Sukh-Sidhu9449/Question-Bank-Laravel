@@ -21,20 +21,18 @@
                         <form id="addTechnologyForm" action="{{ url('admin/technologies') }}" method="POST">
                             @csrf
                             <div class="form-group">
-                                {{-- <label for="technology_name">Technology</label> --}}
-                                <input type="text" class="form-control mt-3" name="technology_name" id="technology_name"
-                                    placeholder="Technology Name">
+                                <input type="text" class="form-control mt-3 " name="technology_name" id="technology_name"
+                                    placeholder="Technology Name" required>
                             </div>
 
                             <div class="form-group">
-                                {{-- <label for="technology_description">Technology Description</label> --}}
-                                <textarea class="form-control mt-4" name="technology_description" id="technology_description" rows="3"
-                                    placeholder="Description"></textarea>
+                                <textarea class="form-control mt-4 " name="technology_description" id="technology_description" rows="4"
+                                    placeholder="Description" required></textarea>
                             </div>
 
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" id="add_technology" class="btn btn-primary">Add Technology</button>
+                                <button type="button" class="btn btn_close" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" id="add_technology " class="btn btn_add">Add Technology</button>
                             </div>
                         </form>
                     </div>
@@ -72,8 +70,8 @@
 
 
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" id="update_technology" class="btn btn-primary">Update
+                                <button type="button" class="btn btn_close" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" id="update_technology" class="btn btn_add">Update
                                     Technology</button>
                             </div>
                         </form>
@@ -160,8 +158,8 @@
                             </div>
 
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" id="add_framework" class="btn btn-primary">Add Framework</button>
+                                <button type="button" class="btn btn_close" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" id="add_framework" class="btn btn_add">Add Framework</button>
                             </div>
                         </form>
                     </div>
@@ -201,8 +199,8 @@
 
 
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" id="update_framework" class="btn btn-primary">Update
+                                <button type="button" class="btn btn_close" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" id="update_framework" class="btn btn_add">Update
                                     Framework</button>
                             </div>
                         </form>
@@ -253,8 +251,8 @@
                                     id="experience_name" placeholder="Experience">
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" id="add_experience" class="btn btn-primary">Add
+                                <button type="button" class="btn btn_close" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" id="add_experience" class="btn btn_add">Add
                                     Experience</button>
                             </div>
                         </form>
@@ -284,8 +282,8 @@
                                     hidden>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" id="update_experience" class="btn btn-primary">Update
+                                <button type="button" class="btn btn_close" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" id="update_experience" class="btn btn_add">Update
                                     Experience</button>
                             </div>
                         </form>
@@ -364,8 +362,8 @@
                                     id="ques_technology_id" hidden>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" id="add_question" class="btn btn-primary">Add Question</button>
+                                <button type="button" class="btn btn_close" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" id="add_question" class="btn btn_add">Add Question</button>
                             </div>
                         </form>
                     </div>
@@ -398,8 +396,8 @@
                                     id="store_question_id" hidden>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" id="add_question" class="btn btn-primary">Add Answer</button>
+                                <button type="button" class="btn btn_close" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" id="add_question" class="btn btn_add">Add Answer</button>
                             </div>
                         </form>
                     </div>
@@ -423,6 +421,10 @@
                                 <input type="text" class="form-control" name="edit_question" id="edit_question">
                             </div>
                             <div class="form-group">
+                                <label for="edit_answer">Answer</label>
+                                <textarea class="form-control" name="edit_answer" id="edit_answer" rows="4"></textarea>
+                            </div>
+                            <div class="form-group">
                                 <input type="text" class="form-control" name="question_id" id="question_id" hidden>
                             </div>
                             <div class="form-group">
@@ -438,8 +440,8 @@
                                     id="editques_technology_id" hidden>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" id="update_question" class="btn btn-primary">Update
+                                <button type="button" class="btn btn_close" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" id="update_question" class="btn btn_add">Update
                                     Question</button>
                             </div>
                         </form>
@@ -456,10 +458,20 @@
                                 <h5 class="page-title p-3 mt-2"><span><i class="fa-regular fa-circle-left"
                                             id="back_btnnn"></i></span> Q&A</h5>
                             </div>
-                            <div>
-                                <button type="button" id="show_Question_Modal" data-bs-toggle="modal"
-                                    data-bs-target="#addQuestionModal"class="btn btn-success mt-3 mx-5">Add
-                                    Questions</button>
+                            <div class="d-flex">
+                                <div>
+                                    <select id="page_limit" class="form-select mt-3 mx-3 w-75 dropdown_pagination">
+                                        <option value="5" selected>5</option>
+                                        <option value="10">10</option>
+                                        <option value="15">15</option>
+                                        <option value="20">20</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <button type="button" id="show_Question_Modal" data-bs-toggle="modal"
+                                        data-bs-target="#addQuestionModal"class="btn btn-success mt-3 mx-5">Add
+                                        Questions</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -468,19 +480,17 @@
             <div id="dynamic_question" class="container-fluid">
 
             </div>
-
-
-            {{-- <div class="page_loader">
+             <div class="page_loader">
                 <button class="pageloader_button" id="pageloader_button">Load more...</button>
                 <img src="{{ asset('img/pageloader.gif') }}" alt="Show/Hide Image" class="page_loader_image"id="page_loader_image" height="80px" width="300px"/>
-            </div> --}}
+            </div>
 
 
 
         </div>
     </div>
-
     <div>
-        <br><br>
+        <br>
+        <br>
     </div>
 @endsection

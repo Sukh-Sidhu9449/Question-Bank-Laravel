@@ -395,5 +395,79 @@ footer a{
     border: none;
     outline: none;
 }
+  .marquee {
+    width: 60%;
+    margin-right: 20%;
+    background: white;
+    text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .marquee div {
+    color:red;
+    font-size: 14px;
+    font-family: verdana;
+    padding-left: 80%;
+    display: inline-block;
+    animation: animate 10s linear infinite;
+  }
+
+  @keyframes animate {
+    100% {
+      transform: translate(-100%, 0);
+    }
+  }
+
+  .dropdown_pagination{
+    border-radius: 25px;
+    border: 2px solid green;
+  }
+
+  .select_option{
+    border-radius: 15px;
+  }
+
+
+  .form-group input{
+    border-radius: 15px;
+    font-size: 14px;
+    padding: 10px 20px;
+  }
+
+  .form-group textarea{
+    border-radius: 15px;
+    font-size: 14px;
+    padding: 10px 20px;
+  }
+
+
+  .btn_add{
+    background-color: #1cbfff;
+    color: white;
+    border-radius: 20px;
+  }
+
+  .btn_add:hover{
+    color: white;
+    background-color: #00b7ff;
+  }
+
+
+  .btn_close{
+    background-color: rgb(97, 96, 96);
+    color: white;
+    border-radius: 20px;
+  }
+
+  .btn_close:hover{
+    color: white;
+    background-color:  rgb(70, 70, 70);
+  }
+
+  .modal-title{
+    font-family: 'Aboreto', cursive !important;
+    font-weight: bolder;
+}
 
 
