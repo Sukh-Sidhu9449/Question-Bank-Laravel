@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\user;
-use App\Models\Datamodel;
+// use App\Models\Datamodel;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 // use Illuminate\Support\Facades\Session;
 
 
@@ -83,22 +84,15 @@ class AuthController extends Controller
     }
      public function loadDashboard(){
 
-// ***************dynamic navbar****************************************************************************
-        $leftmenu=new DataModel();
-        $leftmenu=$leftmenu->getmenu();
-        
-        $l_menu=new DataModel();
-        $l_menu=$l_menu->getmenu2();
-        
-        // $s_menu=new Datamodel();
-        // $s_menu=$s_menu->getmenu3();
-        // // dd($s_menu);
-        
-
-        return view('/dashboard',$l_menu,$leftmenu);
+// **get menu*************
       
-        
 
+        $technologies = DB::table('technologies') ->whereBetween('id', [1,6])->get();
+        $technologies2 = DB::table('technologies') ->whereBetween('id', [8,11])->get();
+        $technologies3 = DB::table('technologies') ->whereBetween('id', [12,15])->get();
+        // dd($technologies);
+        return view('/dashboard', ['technologies' => $technologies,'technologies2'=>$technologies2,'technologies3'=> $technologies3]);
+       
      
 //***************************end here********************************************************************** */ 
      }
@@ -111,4 +105,5 @@ class AuthController extends Controller
         Auth::logout();
         return redirect('/'); 
      }
+    
 }

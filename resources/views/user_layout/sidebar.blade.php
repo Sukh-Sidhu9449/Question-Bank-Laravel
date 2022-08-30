@@ -52,7 +52,7 @@
 
     <nav class="navbar navbar-expand-sm  navbar-dark  justify-content-center shadow" id="myHeader">
         <ul class="navbar-nav justify-content-center ">
-            @foreach ($leftmenu as $items)
+            @foreach ($technologies as $items)
                 <li class="nav-item ">
                     <a class="nav-link" data-id="{{$items->id}}" href="#">{{ $items->technology_name }} &nbsp; |</a>
                 </li>

@@ -1,5 +1,5 @@
 <!-- Footer -->
-<footer class="text-center text-lg-start bg-white text-muted">
+<footer class="text-center text-lg-start bg-white text-muted" style="margin-top: 10%;">
     <!-- Section: Social media -->
     <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
       <!-- Left -->
@@ -10,8 +10,8 @@
   
       <!-- Right -->
       <div>
-        <a href="" class="me-2 link-secondary">
-            <i class="fab fa-instagram"></i>
+        <a href="" class="me-4 link-secondary">
+            <i class="fab fa-facebook"></i>
         </a>
         <a href="" class="me-4 link-secondary">
           <i class="fab fa-twitter"></i>

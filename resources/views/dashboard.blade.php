@@ -58,14 +58,16 @@
 
         <div class="row">
             <h2 class="text">Lets Brows All Technologies</h2>
-            @foreach ($l_menu as $items)
+            @foreach ($technologies2 as $items)
                 <div class="col-md-3 col-sm-3">
                     <div class="card" style="width:18rem;">
                         <img src="{{ asset('user_img/img/php.jpg') }}" class="card-img-top" alt="...">
                         <div class="card-body hover-overlay hover-zoom hover-shadow ripple">
-                            <h5 class="card-title" style="font-weight:400; font-size:20px;">{{ $items->technology_name }}
+                            <h5 class="card-title" style="font-weight:400; font-size:20px;">
+                                {{ $items->technology_name }}
                             </h5>
-                            <p class="card-text">{{ $items->technology_description }}</p>
+                            <p class="card-text">
+                                {{ $items->technology_description }}</p>
                             <a href="#" class="btn btn-primary">Learn More..</a>
                         </div>
                     </div>
@@ -79,7 +81,7 @@
                 <h2 class="text">Lets See our Popular Technologies</h2>
                 <div class="gallery js-flickity"data-flickity-options='{ "wrapAround": true }'>
 
-                    @foreach ($leftmenu as $items)
+                    @foreach ($technologies3 as $items)
                         <div class="gallery-cell cell_one">
                             <h4 style="margin-top:20%">
                                 {{ $items->technology_name }}
