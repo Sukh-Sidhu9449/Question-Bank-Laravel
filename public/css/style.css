@@ -44,9 +44,6 @@ body {
   } */
 .nav-item {
   margin-left: 20px;
-  
-  
-  
 }
 .nav-item a {
   font-weight: 700;
@@ -209,4 +206,31 @@ width:100%;
   height: 400px;
   padding: 0px 0px 0px 0px;
 }
+/* technology blade page design******************************** */
 
+.div1{
+  text-align: center;
+  background-color:mintcream;
+  margin-left:15px;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px !important;
+  font-family: 'Open Sans',sans-serif;
+  font-size:22px;
+  width: 30% !important;
+  margin-bottom:40px;
+  padding-bottom: 30px;
+}
+.div1 h2{
+   margin-left:20px; 
+   margin-top:20px; 
+   font-size:20px;
+   font-weight: 500 !important;
+   font-family: 'Open Sans',sans-serif;
+}
+.div2{
+  margin-top: 2%;
+}
+.tech_display{
+  background-color: black;
+  width:100%;
+  height:120px;
+}
