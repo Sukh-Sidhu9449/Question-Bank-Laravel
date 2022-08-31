@@ -17,8 +17,15 @@ class tech_user_Controller extends Controller
     }
     public function show($id){
 
-        $tech=DB::table('technologies')->where('id',$id)->get();
+        // $tech=DB::table('technologies')->where('id',$id)->get();
         $technologies = DB::table('technologies') ->whereBetween('id', [1,10])->get();
-        return view('user.technology',['tech'=>$tech,'technologies'=>$technologies]);
+         $frame1=DB::table('frameworks')->where('technology_id',$id)->get();
+        //  dd($frame1);
+         $frame=DB::table('frameworks')->where('technology_id',$id)->first('id');
+        
+         $question=DB::table('questions')->where('framework_id',$id)->get();
+        //  dd($question);
+      // dd($frame);
+        return view('user.technology',['technologies'=>$technologies,'frame1'=>$frame1,'question'=>$question]);
     }
 }
