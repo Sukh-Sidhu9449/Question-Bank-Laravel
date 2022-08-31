@@ -8,6 +8,8 @@ use App\Models\user;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 // use Illuminate\Support\Facades\Session;
+use App\Http\Controllers\navbarTechnologyController;
+
 
 
 class AuthController extends Controller
@@ -87,12 +89,12 @@ class AuthController extends Controller
 // **get menu*************
       
 
-        $technologies = DB::table('technologies') ->whereBetween('id', [1,6])->get();
-        $technologies2 = DB::table('technologies') ->whereBetween('id', [8,11])->get();
-        $technologies3 = DB::table('technologies') ->whereBetween('id', [12,15])->get();
-        // dd($technologies);
-        return view('/dashboard', ['technologies' => $technologies,'technologies2'=>$technologies2,'technologies3'=> $technologies3]);
-       
+        // $technologies = DB::table('technologies') ->whereBetween('id', [1,6])->get();
+        // $technologies2 = DB::table('technologies') ->whereBetween('id', [8,11])->get();
+        // $technologies3 = DB::table('technologies') ->whereBetween('id', [12,15])->get();
+        // // dd($technologies);
+        // return view('/dashboard', ['technologies' => $technologies,'technologies2'=>$technologies2,'technologies3'=> $technologies3]);
+          return navbarTechnologyController::show();
      
 //***************************end here********************************************************************** */ 
      }
@@ -103,7 +105,7 @@ class AuthController extends Controller
      {
         $request->Session()->flush();
         Auth::logout();
-        return redirect('/'); 
+        return redirect('/login'); 
      }
     
 }

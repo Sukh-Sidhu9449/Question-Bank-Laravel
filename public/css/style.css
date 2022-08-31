@@ -101,19 +101,25 @@ body {
 }
 .card{
   margin-left:10px !important;
-  justify-content: left;
-  height: 360px;
-  margin-top: 90px;
+ text-align: left;
+  height: 300px;
+  margin-top: 150px;
   border-radius: none;
   transition: transform .2s;
   width:10%;
  
  
 }
+.btn{
+  border-radius: none;
+}
+
 .card:hover {
   -ms-transform: scale(1.8); 
   -webkit-transform: scale(0.5); /* Safari 3-8 */
   transform: scale(1.2); 
+  color:white;
+  background-color: #2D3092;
 }
 .carousel{
   margin-top: 20px;

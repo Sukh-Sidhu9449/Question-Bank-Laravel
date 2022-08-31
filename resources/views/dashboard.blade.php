@@ -60,17 +60,21 @@
             <h2 class="text">Lets Brows All Technologies</h2>
             @foreach ($technologies2 as $items)
                 <div class="col-md-3 col-sm-3">
-                    <div class="card" style="width:18rem;">
-                        <img src="{{ asset('user_img/img/php.jpg') }}" class="card-img-top" alt="...">
-                        <div class="card-body hover-overlay hover-zoom hover-shadow ripple">
-                            <h5 class="card-title" style="font-weight:400; font-size:20px;">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body" >
+                          
+                            <i class="fa-solid fa-hands-asl-interpreting"style="font-size:40px;"></i>
+                         <h5 class="card-title" style="font-weight:700;margin-top:40px; font-size:30px;">
                                 {{ $items->technology_name }}
                             </h5>
-                            <p class="card-text">
+                         
+                        <p class="card-text"style="margin-top:30px;">
                                 {{ $items->technology_description }}</p>
-                            <a href="#" class="btn btn-primary">Learn More..</a>
+                    
+                             <a href="#" class="btn btn-default mt-5"style="border:1px solid green;" >Learn More..</a>
                         </div>
-                    </div>
+                      </div>
+
                 </div>
             @endforeach
 

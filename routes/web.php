@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\tech_user_Controller;
+
 
 
 
@@ -52,5 +54,16 @@ use App\Http\Controllers\AuthController;
     Route::group(['middleware'=>['web','checkuser']],function(){
         
         Route::get('/dashboard',[AuthController::class,'loadDashboard']);
+        Route::get('/tech_data/{id}',[tech_user_Controller::class,'index']);
+        Route::get('/user_tech/{id}',[tech_user_Controller:: class,'show']);
+
+
+
+
+        
     });
+    // Route::group(['middleware' => 'DisableBackBtn'],function(){
+    //     Auth::routes();
+    //     Route::get('/dashboard', [AuthController::class,'loadDashboard']);
+    // });
   
