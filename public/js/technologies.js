@@ -28,6 +28,7 @@ $(document).ready(function () {
     $('#load_experience_data').hide();
     $('#load_question_data').hide();
     $('.pageloader_button').hide();
+    $('.spinner-grow').hide();
 
     $.ajaxSetup({
         headers: {
@@ -181,6 +182,8 @@ $(document).ready(function () {
         $('#load_technologies_data').hide();
         $('#load_frameworks_data').show();
         $('#dynamic_frameworks').empty();
+        $('.spinner-grow').show();
+
         $.ajax({
             type: "get",
             url: "/admin/frameworks/"+id,
@@ -213,14 +216,15 @@ $(document).ready(function () {
                         $('#store_technology_name').val(value.technology_name);
                     });
                     $frame_data += '</div>';
-
+                    $('.spinner-grow').hide();
                     $('#dynamic_frameworks').append($frame_data);
 
                 } else if (response.status == 404) {
-
                     $.each(response.technology, function (key, value) {
                         $('#store_technology_id').val(value.id);
                         $('#store_technology_name').val(value.technology_name);
+                        $('.spinner-grow').hide();
+                        $('#dynamic_frameworks_quiz').append('<img src="/img/no-record-found.gif" width=100%>');
                         // $('#frame_technology_id').val(value.id);
                         // $('#frame_technology_name').val(value.technology_name);
                     });
@@ -234,14 +238,14 @@ $(document).ready(function () {
     //Fetch Function
     function FetchFramework() {
         let id = $('#store_technology_id').val();
-        // console.log(id);
+        console.log(id);
         $('#load_technologies_data').hide();
         $('#load_frameworks_data').show();
         $('#dynamic_frameworks').empty();
-
+        $('.spinner-grow').show();
         $.ajax({
             type: "get",
-            url: "/admin/frameworks",
+            url: "/admin/frameworks/"+id,
             data: {
                 tech_id: id
             },
@@ -257,10 +261,10 @@ $(document).ready(function () {
                                                 <h4>`+ value.framework_name + `</h4>
                                             </div>
                                             <div id="icons_gap">
-                                                <a id="delete_framework" data-id="`+ value.id + `" href="">
+                                                <a id="delete_framework" data-id="`+ value.id + `" >
                                                     <i class="fa-solid fa-trash-can text-danger"></i>&nbsp;&nbsp;
                                                 </a>
-                                                <a id="edit_framework" data-id="`+ value.id + `" data-bs-toggle="modal" data-bs-target="#editFrameworkModal" href="">
+                                                <a id="edit_framework" data-id="`+ value.id + `" data-bs-toggle="modal" data-bs-target="#editFrameworkModal" >
                                                     <i class="fa-solid fa-pencil"></i>
                                                 </a>
                                             </div>
@@ -270,7 +274,7 @@ $(document).ready(function () {
                         $('#store_technology_name').val(value.technology_name);
                     });
                     $frame_data += '</div>';
-
+                    $('.spinner-grow').hide();
                     $('#dynamic_frameworks').append($frame_data);
 
                 } else if (response.status == 404) {
@@ -278,6 +282,8 @@ $(document).ready(function () {
                     $.each(response.technology, function (key, value) {
                         $('#store_technology_id').val(value.id);
                         $('#store_technology_name').val(value.technology_name);
+                        $('.spinner-grow').hide();
+                        $('#dynamic_frameworks_quiz').append('<img src="/img/no-record-found.gif" width=100%>');
                         // $('#frame_technology_id').val(value.id);
                         // $('#frame_technology_name').val(value.technology_name);
                     });
@@ -448,6 +454,7 @@ $(document).ready(function () {
         $('#load_frameworks_data').hide();
         $('#load_experience_data').show();
         $('#dynamic_experience').empty();
+        $('.spinner-grow').show();
         $.ajax({
             type: "get",
             url: "/admin/experiences",
@@ -474,6 +481,7 @@ $(document).ready(function () {
                                     </div>`;
                     });
                     $experience_data += '</div>';
+                    $('.spinner-grow').hide();
                     $('#dynamic_experience').append($experience_data);
                 }
             }
@@ -482,6 +490,7 @@ $(document).ready(function () {
 
     function FetchExperience() {
         $('#dynamic_experience').empty();
+        $('.spinner-grow').show();
         $.ajax({
             type: "get",
             url: "/admin/experiences",
@@ -508,6 +517,7 @@ $(document).ready(function () {
                                     </div>`;
                     });
                     $experience_data += '</div>';
+                    $('.spinner-grow').hide();
                     $('#dynamic_experience').append($experience_data);
                 }
             }
@@ -641,8 +651,9 @@ $(document).ready(function () {
 
     //Fetch Question Function
     function FetchQuestion(id,limit) {
-        let count=0;
+        count=0;
         $('#dynamic_question').empty();
+        $('.spinner-grow').show();
         $.ajax({
             type: "get",
             url: "/admin/questions/" + id+"/"+limit+"/"+count,
@@ -676,6 +687,7 @@ $(document).ready(function () {
                         i++;
                     });
                     $ques_answer += '</div>';
+                    $('.spinner-grow').hide();
                     $('#dynamic_question').append($ques_answer);
                     if(response.QuesAnswer.length==limit){
                         $('.pageloader_button').show();
@@ -805,7 +817,7 @@ $(document).ready(function () {
         });
     });
 
-    //Edit Experience
+    //Edit Question
     $(document).on('click', '#edit_QuesAnswer', function (e) {
         e.preventDefault();
         let id = $(this).data('id');
@@ -822,7 +834,7 @@ $(document).ready(function () {
         });
 
     });
-    // Update Experience
+    // Update Question
     $('#editQuestionForm').submit(function (e) {
         e.preventDefault();
         let limit=$('#page_limit').find(":selected").text();
@@ -916,6 +928,7 @@ $(document).ready(function () {
         let id = $('#store_experience_id').val();
         let limit=$('#page_limit').find(":selected").text();
         count++;
+        // alert(count);
         $('.pageloader_button').hide();
         $('.page_loader_image').show();
         $.ajax({
@@ -940,13 +953,14 @@ $(document).ready(function () {
                     $ques_answer += '</div>';
                     $('#dynamic_question').append($ques_answer);
                     $('.page_loader_image').hide();
-                    let total=(count*limit)+limit;
-                    let totalrecord=(count*limit)+(response.QuesAnswer.length);
+                    let total=parseInt(count*limit)+parseInt(limit);
+
+                    let totalrecord=parseInt(count*limit)+parseInt(response.QuesAnswer.length);
+
                     if(total==totalrecord){
                          $('.pageloader_button').show();
                     }else{
                         $('.pageloader_button').hide();
-
                     }
                 }
             }

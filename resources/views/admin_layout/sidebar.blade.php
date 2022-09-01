@@ -32,6 +32,13 @@
                     <span class="hide-menu">Users</span>
                 </a>
             </li>
+            <li class="sidebar-item pt-3">
+                <a class="sidebar-link" href="{{url('/admin/quiz')}}"
+                    aria-expanded="false">
+                    <i class="bi bi-patch-question-fill"></i>
+                    <span class="hide-menu">Quizes</span>
+                </a>
+            </li>
         </ul>
     </div>
 </div>

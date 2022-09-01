@@ -1,0 +1,237 @@
+body {
+    margin: 0px;
+    padding: 0px;
+    /* background-color: #b3b6b7; */
+
+    font-family: 'Open Sans',sans-serif;
+
+
+  }
+  .row {
+    /* background-color: #b3b6b7; */
+    height: 70px;
+  }
+  .img {
+    width: 200px;
+    height: 60px;
+    margin-left: 20px;
+    margin-top: 5px;
+    border-radius: 50px;
+  }
+  .COL {
+    margin-top: 15px;
+    width:60%;
+  }
+
+  .dropdown {
+    margin-top: 5px;
+    border: none;
+    margin-left: 20px;
+    border-radius: 50%;
+  }
+  .img2 {
+    width: 70px;
+    height: 50px;
+    border-radius: 50%;
+  }
+  .dropdown-menu {
+    position: absolute;
+    top: 5%;
+    left: 10%;
+  }
+  /* .navbar-nav {
+      margin-left:60px;
+    } */
+  .nav-item {
+    margin-left: 20px;
+  }
+  .nav-item a {
+    font-weight: 700;
+    color:black;
+    font-family: "Josefin Sans",sans-serif;
+  }
+  .nav-item a:hover {
+
+    color:black;
+  }
+  .nav-item:hover{
+    color:black;
+
+    border-bottom:4px solid green;
+    transition: 0.7s;
+    border-radius:20px;
+    height:40px;
+
+
+  }
+  .con{
+    height: 800px;
+    display: flex;
+    text-align:center;
+    padding: 20px;
+    justify-content: space-evenly;
+    margin-top:60px;
+    /* box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px; */
+
+
+  }
+
+  .nav-item:hover{
+    animation-duration: 1s;
+    animation-iteration-count:1;
+    transform-origin:bottom;
+    animation-name: bounce;
+    animation-timing-function: ease;
+
+  }
+
+  @keyframes bounce {
+    0%   { transform: translateY(0); }
+    50%  { transform: translateY(10px); }
+    100% { transform: translateY(0); }
+  }
+  .text{
+    font-size: 49px;
+    font-weight: 600;
+    color: #030431;
+    margin-top: 5%;
+  }
+  .card{
+    margin-left:10px !important;
+   text-align: left;
+    height: 300px;
+    margin-top: 150px;
+    border-radius: none;
+    transition: transform .2s;
+    width:10%;
+
+
+  }
+  .btn{
+    border-radius: none;
+  }
+
+  .card:hover {
+    -ms-transform: scale(1.8);
+    -webkit-transform: scale(0.5); /* Safari 3-8 */
+    transform: scale(1.2);
+    color:white;
+    background-color: #2D3092;
+  }
+  .carousel{
+    margin-top: 20px;
+  }
+  #demo{
+    padding: 0px;
+  }
+  .section{
+    width:100%;
+    margin-top: 40px;
+    height:600px !important;
+
+  }
+
+  *{
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
+  .gallery {
+    background: #EEE;
+  }
+
+  .gallery-cell {
+    margin-top: 60px !important;
+    width: 66%;
+    margin-bottom: 80px !important;
+    height:250px !important;
+    margin-left: 70px;
+    border-radius:20px;
+    transition: transform .2s;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+
+
+  }
+  .gallery-cell:hover{
+    -ms-transform: scale(1.8);
+    -webkit-transform: scale(0.5); /* Safari 3-8 */
+    transform: scale(1.3);
+  }
+  .cell_one{
+    width:30%;
+    background-color:aquamarine;
+  }
+  /* cell number */
+  /* .gallery-cell:before {
+    display: block;
+    text-align: center;
+    content: counter(gallery-cell);
+    line-height: 200px;
+    font-size: 80px;
+    color: white;
+  } */
+  .flickity-prev-next-button.next {
+
+    margin-left: 100px !important;
+    background-color:#8C8;;
+    border:none;
+    display: none;
+  }
+  .flickity-prev-next-button.previous {
+    /* margin-left: 580px !important;
+    margin-top: 60px;
+    background-color:#8C8;;
+    border:none; */
+    display: none;
+  }
+
+  .flickity-enabled.is-draggable {
+  margin-top: 5%;
+  padding: 0px;
+  width:100%;
+  }
+  .flickity-viewport{
+    margin-bottom: 80px;
+    padding:0px;
+
+  }
+  /* footer designnnnn****************************************************** */
+
+
+
+  .typefoot{
+    width:100%;
+    max-width: 100%;
+    background-color: grey;
+    height: 400px;
+    padding: 0px 0px 0px 0px;
+  }
+  /* technology blade page design******************************** */
+
+  .div1{
+    text-align: center;
+    background-color:mintcream;
+    margin-left:15px;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px !important;
+    font-family: 'Open Sans',sans-serif;
+    font-size:22px;
+    width: 30% !important;
+    margin-bottom:40px;
+    padding-bottom: 30px;
+  }
+  .div1 h2{
+     margin-left:20px;
+     margin-top:20px;
+     font-size:20px;
+     font-weight: 500 !important;
+     font-family: 'Open Sans',sans-serif;
+  }
+  .div2{
+    margin-top: 2%;
+  }
+  .tech_display{
+    background-color: whitesmoke ;
+    width:100%;
+    height:120px;
+    /* margin-top:30px; */
+  }

@@ -433,6 +433,14 @@ footer a{
     border-radius: 15px;
     font-size: 14px;
     padding: 10px 20px;
+
+  }
+
+  .form-select{
+    border-radius: 15px;
+    font-size: 14px;
+    padding: 10px 20px;
+
   }
 
   .form-group textarea{
@@ -470,4 +478,16 @@ footer a{
     font-weight: bolder;
 }
 
+.form_header{
+    background-color: #8cdeff;
+}
 
+.form_header h4{
+    font-family: 'Aboreto', cursive !important;
+    font-weight: bolder;
+}
+
+.icon_hover:hover{
+    cursor: pointer;
+    
+}

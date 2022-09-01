@@ -1,4 +1,11 @@
 $(document).ready(function () {
+    $('#new_user_registration').hide();
+    $('#add_user').click(function (e) {
+        e.preventDefault();
+    $('#new_user_registration').show();
+    $('#user_datatable').hide();
+
+    });
     $('.yajra-datatable').DataTable({
         "processing": true,
         "serverSide": true,

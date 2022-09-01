@@ -12,6 +12,8 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="{{ asset('/css/adminpanel.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/quiz.css') }}">
+
 
     <title>Admin Panel</title>
 </head>
@@ -37,6 +39,7 @@
 <script src="{{ asset('js/listusers.js') }}"></script>
 <script src="{{ asset('js/profile.js') }}"></script>
 <script src="{{ asset('js/dashboard.js') }}"></script>
+<script src="{{ asset('js/quiz.js') }}"></script>
 
 </body>
 </html>

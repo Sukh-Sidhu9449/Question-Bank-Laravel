@@ -99,16 +99,7 @@ class AuthController extends Controller
 
         DB::table('users')->where('id','=',$id)->update($data);
         return redirect()->back()->with('status','Profile Update Successfully');
-        // $query = DB::table('users')->where('id', '=', $id)->update($data);
-        // if ($query) {
-        //     return response()->json([
-        //         'status' => 200
-        //     ]);
-        // } else {
-        //     return response()->json([
-        //         'status' => 404
-        //     ]);
-        // }
+
     }
     public function dashboardData(){
         $technology=DB::table('technologies')->get();
@@ -126,7 +117,7 @@ class AuthController extends Controller
 
     public function loadDashboard()
     {
-        return view('/dashboard');
+        return navbarTechnologyController::show();
     }
     public function adminDashboard()
     {

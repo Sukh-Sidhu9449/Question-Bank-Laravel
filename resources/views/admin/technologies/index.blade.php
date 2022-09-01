@@ -55,13 +55,13 @@
                             <div class="form-group">
                                 {{-- <label for="edit_technology_name">Technology</label> --}}
                                 <input type="text" class="form-control mt-3" name="edit_technology_name"
-                                    id="edit_technology_name" placeholder="Edit Technology">
+                                    id="edit_technology_name" placeholder="Edit Technology" required>
                             </div>
 
                             <div class="form-group">
                                 {{-- <label for="edit_technology_description">Technology Description</label> --}}
                                 <textarea class="form-control mt-4" name="edit_technology_description" id="edit_technology_description" rows="3"
-                                    placeholder="Edit Desciption"></textarea>
+                                    placeholder="Edit Desciption" required></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="technology_id"></label>
@@ -103,7 +103,7 @@
                         <div class="col-lg-4 col-md-12">
                             <div id="white_box">
                                 <div id="clickable" data-id="{{ $technology->id }}">
-                                    <h4>{{ $technology->technology_name }}</h4>
+                                    <h4>{{ $technology->technology_name }} &nbsp;<i class="bi bi-arrow-right-circle icon_hover"></i></h4>
                                 </div>
                                 <div id="icons_gap">
                                     <a id="delete_technology" data-id="{{ $technology->id }}">
@@ -148,13 +148,13 @@
                             <div class="form-group">
                                 {{-- <label for="framework_name">Framework</label> --}}
                                 <input type="text" class="form-control mt-4" name="framework_name"
-                                    id="framework_name" placeholder="Framework">
+                                    id="framework_name" placeholder="Framework" required>
                             </div>
 
                             <div class="form-group">
                                 {{-- <label for="framework_description">Framework Description</label> --}}
                                 <textarea class="form-control mt-4" name="framework_description" id="framework_description"
-                                    placeholder="Description" rows="3"></textarea>
+                                    placeholder="Description" rows="3" required></textarea>
                             </div>
 
                             <div class="modal-footer">
@@ -185,13 +185,13 @@
                             <div class="form-group">
                                 {{-- <label for="edit_framework_name">Framework</label> --}}
                                 <input type="text" class="form-control mt-3" name="edit_framework_name"
-                                    id="edit_framework_name" placeholder="Edit Framework">
+                                    id="edit_framework_name" placeholder="Edit Framework" required>
                             </div>
 
                             <div class="form-group">
                                 {{-- <label for="edit_framework_description">Framework Description</label> --}}
                                 <textarea class="form-control mt-4" name="edit_framework_description" id="edit_framework_description" rows="3"
-                                    placeholder="Edit Description"></textarea>
+                                    placeholder="Edit Description" required></textarea>
                             </div>
                             <div class="form-group">
                                 <input type="text" class="form-control" name="framework_id" id="framework_id" hidden>
@@ -227,7 +227,11 @@
                     </div>
                 </div>
             </div>
+            <div class="spinner-grow" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
             <div id="dynamic_frameworks" class="container-fluid">
+
 
             </div>
         </div>
@@ -248,7 +252,7 @@
                             <div class="form-group">
                                 {{-- <label for="experience_name">Experience</label> --}}
                                 <input type="text" class="form-control mt-3" name="experience_name"
-                                    id="experience_name" placeholder="Experience">
+                                    id="experience_name" placeholder="Experience" required>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn_close" data-bs-dismiss="modal">Close</button>
@@ -275,7 +279,7 @@
                             <div class="form-group">
                                 {{-- <label for="edit_experience_name">Experience</label> --}}
                                 <input type="text" class="form-control mt-3" name="edit_experience_name"
-                                    id="edit_experience_name" placeholder="Edit Experience">
+                                    id="edit_experience_name" placeholder="Edit Experience" required>
                             </div>
                             <div class="form-group">
                                 <input type="text" class="form-control" name="experience_id" id="experience_id"
@@ -309,6 +313,9 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="spinner-grow" role="status">
+                <span class="sr-only">Loading...</span>
             </div>
             <div id="dynamic_experience" class="container-fluid">
 
@@ -347,7 +354,7 @@
                             <div class="form-group">
                                 {{-- <label for="question">Question</label> --}}
                                 <input type="text" class="form-control mt-4" name="question" id="question"
-                                    placeholder="Add Question">
+                                    placeholder="Add Question" required>
                             </div>
                             <div class="form-group">
                                 <input type="text" class="form-control mt-4" name="ques_experience_id"
@@ -389,7 +396,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="answer">Answer</label>
-                                <textarea class="form-control" name="answer" id="answer" rows="4"></textarea>
+                                <textarea class="form-control" name="answer" id="answer" rows="4" required></textarea>
                             </div>
                             <div class="form-group">
                                 <input type="text" class="form-control" name="store_question_id"
@@ -418,11 +425,11 @@
                             @csrf
                             <div class="form-group">
                                 <label for="edit_experience_name">Question</label>
-                                <input type="text" class="form-control" name="edit_question" id="edit_question">
+                                <input type="text" class="form-control" name="edit_question" id="edit_question" required>
                             </div>
                             <div class="form-group">
                                 <label for="edit_answer">Answer</label>
-                                <textarea class="form-control" name="edit_answer" id="edit_answer" rows="4"></textarea>
+                                <textarea class="form-control" name="edit_answer" id="edit_answer" rows="4" required></textarea>
                             </div>
                             <div class="form-group">
                                 <input type="text" class="form-control" name="question_id" id="question_id" hidden>
@@ -476,6 +483,9 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="spinner-grow" role="status">
+                <span class="sr-only">Loading...</span>
             </div>
             <div id="dynamic_question" class="container-fluid">
 
