@@ -33,8 +33,8 @@
                         <button class=" dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="{{ asset('user_img/img/user.jpg') }}" class="img2"></button>
                         <ul class="dropdown-menu shadow">
-                            <li><a class="dropdown-item" href="#"><b>View Profile</b></a></li>
-                            <li><a class="dropdown-item" href="#">Edit Profile</a></li>
+                            <li><a class="dropdown-item" href="{{url('/view_profile')}}"><b>View Profile</b></a></li>
+                            <li><a class="dropdown-item" href="{{url('/user_edit')}}">Edit Profile</a></li>
                             <li><a class="dropdown-item" href="{{route('logout')}}">Log Out</a></li>
                         </ul>
                     </div>

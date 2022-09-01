@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\tech_user_Controller;
+use App\Http\Controllers\UserUpdateController;
 
 
 
@@ -56,6 +57,10 @@ use App\Http\Controllers\tech_user_Controller;
         Route::get('/dashboard',[AuthController::class,'loadDashboard']);
         Route::get('/tech_data/{id}',[tech_user_Controller::class,'index']);
         Route::get('/user_tech/{id}',[tech_user_Controller:: class,'show']);
+        // Route::get('/view_profile',[UserUpdateController::class,'index'])->name('view_profile');
+
+        Route::get('/user_edit',[UserUpdateController::class,'index']);
+        Route::post('/user_edit',[UserUpdateController::class,'update'])->name('user_edit');
 
 
 

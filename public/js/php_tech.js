@@ -4,6 +4,7 @@ $(document).ready(function(){
         var id= $(this).data("id");
         // alert(id);
         $('#tech_question_display').toggle();
+        $('.div1').hide();
 
 
 
