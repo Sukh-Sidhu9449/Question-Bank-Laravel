@@ -6,52 +6,44 @@ $(document).ready(function () {
     });
 
     function getProfile(){
+
         $.ajax({
             type: "get",
             url: "/admin/profile/user",
+            enctype: 'multipart/form-data',
             dataType: "json",
-            success: function (response) {
-                // console.log(response);
-                $.each(response, function (key, value) {
+            cache: false,
+            success: function (data) {
+                $.each(data, function (key, value) {
                     $('#profile_name').val(value.name);
                     $('#profile_email').val(value.email);
+                    $('#profile_experience').val(value.experience);
+                    $('#profile_designation').val(value.designation);
+                    $('#profile_last_company').val(value.last_company);
                     $('#profile_address').val(value.address);
                     $("input[name=profile_gender][value=" + value.gender + "]").attr('checked', 'checked');
+                    $('#preview-image').append('<img id="user_img" src="' +value.image+ '" style="width: 250px;">');
+                    $('.image_file').click(function () {
+                        $('#user_img').hide();
+
+                    });
+
+
                 });
             }
+
         });
     }
     getProfile();
-    // $('#update_adminprofile_form').submit(function (e) {
-    //     e.preventDefault();
-    //     // alert();
-    //     let update_profile= new FormData(document.getElementById("update_adminprofile_form"));
-    //     // $.ajax({
-    //     //     type: "put",
-    //     //     url: '/admin/profile',
-    //     //     data: update_profile,
-    //     //     cache:false,
-    //     //     processData: false,
-    //     //     contentType: false,
-    //     //     dataType: "json",
-    //     //     success: function (response) {
-    //     //         console.log(response);
-    //     //         if (response.status == 200) {
-    //     //             $('#update_adminprofile_form')[0].reset();
-    //     //             swal.fire({
-    //     //                 title: "Updated!",
-    //     //                 text: "Profile Updated.",
-    //     //                 type: "success"
-    //     //             }).then(function () {
 
-    //     //                 getProfile();
+    $('#image').change(function(){
 
-    //     //             });
-    //     //         }
-    //     //     },
-    //     //     error: function (data) {
-    //     //         console.log(data);
-    //     //     }
-    //     // });
-    // });
+        let reader = new FileReader();
+        reader.onload = (e) => {
+          $('.preview-image').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(this.files[0]);
+
+       });
+
 });

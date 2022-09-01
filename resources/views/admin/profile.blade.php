@@ -13,16 +13,12 @@
  </div>
  <div class="container-fluid">
      <div class="row">
+
          <div class="col-lg-4 col-xlg-3 col-md-12">
              <div class="profile_box">
                  <div class="overlay-box">
-                     <div class="user-content">
-
-                         <img src="{{ asset('img/user.jpg') }}" class="user_profile" alt="img">
-                             <!-- <input type="file" name="pic" hidden> -->
-                         <h4 class="user_name mt-4"></h4>
-                         <h5 class="user_mail"></h5>
-
+                     <div class="user-content" id="preview-image">
+                        <img src="" class="preview-image" style="width: 250px;">
                      </div>
                  </div>
              </div>
@@ -30,9 +26,9 @@
          <div class="col-lg-8 col-xlg-9 col-md-12">
              <div class="card" id="white_box">
                  <div class="card-body">
-                    <form class="form-horizontal form-material" action="{{ route('profile.update') }}" method="post">
-                         @csrf
-                         @method('put')
+                    <form class="form-horizontal form-material" action="{{ route('profile.update') }}" method="post" enctype="multipart/form-data" id="myform">
+                        @csrf
+                        @method('put')
                          <div for="profile_name" class="form-group mb-4">
                              <label class="col-md-12 p-0">Name</label>
                              <div class="col-md-12 border-bottom p-0">
@@ -46,6 +42,12 @@
                              </div>
                          </div>
                          <div class="form-group mb-4">
+                            <label for="profile_pic" class="col-md-12 p-0">Profile Pic</label>
+                            <div class="col-md-12 border-bottom p-0">
+                                <input type="file" class="form-control p-2 border-0 mt-3 image_file" name="image" id="image" >
+                            </div>
+                        </div>
+                         <div class="form-group mb-4">
                              <label class="col-md-12 p-0">Gender</label>
                              <div class="col-md-12  p-3 d-flex">
                                  <input type="radio" value="M" class="form-check-input p-2 mt-3" name="profile_gender" id="profile_gender">
@@ -56,11 +58,27 @@
                                  <label class="form-check-label radio_title" for="flexRadioDefault1">
                                      Female
                                  </label>
-                                 <input type="radio" value="O" class="form-check-input p-2 mt-3 " name="profile_gender" id="profile_gender">
-                                 <label class="form-check-label radio_title" for="flexRadioDefault1">
-                                     Others
-                                 </label>
+
                              </div>
+                         </div>
+                         <div class="form-group my-3">
+                            <label for="experience" class=" col-md-12 p-0">Experience</label>
+                            <div class="input-group col-md-12 border-bottom p-0">
+                                <input type="text" class="form-control p-2 border-0 mt-3"  aria-label="admin_experience" aria-describedby="basic-addon2" placeholder="In Years" name="profile_experience" id="profile_experience">
+                                {{-- <span class="input-group-text experience_label">In years</span> --}}
+                              </div>
+                         </div>
+                         <div class="form-group my-3">
+                            <label for="designation" class="col-md-12 p-0">Designation</label>
+                            <div class="col-md-12 border-bottom p-0">
+                                <input type="text" class="form-control p-2 border-0 mt-3" name="profile_designation" id="profile_designation" value="">
+                            </div>
+                         </div>
+                         <div class="form-group my-3">
+                            <label for="last_company" class="col-md-12 p-0">Last Company</label>
+                            <div class="col-md-12 border-bottom p-0">
+                                <input type="text" class="form-control p-2 border-0 mt-3" name="profile_last_company" id="profile_last_company" value="" >
+                            </div>
                          </div>
                          <div class="form-group mb-4">
                             <label for="profile_address" class="col-md-12 p-0">Address</label>
@@ -84,4 +102,3 @@
 
 
 @endsection
-
