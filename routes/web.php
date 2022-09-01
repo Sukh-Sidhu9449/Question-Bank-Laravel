@@ -61,7 +61,7 @@ use App\Http\Controllers\UserUpdateController;
 
         Route::get('/user_edit',[UserUpdateController::class,'index']);
         Route::post('/user_edit',[UserUpdateController::class,'update'])->name('user_edit');
-
+        Route::get('/core_php',[tech_user_Controller::class,'get_question']);
 
 
 
