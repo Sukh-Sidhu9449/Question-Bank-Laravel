@@ -82,10 +82,10 @@
                             <div class="d-flex">
                                 <div>
                                     <select id="quiz_page_limit" class="form-select mt-3 mx-3 w-75 dropdown_pagination">
-                                        <option value="5" selected>5</option>
-                                        <option value="10">10</option>
-                                        <option value="15">15</option>
+                                        <option value="10" selected>10</option>
                                         <option value="20">20</option>
+                                        <option value="30">30</option>
+                                        <option value="40">40</option>
                                     </select>
                                 </div>
                                 <div>
