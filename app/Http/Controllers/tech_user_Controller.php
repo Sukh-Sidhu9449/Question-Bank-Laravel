@@ -30,6 +30,7 @@ class tech_user_Controller extends Controller
     
            $fid= $request->id;
            $techid=$request->tech_id;
+           $exp_id=$request->experience_id;
           //  $both_id=DB::table('questions')->where([
           //   ['framework_id',$fid], ['technology_id',$techid]
           //   ])->get();
@@ -37,28 +38,62 @@ class tech_user_Controller extends Controller
           //     'ques'=>$both_id,
           //     'status'=>200
           //   ]);
+            if($exp_id==0)
+            {
+              $d=DB::table('answers as a')
+              ->join('questions as q','q.id','=','a.question_id')
+              ->where([
+                  ['q.framework_id',$fid],
+                  ['q.technology_id',$techid]
+              ]);
+            }
+            else{
+              $d=DB::table('answers as a')
+              ->join('questions as q','q.id','=','a.question_id')
+              ->where([
+                  ['q.framework_id',$fid],
+                  ['q.technology_id',$techid],
+                  ['q.experience_id',$exp_id]
+              ]);
+            }
+             $d= $d->select('q.question','a.question_id','a.answer')
+              ->get();
+              if(count($d)>0){
+                return response()->json([
+                  'ques'=>$d,
+                  'status'=>200
+                ]);
+              }
+              else{
+                return response()->json([
+               
+                  'status'=>404
+                ]);
 
-            $d=DB::table('answers as a')
-                        ->join('questions as q','q.id','=','a.question_id')
-                        ->where([
-                            ['q.framework_id',$fid],
-                            ['q.technology_id',$techid]
-                            ])
-                        ->select('q.question','a.question_id','a.answer')
-                        ->get();
-                        if(count($d)>0){
-                          return response()->json([
-                            'ques'=>$d,
-                            'status'=>200
-                          ]);
-                        }
-                        else{
-                          return response()->json([
+             
+             
+            }
+            // $d=DB::table('answers as a')
+            //             ->join('questions as q','q.id','=','a.question_id')
+            //             ->where([
+            //                 ['q.framework_id',$fid],
+            //                 ['q.technology_id',$techid]
+            //                 ])
+            //             ->select('q.question','a.question_id','a.answer')
+            //             ->get();
+                        // if(count($d)>0){
+                        //   return response()->json([
+                        //     'ques'=>$d,
+                        //     'status'=>200
+                        //   ]);
+                        // }
+                        // else{
+                        //   return response()->json([
                          
-                            'status'=>404
-                          ]);
+                        //     'status'=>404
+                        //   ]);
 
-                        }
+                        // }
                        
     }
          
