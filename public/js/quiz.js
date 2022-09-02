@@ -194,7 +194,7 @@ $(document).ready(function () {
       });
 
       //Select experience
-      $('#quiz_experience').on('change', function() {
+    $('#quiz_experience').on('change', function() {
         let experience_id= this.value ;
         let frame_id = $('#quiz_framework_id').val();
         let tech_id= $('#quiz_technology_id').val();
@@ -202,5 +202,7 @@ $(document).ready(function () {
         // alert(tech_id);
         FetchQuizQuestion(tech_id,frame_id,experience_id,limit);
         // alert($page_limit);
-      });
+    });
+
+
 });

@@ -17,6 +17,7 @@ class UserController extends Controller
     {
         $query = DB::table('users as u')
             ->join('usertechnology as ut', 'u.id', '=', 'ut.users_id')
+            ->where('u.role','user')
             ->select('u.id', 'u.name', 'u.email', 'u.role', 'ut.technology_name', 'ut.designation', 'ut.current_company', 'ut.experience');
 
         return datatables($query)->make(true);
@@ -57,5 +58,5 @@ class UserController extends Controller
         }
     }
 
-    
+
 }

@@ -650,13 +650,16 @@ $(document).ready(function () {
     });
 
     //Fetch Question Function
-    function FetchQuestion(id,limit) {
+    function FetchQuestion(id,technology_id,framework_id,limit) {
         count=0;
         $('#dynamic_question').empty();
         $('.spinner-grow').show();
         $.ajax({
             type: "get",
             url: "/admin/questions/" + id+"/"+limit+"/"+count,
+            data:{
+                technology_id:technology_id,
+                framework_id:framework_id},
             dataType: "json",
             success: function (response) {
                 // console.log(response);
@@ -704,6 +707,8 @@ $(document).ready(function () {
         e.preventDefault();
         let id = $(this).data('id');
         let limit=$('#page_limit').find(":selected").text();
+        let technology_id = $('#store_technology_id').val();
+        let framework_id = $('#store_framework_id').val();
         // console.log(limit);
         let experience_name = $(this).data('name');
         // console.log(framework_name);
@@ -714,7 +719,7 @@ $(document).ready(function () {
         $('#load_experience_data').hide();
         $('#load_question_data').show();
 
-        FetchQuestion(id,limit);
+        FetchQuestion(id,technology_id,framework_id,limit);
 
     });
 
@@ -723,8 +728,8 @@ $(document).ready(function () {
         e.preventDefault();
         $('#addQuestionModal').modal('show');
         let technology_id = $('#store_technology_id').val();
-        let technology_name = $('#store_technology_name').val();
         let framework_id = $('#store_framework_id').val();
+        let technology_name = $('#store_technology_name').val();
         let framework_name = $('#store_framework_name').val();
         let experience_id = $('#store_experience_id').val();
         let experience_name = $('#store_experience_name').val();
@@ -741,6 +746,8 @@ $(document).ready(function () {
         e.preventDefault();
         let id = $('#store_experience_id').val();
         let limit=$('#page_limit').find(":selected").text();
+        let technology_id = $('#store_technology_id').val();
+        let framework_id = $('#store_framework_id').val();
         var Ques_form = new FormData(this);
         $('#add_question').text('Adding...');
         $.ajax({
@@ -756,13 +763,15 @@ $(document).ready(function () {
                     $('#add_question').text('Add Question');
                     $('#addQuestionForm')[0].reset();
                     $('#addQuestionModal').modal('hide');
-                    swal.fire(
-                        'Added',
-                        'Question Added Successfully',
-                        'success'
-                    ).then(function () {
+                    swal.fire({
+                       title: 'Added',
+                       text: 'Question Added Successfully',
+                       type: 'success',
+                       icon:'success',
+                       timer: 1000
+                    }).then(function () {
 
-                        FetchQuestion(id,limit);
+                        FetchQuestion(id,technology_id,framework_id,limit);
 
                     });
                 }
@@ -776,6 +785,7 @@ $(document).ready(function () {
         e.preventDefault();
         let question_id = $(this).data('id');
         let question = $(this).data('name');
+
         // console.log(this);
         $('#store_question').val(question);
         $('#store_question_id').val(question_id);
@@ -785,6 +795,8 @@ $(document).ready(function () {
     // Insert new Answer
     $('#addAnswerForm').submit(function (e) {
         e.preventDefault();
+        let technology_id = $('#store_technology_id').val();
+        let framework_id = $('#store_framework_id').val();
         let limit=$('#page_limit').find(":selected").text();
         let id = $('#store_experience_id').val();
         var Ans_form = new FormData(document.getElementById("addAnswerForm"));
@@ -803,12 +815,15 @@ $(document).ready(function () {
                     $('#a').text('Add Answer');
                     $('#addAnswerForm')[0].reset();
                     $('#addAnswerModal').modal('hide');
-                    swal.fire(
-                        'Added',
-                        'Answer Added Successfully',
-                        'success'
-                    ).then(function () {
-                        FetchQuestion(id,limit);
+                    swal.fire({
+                        title: 'Added',
+                        text: 'Answer Added Successfully',
+                        type: 'success',
+                        icon:'success',
+                        timer: 1000
+                     })
+                    .then(function () {
+                        FetchQuestion(id,technology_id,framework_id,limit);
 
                     });
                 }
@@ -839,6 +854,8 @@ $(document).ready(function () {
         e.preventDefault();
         let limit=$('#page_limit').find(":selected").text();
         var update_form = new FormData(document.getElementById("editQuestionForm"));
+        let technology_id = $('#store_technology_id').val();
+        let framework_id = $('#store_framework_id').val();
 
         var url = $('#editQuestionForm').attr('action');
         var id = $('#edit_question_id').val();
@@ -866,7 +883,7 @@ $(document).ready(function () {
                         type: "success"
                     }).then(function () {
 
-                        FetchQuestion(experience_id,limit);
+                        FetchQuestion(experience_id,technology_id,framework_id,limit);
 
                     });
                 }
@@ -878,6 +895,8 @@ $(document).ready(function () {
     function deleteQuestion(id) {
         let limit=$('#page_limit').find(":selected").text();
         let experience_id = $('#store_experience_id').val();
+        let technology_id = $('#store_technology_id').val();
+        let framework_id = $('#store_framework_id').val();
         // console.log(id);
         Swal.fire({
             title: 'Are you sure?',
@@ -899,7 +918,7 @@ $(document).ready(function () {
                                 'Your file has been deleted.',
                                 'success'
                             ).then(function () {
-                                FetchQuestion(experience_id,limit);
+                                FetchQuestion(experience_id,technology_id,framework_id,limit);
                             });
                         }
                     }
@@ -927,6 +946,8 @@ $(document).ready(function () {
     $('#pageloader_button').click(function () {
         let id = $('#store_experience_id').val();
         let limit=$('#page_limit').find(":selected").text();
+        let technology_id = $('#store_technology_id').val();
+        let framework_id = $('#store_framework_id').val();
         count++;
         // alert(count);
         $('.pageloader_button').hide();
@@ -934,6 +955,10 @@ $(document).ready(function () {
         $.ajax({
             type: "get",
             url: "/admin/questions/" + id+"/"+limit+"/"+count,
+            data:{
+                technology_id:technology_id,
+                framework_id:framework_id
+            },
             dataType: "json",
             success: function (response) {
                 // console.log(response);
@@ -971,7 +996,9 @@ $(document).ready(function () {
     $('#page_limit').on('change', function() {
         let page_limit= this.value ;
         let id = $('#store_experience_id').val();
-        FetchQuestion(id,page_limit);
+        let technology_id = $('#store_technology_id').val();
+        let framework_id = $('#store_framework_id').val();
+        FetchQuestion(id,technology_id,framework_id,page_limit);
         // alert($page_limit);
       });
 });

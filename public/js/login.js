@@ -49,20 +49,24 @@ $(document).ready(function () {
                 $('#invalid').html('');
                 var result = response;
                 if (result == 'admin') {
-                    Swal.fire(
-                        'Success!',
-                        'Admin Login Successfully.',
-                        'success'
-                    ).then(function () {
+                    Swal.fire({
+                        title: 'Success!',
+                        text: 'Admin Login Successfully.',
+                        type: 'success',
+                        icon:'success',
+                        timer: 1000
+                     }).then(function () {
                         window.location = '/admin/dashboard';
                     });
                 }
                 if (result =='user') {
-                    Swal.fire(
-                        'Success!',
-                        'User Login Successfully.',
-                        'success'
-                    ).then(function () {
+                    Swal.fire({
+                        title: 'Success!',
+                        text: 'User Login Successfully.',
+                        type: 'success',
+                        icon:'success',
+                        timer: 1000
+                     }).then(function () {
                         window.location = "/dashboard";
                     });
                 }
@@ -73,9 +77,7 @@ $(document).ready(function () {
                     $('#invalid').append('<div class="alert alert-danger"style="margin-bottom:15px;">' + error + '</div');
                 }
             },
-
             error: function (xhr) {
-
                 $('#invalid').html('');
                 $.each(xhr.responseJSON.errors, function (key, value) {
                     $('#invalid').append('<div class="alert alert-danger "style="margin-bottom:15px;">' + value + '</div');

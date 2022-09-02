@@ -9,8 +9,11 @@ use Illuminate\Support\Facades\DB;
 class QuestionController extends Controller
 {
     //Fetch Question
-    public function index($id,$limit,$count)
+    public function index(Request $request,$id,$limit,$count)
     {
+       $tech_id= $request->technology_id;
+       $frame_id= $request->framework_id;
+
         if($count==0){
             $offset=0;
         }else{
@@ -18,7 +21,11 @@ class QuestionController extends Controller
         }
         $ques_ans=DB::table('answers as a')
                         ->join('questions as q','q.id','=','a.question_id')
-                        ->where('q.experience_id',$id)
+                        ->where([
+                            ['q.experience_id',$id],
+                            ['q.technology_id',$tech_id],
+                            ['q.framework_id',$frame_id]
+                        ])
                         ->select('q.question','a.question_id','a.answer')
                         ->offset($offset)->limit($limit)
                         ->get();
@@ -27,7 +34,11 @@ class QuestionController extends Controller
                     'q.id',
                     'q.question'
                     )
-                    ->where('q.experience_id',$id)
+                    ->where([
+                        ['q.experience_id',$id],
+                        ['q.technology_id',$tech_id],
+                        ['q.framework_id',$frame_id]
+                    ])
                     ->leftJoin('answers as a', 'a.question_id', '=', 'q.id')
                     ->whereNull('a.question_id')
                     ->limit(2)
