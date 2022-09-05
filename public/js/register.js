@@ -11,14 +11,7 @@ $('#register').click(function(e){
     let email= $('#email').val();
     let password= $('#password').val();
     let password_confirmation= $('#password_confirmation').val();
-   // let url ='{{route("userRegister")}}';
-
-    // let mydata={};
-    // mydata.name=name;
-    // mydata.email=email;
-    // mydata.password=password;
-    // mydata.password_confirmation=password_confirmation;
-    // console.log(mydata);
+   
     $.ajax({
         url:'/register',
         type:"POST",

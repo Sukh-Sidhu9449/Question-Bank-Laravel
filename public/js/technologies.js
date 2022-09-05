@@ -187,9 +187,6 @@ $(document).ready(function () {
         $.ajax({
             type: "get",
             url: "/admin/frameworks/"+id,
-            // data: {
-            //     tech_id: id
-            // },
             dataType: "json",
             success: function (response) {
                 // window.history.pushState('new','title','/admin/frameworks/'+id);
@@ -200,7 +197,7 @@ $(document).ready(function () {
                         $frame_data += `<div class="col-lg-4 col-md-12">
                                         <div id="white_boxx">
                                             <div id="clickframework" data-id="`+ value.id + `" data-name="` + value.framework_name + `">
-                                                <h4>`+ value.framework_name + `</h4>
+                                                <h4>`+ value.framework_name + ` &nbsp;<i class="bi bi-arrow-right-circle icon_hover"></i></h4>
                                             </div>
                                             <div id="icons_gap">
                                                 <a id="delete_framework" data-id="`+ value.id + `" >
@@ -258,7 +255,7 @@ $(document).ready(function () {
                         $frame_data += `<div class="col-lg-4 col-md-12">
                                         <div id="white_boxx">
                                             <div id="clickframework" data-id="`+ value.id + `" data-name="` + value.framework_name + `">
-                                                <h4>`+ value.framework_name + `</h4>
+                                                <h4>`+ value.framework_name + ` &nbsp;<i class="bi bi-arrow-right-circle icon_hover"></i></h4>
                                             </div>
                                             <div id="icons_gap">
                                                 <a id="delete_framework" data-id="`+ value.id + `" >
@@ -467,7 +464,7 @@ $(document).ready(function () {
                         $experience_data += `<div class="col-lg-4 col-md-12">
                                         <div id="white_boxx">
                                             <div id="clickexperience" data-id="`+ value.id + `" data-name="` + value.experience_name + `">
-                                                <h4>`+ value.experience_name + `</h4>
+                                                <h4>`+ value.experience_name + ` &nbsp;<i class="bi bi-arrow-right-circle icon_hover"></i></h4>
                                             </div>
                                             <div id="icons_gap">
                                                 <a id="delete_experience" data-id="`+ value.id + `" >
@@ -503,7 +500,7 @@ $(document).ready(function () {
                         $experience_data += `<div class="col-lg-4 col-md-12">
                                         <div id="white_boxx">
                                             <div id="clickexperience" data-id="`+ value.id + `" data-name="` + value.experience_name + `">
-                                                <h4>`+ value.experience_name + `</h4>
+                                                <h4>`+ value.experience_name + ` &nbsp;<i class="bi bi-arrow-right-circle icon_hover"></i></h4>
                                             </div>
                                             <div id="icons_gap">
                                                 <a id="delete_experience" data-id="`+ value.id + `" href="">

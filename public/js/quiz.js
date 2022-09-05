@@ -25,7 +25,7 @@ $(document).ready(function () {
                         $frame_data += `<div class="col-lg-4 col-md-12">
                                         <div id="white_boxx">
                                             <div id="clickframeworkquiz" data-id="`+ value.id + `" data-name="` + value.framework_name + `">
-                                                <h4>`+ value.framework_name + `</h4>
+                                                <h4>`+ value.framework_name + ` &nbsp;<i class="bi bi-arrow-right-circle icon_hover"></i></h4>
                                             </div>
                                         </div>
                                     </div>`;

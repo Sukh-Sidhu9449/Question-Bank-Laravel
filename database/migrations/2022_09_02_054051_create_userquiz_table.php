@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('started_at')->nullable();
             $table->string('submitted_at')->nullable();
             $table->timestamps();
-
             $table->foreign('users_id')->references('id')->on('users');
             $table->foreign('test_id')->references('id')->on('test');
         });
