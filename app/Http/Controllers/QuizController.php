@@ -25,15 +25,19 @@ class QuizController extends Controller
             // dd($limit);
         }
         if($id==0){
-            $questions=DB::table('questions')->where([
-                ['technology_id',$tech_id],
-                ['framework_id',$frame_id]
+            $questions=DB::table('questions as q')
+                ->join('frameworks as f','f.id','=','q.framework_id')
+                ->where([
+                ['f.technology_id',$tech_id],
+                ['q.framework_id',$frame_id]
             ]);
         }else{
-            $questions=DB::table('questions')->where([
-                ['technology_id',$tech_id],
-                ['framework_id',$frame_id],
-                ['experience_id',$id]
+            $questions=DB::table('questions as q')
+            ->join('frameworks as f','f.id','=','q.framework_id')
+            ->where([
+            ['f.technology_id',$tech_id],
+            ['q.framework_id',$frame_id],
+                ['q.experience_id',$id]
             ]);
         }
         $questions= $questions->offset($offset)->limit($limit)->get();

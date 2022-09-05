@@ -13,21 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('usertechnology', function (Blueprint $table) {
+        Schema::create('userquizzes', function (Blueprint $table) {
             $table->id('id');
             $table->unsignedBigInteger('users_id');
-            $table->text('technology_name')->nullable();
-            $table->string('designation')->nullable();
-            $table->string('current_company')->nullable();
-            $table->string('last_company')->nullable();
-            $table->float('experience')->nullable();
+            $table->unsignedBigInteger('block_id');
+            $table->enum('status',['Pending','Done'])->default('Pending');
+            $table->string('started_at')->nullable();
+            $table->string('submitted_at')->nullable();
             $table->timestamps();
-
             $table->foreign('users_id')->references('id')->on('users')->onDelete('cascade');
-
-
-
-
+            $table->foreign('block_id')->references('id')->on('blocks')->onDelete('cascade');
         });
     }
 
@@ -38,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('usertechnology');
+        Schema::dropIfExists('userquiz');
     }
 };

@@ -62,12 +62,8 @@
                     <div class="div">
                         <h5>confirm password</h5>
 						<input type="password" id="password_confirmation" name="password_confirmation" class="input"/>
-
                     </div>
                 </div>
-
-
-            	<a href="#">Forgot Password?</a>
             	<input type="submit" class="btn" id="register" value="Register">
                 <a href="{{url('/login')}}" class="login_btn">Already have an account? LogIn</a>
             </form>

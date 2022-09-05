@@ -40,7 +40,7 @@
            		    	<input type="password" name="password" id="password" class="input">
             	   </div>
             	</div>
-            	<a href="#">Forgot Password?</a>
+            	
             	<input type="submit" class="btn" id="login" value="Login">
                 <a class="signup_btn" href="{{ url('/register') }}">Don't have an account? SignUp</a>
             </form>

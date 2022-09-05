@@ -11,7 +11,7 @@ $('#register').click(function(e){
     let email= $('#email').val();
     let password= $('#password').val();
     let password_confirmation= $('#password_confirmation').val();
-   
+
     $.ajax({
         url:'/register',
         type:"POST",
@@ -28,7 +28,7 @@ $('#register').click(function(e){
             var success=response.success;
             //console.log(success);
 				$('#invalid').append('<div class="alert alert-success"style="margin-bottom:15px;">'+success+'</div');
-                window.location="/login";
+                window.location.href="/login";
         },
         error:function(xhr){
 

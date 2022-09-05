@@ -1,4 +1,6 @@
 $(document).ready(function () {
+    $('#userTech').multiselect();
+    
     $('#new_user_registration').hide();
     $('#add_user').click(function (e) {
         e.preventDefault();

@@ -1,7 +1,7 @@
 @extends('admin_layout.template')
 @section('main-content')
     <div class="Users_Data">
-       
+
         <div class="first_section">
             <div class="bg-white">
                 <div class="row align-items-center">
@@ -85,7 +85,16 @@
                                             </select>
                                         </div>
                                         <div class="form-group my-3 col ">
+
                                             <label for="userTech" class="form-label col-md-12 p-0">Technologies</label>
+                                            {{-- <select id="userTech" multiple="multiple">
+                                                <option value="php">PHP</option>
+                                                <option value="javascript">JavaScript</option>
+                                                <option value="java">Java</option>
+                                                <option value="sql">SQL</option>
+                                                <option value="jquery">Jquery</option>
+                                                <option value=".net">.Net</option>
+                                            </select> --}}
                                             <select id="userTech" class="form-select p-2 border-0 mt-3" size="2"
                                                 multiple>
                                                 <option selected>Select Your Technologies</option>

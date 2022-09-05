@@ -1,29 +1,30 @@
 $(document).ready(function () {
-    $("#back_btn").click(function(){
-        $(".framework_content").attr('style', 'display: none');
-        $("#load_technologies_data").removeAttr('style', 'display: none');
-        $("#clickable").click(function () {
-            $(".framework_content").removeAttr('style', 'display: none');
-        });
-    });
 
-    $("#back_btnn").click(function(){
-        $(".experience_content").attr('style', 'display: none');
-        $("#load_frameworks_data").removeAttr('style', 'display: none');
-        $("#clickframework").click(function () {
-            $(".experience_content").removeAttr('style', 'display: none');
-        });
-    });
-
-    $("#back_btnnn").click(function(){
-        $(".ques_ans_content").attr('style', 'display: none');
-        $("#load_experience_data").removeAttr('style', 'display: none');
-        $("#clickexperience").click(function () {
-            $(".ques_ans_content").removeAttr('style', 'display: none');
-        });
+    $('.bread_home').click(function (e) {
+        e.preventDefault();
+        $('#load_frameworks_data').hide();
+        $('#load_experience_data').hide();
+        $('#load_question_data').hide();
+        $('#load_technologies_data').show();
 
     });
+    $('.bread_technology').click(function (e) {
+        e.preventDefault();
+        $('#load_frameworks_data').show();
+        $('#load_experience_data').hide();
+        $('#load_question_data').hide();
+        $('#load_technologies_data').hide();
 
+    });
+    $('.bread_framework').click(function (e) {
+        e.preventDefault();
+        $('#load_frameworks_data').hide();
+        $('#load_experience_data').show();
+        $('#load_question_data').hide();
+        $('#load_technologies_data').hide();
+
+    });
+   
     $('#load_frameworks_data').hide();
     $('#load_experience_data').hide();
     $('#load_question_data').hide();
@@ -37,7 +38,6 @@ $(document).ready(function () {
     });
 
     // Update Technologies
-
     $('#editTechnologyForm').submit(function (e) {
         e.preventDefault();
         var update_form = new FormData(document.getElementById("editTechnologyForm"));
@@ -63,7 +63,8 @@ $(document).ready(function () {
                     swal.fire({
                         title: "Updated!",
                         text: "Technology Updated.",
-                        type: "success"
+                        icon:'success',
+                        timer: 1000
                     }).then(function () {
 
                         location.reload(true);
@@ -96,11 +97,12 @@ $(document).ready(function () {
                     $('#add_technology').text('Add Technology');
                     $('#addTechnologyForm')[0].reset();
                     $('#addTechnologyModal').modal('hide');
-                    swal.fire(
-                        'Added',
-                        'Technology Added Successfully',
-                        'success'
-                    ).then(function () {
+                    swal.fire({
+                        title: 'Added',
+                        text: 'Technology Added Successfully',
+                        icon:'success',
+                        timer: 1000
+                     }).then(function () {
 
                         location.reload(true);
 
@@ -112,7 +114,6 @@ $(document).ready(function () {
     });
 
     //Edit technology
-
     $(document).on('click', '#edit_technology', function (e) {
         e.preventDefault();
         let id = $(this).data('id');
@@ -133,7 +134,6 @@ $(document).ready(function () {
     });
 
     //Delete Technology
-
     $(document).on('click', '#delete_technology', function (e) {
         e.preventDefault();
 
@@ -157,14 +157,13 @@ $(document).ready(function () {
                     },
                     success: function (response) {
                         console.log(response);
-                        Swal.fire(
-                            'Deleted!',
-                            'Your file has been deleted.',
-                            'success'
-                        ).then(function () {
-
+                        Swal.fire({
+                            title: "Deleted!",
+                            text: "Technology Deleted.",
+                            icon:'success',
+                            timer: 1000
+                        }).then(function () {
                             location.reload(true);
-
                         });
                         //   fetchAllEmployees();
                     }
@@ -175,7 +174,6 @@ $(document).ready(function () {
     });
 
     //Fetch Frameworks
-
     $(document).on('click', '#clickable', function (e) {
         e.preventDefault();
         let id = $(this).data('id');
@@ -211,6 +209,7 @@ $(document).ready(function () {
                                     </div>`;
                         $('#store_technology_id').val(value.technology_id);
                         $('#store_technology_name').val(value.technology_name);
+                        $('.bread_tech').text(value.technology_name);
                     });
                     $frame_data += '</div>';
                     $('.spinner-grow').hide();
@@ -220,6 +219,7 @@ $(document).ready(function () {
                     $.each(response.technology, function (key, value) {
                         $('#store_technology_id').val(value.id);
                         $('#store_technology_name').val(value.technology_name);
+                        $('.bread_tech').text(value.technology_name);
                         $('.spinner-grow').hide();
                         $('#dynamic_frameworks_quiz').append('<img src="/img/no-record-found.gif" width=100%>');
                         // $('#frame_technology_id').val(value.id);
@@ -269,6 +269,7 @@ $(document).ready(function () {
                                     </div>`;
                         $('#store_technology_id').val(value.technology_id);
                         $('#store_technology_name').val(value.technology_name);
+                        $('.active').text(value.technology_name);
                     });
                     $frame_data += '</div>';
                     $('.spinner-grow').hide();
@@ -279,6 +280,7 @@ $(document).ready(function () {
                     $.each(response.technology, function (key, value) {
                         $('#store_technology_id').val(value.id);
                         $('#store_technology_name').val(value.technology_name);
+                        $('.active').text(value.technology_name);
                         $('.spinner-grow').hide();
                         $('#dynamic_frameworks_quiz').append('<img src="/img/no-record-found.gif" width=100%>');
                         // $('#frame_technology_id').val(value.id);
@@ -303,7 +305,6 @@ $(document).ready(function () {
     });
 
     //Insert New Frameworks
-
     $('#addFrameworkForm').submit(function (e) {
         e.preventDefault();
         // alert();
@@ -323,11 +324,12 @@ $(document).ready(function () {
                     $('#add_framework').text('Add Framework');
                     $('#addFrameworkForm')[0].reset();
                     $('#addFrameworkModal').modal('hide');
-                    swal.fire(
-                        'Added',
-                        'Framework Added Successfully',
-                        'success'
-                    ).then(function () {
+                    swal.fire({
+                        title: 'Added',
+                        text: 'Framework Added Successfully',
+                        icon:'success',
+                        timer: 1000
+                     }).then(function () {
 
                         FetchFramework();
 
@@ -339,7 +341,6 @@ $(document).ready(function () {
     });
 
     //Edit Framework
-
     $(document).on('click', '#edit_framework', function (e) {
         e.preventDefault();
         let id = $(this).data('id');
@@ -358,6 +359,7 @@ $(document).ready(function () {
         });
 
     });
+
     // Update Framework
     $('#editFrameworkForm').submit(function (e) {
         e.preventDefault();
@@ -384,7 +386,8 @@ $(document).ready(function () {
                     swal.fire({
                         title: "Updated!",
                         text: "Framework Updated.",
-                        type: "success"
+                        icon:'success',
+                        timer: 1000
                     }).then(function () {
 
                         FetchFramework();
@@ -398,7 +401,6 @@ $(document).ready(function () {
     });
 
     //Delete Framework
-
     $(document).on('click', '#delete_framework', function (e) {
         e.preventDefault();
 
@@ -422,11 +424,12 @@ $(document).ready(function () {
                     },
                     success: function (response) {
                         console.log(response);
-                        Swal.fire(
-                            'Deleted!',
-                            'Your file has been deleted.',
-                            'success'
-                        ).then(function () {
+                        Swal.fire({
+                            title: "Deleted!",
+                            text: "Framework Deleted.",
+                            icon:'success',
+                            timer: 1000
+                        }).then(function () {
 
                             location.reload(true);
 
@@ -447,6 +450,9 @@ $(document).ready(function () {
         // console.log(framework_name);
         $('#store_framework_id').val(id);
         $('#store_framework_name').val(framework_name);
+        let technology_name=$('#store_technology_name').val();
+        $('.bread_technology').text(technology_name);
+        $('.bread_frame').text(framework_name);
         $('#load_technologies_data').hide();
         $('#load_frameworks_data').hide();
         $('#load_experience_data').show();
@@ -539,11 +545,12 @@ $(document).ready(function () {
                     $('#add_experience').text('Add Experience');
                     $('#addExperienceForm')[0].reset();
                     $('#addExperienceModal').modal('hide');
-                    swal.fire(
-                        'Added',
-                        'Experience Added Successfully',
-                        'success'
-                    ).then(function () {
+                    swal.fire({
+                        title: 'Added',
+                        text: 'Experience Added Successfully',
+                        icon:'success',
+                        timer: 1000
+                     }).then(function () {
 
                         FetchExperience();
 
@@ -598,7 +605,8 @@ $(document).ready(function () {
                     swal.fire({
                         title: "Updated!",
                         text: "Experience Updated.",
-                        type: "success"
+                        icon:'success',
+                        timer: 1000
                     }).then(function () {
 
                         FetchExperience();
@@ -631,11 +639,12 @@ $(document).ready(function () {
                     },
                     success: function (response) {
                         // console.log(response);
-                        Swal.fire(
-                            'Deleted!',
-                            'Your file has been deleted.',
-                            'success'
-                        ).then(function () {
+                        Swal.fire({
+                            title: "Deleted!",
+                            text: "Experience Deleted.",
+                            icon:'success',
+                            timer: 1000
+                        }).then(function () {
                             FetchExperience();
                         });
                         //   fetchAllEmployees();
@@ -708,9 +717,14 @@ $(document).ready(function () {
         let framework_id = $('#store_framework_id').val();
         // console.log(limit);
         let experience_name = $(this).data('name');
+        let technology_name=$('#store_technology_name').val();
+        let framework_name=$('#store_framework_name').val();
         // console.log(framework_name);
         $('#store_experience_id').val(id);
         $('#store_experience_name').val(experience_name);
+        $('.bread_technology').text(technology_name);
+        $('.bread_framework').text(framework_name);
+        $('.bread_ques').text(experience_name);
         $('#load_technologies_data').hide();
         $('#load_frameworks_data').hide();
         $('#load_experience_data').hide();
@@ -763,7 +777,6 @@ $(document).ready(function () {
                     swal.fire({
                        title: 'Added',
                        text: 'Question Added Successfully',
-                       type: 'success',
                        icon:'success',
                        timer: 1000
                     }).then(function () {
@@ -815,7 +828,6 @@ $(document).ready(function () {
                     swal.fire({
                         title: 'Added',
                         text: 'Answer Added Successfully',
-                        type: 'success',
                         icon:'success',
                         timer: 1000
                      })
@@ -877,7 +889,8 @@ $(document).ready(function () {
                     swal.fire({
                         title: "Updated!",
                         text: "Question Answer Updated.",
-                        type: "success"
+                        icon:'success',
+                        timer: 1000
                     }).then(function () {
 
                         FetchQuestion(experience_id,technology_id,framework_id,limit);
@@ -910,11 +923,12 @@ $(document).ready(function () {
                     method: 'delete',
                     success: function (response) {
                         if (response.status == 200) {
-                            Swal.fire(
-                                'Deleted!',
-                                'Your file has been deleted.',
-                                'success'
-                            ).then(function () {
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Question Deleted.",
+                                icon:'success',
+                                timer: 1000
+                            }).then(function () {
                                 FetchQuestion(experience_id,technology_id,framework_id,limit);
                             });
                         }
