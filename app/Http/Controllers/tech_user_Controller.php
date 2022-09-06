@@ -25,39 +25,40 @@ class tech_user_Controller extends Controller
        
         return view('user.technology',['technologies'=>$technologies,'frame1'=>$frame1]);
     }
+
+    // fetching query of question and answer fetching**********************************************
+    
     public function get_question(Request $request)
     {
-    
-           $fid= $request->id;
-           $techid=$request->tech_id;
-           $exp_id=$request->experience_id;
-          //  $both_id=DB::table('questions')->where([
-          //   ['framework_id',$fid], ['technology_id',$techid]
-          //   ])->get();
-          //   return response()->json([
-          //     'ques'=>$both_id,
-          //     'status'=>200
-          //   ]);
+        
+          $fid=$request->fid;
+
+          $techid=$request->tech_id;
+          $exp_id=$request->experience_id;
             if($exp_id==0)
             {
-              $d=DB::table('answers as a')
-              ->join('questions as q','q.id','=','a.question_id')
+              // dd($exp_id);
+              $d=DB::table('questions as q')
+              ->join('answers as a','a.question_id','=','q.id')
               ->where([
-                  ['q.framework_id',$fid],
-                  ['q.technology_id',$techid]
-              ]);
+                ['q.framework_id',$fid],
+                ['q.technology_id',$techid]
+            ]);
+            // dd($d);
             }
-            else{
-              $d=DB::table('answers as a')
-              ->join('questions as q','q.id','=','a.question_id')
+        else
+           {
+              $d=DB::table('questions as q')
+              ->join('answers as a','a.question_id','=','q.id')
               ->where([
-                  ['q.framework_id',$fid],
+                  ['q.framework_id',$fid] ,
                   ['q.technology_id',$techid],
                   ['q.experience_id',$exp_id]
               ]);
+              // dd($d);
             }
-             $d= $d->select('q.question','a.question_id','a.answer')
-              ->get();
+             $d=$d->select('q.question','a.question_id','a.answer')->get();
+              //  dd($d);
               if(count($d)>0){
                 return response()->json([
                   'ques'=>$d,
@@ -73,28 +74,9 @@ class tech_user_Controller extends Controller
              
              
             }
-            // $d=DB::table('answers as a')
-            //             ->join('questions as q','q.id','=','a.question_id')
-            //             ->where([
-            //                 ['q.framework_id',$fid],
-            //                 ['q.technology_id',$techid]
-            //                 ])
-            //             ->select('q.question','a.question_id','a.answer')
-            //             ->get();
-                        // if(count($d)>0){
-                        //   return response()->json([
-                        //     'ques'=>$d,
-                        //     'status'=>200
-                        //   ]);
-                        // }
-                        // else{
-                        //   return response()->json([
-                         
-                        //     'status'=>404
-                        //   ]);
-
-                        // }
+          
                        
     }
+// end that code************************************
          
 }
