@@ -35,7 +35,10 @@ class AuthController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
-        $user->save();
+        if($user->save()){
+            $id=DB::table('users')->select('id')->where('name',$request->name)->value('id');
+            DB::table('usertechnologies')->insert(['users_id'=>$id]);
+        }
         return response()->json(['success' => 'succesfully']);
     }
     public function loadlogin()
