@@ -60,6 +60,12 @@ Route::group(['middleware'=>['web','checkadmin']],function(){
     Route::get('/admin/quiz', [QuizController::class, 'index'])->name('quiz.index');
     Route::get('/admin/quiz/questions',[QuizController::class, 'getquestions']);
     Route::post('/admin/quiz/questions',[QuizController::class, 'savequestions']);
+    Route::get('/admin/totalquizblocks',[QuizController::class,'fetch_all_blocks']);
+    Route::get('/admin/blocks/{id}',[QuizController::class,'fetch_block_questions']);
+    Route::get('/admin/blockusers',[QuizController::class,'fetch_users']);
+    Route::post('/admin/asssignblock',[QuizController::class,'assign_block']);
+
+
 
 
     Route::get('/admin/profile', [AuthController::class,'index']);

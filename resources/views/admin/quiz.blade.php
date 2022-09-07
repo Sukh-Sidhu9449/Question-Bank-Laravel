@@ -77,8 +77,7 @@
                         <div class="page_title">
                             <div>
                                 <h5 class="page-title p-3 mt-2">
-                                    {{-- <span><i class="fa-regular fa-circle-left"
-                                            id="back_btnnn"></i></span> --}}
+                                    
                                              Quiz</h5>
                             </div>
                             <div class="d-flex">

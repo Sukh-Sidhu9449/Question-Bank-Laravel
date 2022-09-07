@@ -31,12 +31,12 @@ $(document).ready(function () {
     }
     getProfile();
 
-    $('#myform').submit(function (e) {
-        e.preventDefault();
-        let profile_form = new FormData(this);
-        console.log(profile_form[0]);
+    // $('#myform').submit(function (e) {
+    //     e.preventDefault();
+    //     let profile_form = new FormData(this);
+    //     console.log(profile_form[0]);
 
-    });
+    // });
     // $('#updateAdmin').click(function (e) {
     //     e.preventDefault();
 
@@ -51,5 +51,15 @@ $(document).ready(function () {
         reader.readAsDataURL(this.files[0]);
 
        });
+
+       document.querySelector(".updateAdmin").addEventListener('click', function(){
+        Swal.fire({
+            title: 'Success!',
+            text: 'Profile updated Successfully.',
+            type: 'success',
+            icon:'success',
+            timer: 1000
+         });
+      });
 
 });

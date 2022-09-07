@@ -72,7 +72,7 @@ $(document).ready(function () {
             }
         });
     });
-    
+
     // Add Technologies
     $('#addTechnologyForm').submit(function (e) {
         e.preventDefault();
@@ -99,9 +99,7 @@ $(document).ready(function () {
                         icon:'success',
                         timer: 1000
                      }).then(function () {
-
                         location.reload(true);
-
                     });
                 }
 

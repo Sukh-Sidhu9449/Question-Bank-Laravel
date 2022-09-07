@@ -121,7 +121,7 @@ $(document).ready(function () {
 
     });
 
-    $('#select-all').click(function (event) {
+    $(document).on('click','#select-all',function (event) {
         var $that = $(this);
         $(':checkbox').each(function () {
             this.checked = $that.is(':checked');

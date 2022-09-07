@@ -77,9 +77,14 @@
 
 .navbar{
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     background: #2f323e;
     color: #fff;
+}
+.heading h4{
+    margin-top: 20px;
+    font-family: cursive !important;
+    text-transform: capitalize;
 }
 
 .container-fluid{
@@ -495,3 +500,6 @@ footer a{
 
   }
 
+  .img_circle{
+    border-radius: 20px;
+}
