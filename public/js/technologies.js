@@ -219,8 +219,6 @@ $(document).ready(function () {
                             icon: 'error',
                             title: 'Oops...',
                             text: 'No record Found!',
-                        }).then(function () {
-                            location.reload(true);
                         });
                         // $('#dynamic_frameworks_quiz').append('<img src="/img/no-record-found.gif" width=100%>');
                         // $('#frame_technology_id').val(value.id);
@@ -287,8 +285,6 @@ $(document).ready(function () {
                             icon: 'error',
                             title: 'Oops...',
                             text: 'No record Found!',
-                        }).then(function () {
-                            location.reload(true);
                         });
                         // $('#dynamic_frameworks_quiz').append('<img src="/img/no-record-found.gif" width=100%>');
                         // $('#frame_technology_id').val(value.id);
@@ -688,7 +684,7 @@ $(document).ready(function () {
     function FetchQuestion(id, technology_id, framework_id, limit) {
         count = 0;
         $('#dynamic_question').empty();
-        $('.spinner-grow').show();
+        // $('.spinner-grow').show();
         $.ajax({
             type: "get",
             url: "/admin/questions/" + id + "/" + limit + "/" + count,
@@ -735,16 +731,12 @@ $(document).ready(function () {
 
                     }
                 }else if (response.status == 404) {
+                    $('.pageloader_button').hide();
                     $('.spinner-grow').hide();
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
                         text: 'No record Found!',
-                    }).then(function () {
-                        $('#load_frameworks_data').hide();
-                        $('#load_experience_data').show();
-                        $('#load_question_data').hide();
-                        $('#load_technologies_data').hide();
                     });
                 }
             }

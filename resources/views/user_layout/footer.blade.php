@@ -1,5 +1,5 @@
 <!-- Footer -->
-<footer class="text-center text-lg-start bg-white text-muted" style="position:absolute; display:none; bottom:0; top:180%;width:100%;">
+<footer class="text-center text-lg-start bg-white text-muted" style="display:none;">
     <!-- Section: Social media -->
     <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
       <!-- Left -->
@@ -120,15 +120,18 @@
     <!-- Copyright -->
   </footer>
   <!-- Footer -->
-
+  <script type="text/javascript" src="{{ asset('/js/Notification.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('/js/quiz_question.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/js/nav_bar_click.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/js/php_tech.js') }}"></script>
-
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> --}}
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flickity/1.0.0/flickity.pkgd.js"></script>
 <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
 
 </body>
 

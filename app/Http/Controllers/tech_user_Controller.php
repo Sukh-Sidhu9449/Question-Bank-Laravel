@@ -33,19 +33,21 @@ class tech_user_Controller extends Controller
 
             if($exp_id==0)
             {
-              $d=DB::table('answers as a')
-              ->join('questions as q','q.id','=','a.question_id')
-              ->where([
+                $d=DB::table('questions as q')
+                ->join('answers as a','a.question_id','=','q.id')
+                ->join('frameworks as f','f.id','=','q.framework_id')
+                ->where([
                   ['q.framework_id',$fid],
-                  ['q.technology_id',$techid]
+                  ['f.technology_id',$techid]
               ]);
             }
             else{
-              $d=DB::table('answers as a')
-              ->join('questions as q','q.id','=','a.question_id')
-              ->where([
+                $d=DB::table('questions as q')
+                ->join('answers as a','a.question_id','=','q.id')
+                ->join('frameworks as f','f.id','=','q.framework_id')
+                ->where([
                   ['q.framework_id',$fid],
-                  ['q.technology_id',$techid],
+                  ['f.technology_id',$techid],
                   ['q.experience_id',$exp_id]
               ]);
             }
