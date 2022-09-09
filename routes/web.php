@@ -26,6 +26,7 @@ Route::group(['middleware'=>['web','checkadmin']],function(){
 
     Route::get('/admin/dashboard',[AuthController::class,'adminDashboard']);
     Route::get('/admin/dashboard-data',[AuthController::class,'dashboardData']);
+    Route::get('/admin/notifiications',[AuthController::class,'fetch_notifications']);
 
     Route::get('/admin/technologies',[TechnologyController::class,'show'])->name('show');
     Route::get('/admin/technologies/add',[TechnologyController::class,'index']);
@@ -55,7 +56,9 @@ Route::group(['middleware'=>['web','checkadmin']],function(){
 
     Route::get('/admin/users',[UserController::class,'index'])->name('users.index');
     Route::post('/admin/users',[UserController::class,'store']);
-    Route::get('/admin/users/list', [UserController::class, 'getUsers']);
+    // Route::get('/admin/users/list', [UserController::class, 'getUsers']);
+    Route::get('/admin/userassessment/{id}',[UserController::class,'assessmentIndex']);
+    Route::get('/admin/assessmentdata',[UserController::class,'getSubmittedBlock']);
 
     Route::get('/admin/quiz', [QuizController::class, 'index'])->name('quiz.index');
     Route::get('/admin/quiz/questions',[QuizController::class, 'getquestions']);
@@ -64,6 +67,7 @@ Route::group(['middleware'=>['web','checkadmin']],function(){
     Route::get('/admin/blocks/{id}',[QuizController::class,'fetch_block_questions']);
     Route::get('/admin/blockusers',[QuizController::class,'fetch_users']);
     Route::post('/admin/asssignblock',[QuizController::class,'assign_block']);
+
 
 
 

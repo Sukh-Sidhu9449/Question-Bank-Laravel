@@ -86,17 +86,34 @@ class QuizController extends Controller
         }
     }
 
-    public function fetch_all_blocks()
+    public function fetch_all_blocks(Request $request)
     {
+        // $limit = $request->limit;
+        // $quiz_count = $request->quiz_count;
+        // if ($quiz_count == 0) {
+        //     $offset = 0;
+        // } else {
+        //     $offset = $quiz_count * $limit;
+        //     // dd($limit);
+        // }
         $blocks = DB::table('blocks')->get();
         return view('admin.viewBlocks', ['blocks' => $blocks]);
     }
 
-    public function fetch_block_questions($id)
+    public function fetch_block_questions(Request $request, $id)
     {
+        $limit = $request->limit;
+        $ques_count = $request->ques_count;
+        if ($ques_count == 0) {
+            $offset = 0;
+        } else {
+            $offset = $ques_count * $limit;
+            // dd($limit);
+        }
         $block_questions = DB::table('block_questions as bq')->where('bq.block_id', $id)
             ->join('questions as q', 'bq.question_id', '=', 'q.id')
             ->select('q.question')
+            ->offset($offset)->limit($limit)
             ->get();
         if (count($block_questions) > 0) {
             return response()->json([
@@ -110,9 +127,21 @@ class QuizController extends Controller
         }
     }
 
-    public function fetch_users()
+    public function fetch_users(Request $request)
     {
-        $users = DB::table('users')->where('role', '=', 'user')->select('id', 'name', 'email')->get();
+        $limit = $request->limit;
+        $users_count = $request->users_count;
+        if ($users_count == 0) {
+            $offset = 0;
+        } else {
+            $offset = $users_count * $limit;
+            // dd($limit);
+        }
+        $users = DB::table('users')->where('role', '=', 'user')
+                    ->select('id', 'name', 'email')
+                    ->offset($offset)
+                    ->limit($limit)
+                    ->get();
         if (count($users) > 0) {
             return response()->json(['users' => $users, 'status' => 200]);
         } else {

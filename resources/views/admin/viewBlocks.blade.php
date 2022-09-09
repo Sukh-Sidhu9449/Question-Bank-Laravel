@@ -1,6 +1,7 @@
 @extends('admin_layout.template')
 @section('main-content')
-    <div id="show_blocks">
+<input type="text" name="store_block_id" id="store_block_id" hidden>
+  <div id="show_blocks">
         <div class="first_section">
             <div class="bg-white">
                 <div class="row align-items-center">
@@ -10,7 +11,7 @@
                         </div>
                         <div class="d-flex">
                             <div>
-                                <select id="quiz_page_limit" class="form-select mt-3 mx-3 w-75 dropdown_pagination">
+                                <select id="show_blocks_limit" class="form-select mt-3 mx-3 w-75 dropdown_pagination">
                                     <option value="10" selected>10</option>
                                     <option value="20">20</option>
                                     <option value="30">30</option>
@@ -42,9 +43,9 @@
                                     <td>
                                         <button id="show_block_btn" type="button" data-id="{{ $block->id }}"
                                             class="btn btn-info"><i class="fa-solid fa-eye"></i>&nbsp;Show</button>
-                                        <button type="button" data-id="{{ $block->id }}"
+                                        {{-- <button type="button" data-id="{{ $block->id }}"
                                             class="btn btn-danger delete_block_btn"><i
-                                                class="fa-solid fa-trash"></i>&nbsp;Delete</button>
+                                                class="fa-solid fa-trash"></i>&nbsp;Delete</button> --}}
                                     </td>
                                 </tr>
                             @endforeach
@@ -72,7 +73,7 @@
                         </div>
                         <div class="d-flex">
                             <div>
-                                <select id="quiz_page_limit" class="form-select mt-3 mx-3 w-75 dropdown_pagination">
+                                <select id="block_data_limit" class="form-select mt-3 mx-3 w-75 dropdown_pagination">
                                     <option value="10" selected>10</option>
                                     <option value="20">20</option>
                                     <option value="30">30</option>
@@ -81,6 +82,7 @@
                             </div>
                             <div>
                             </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -117,7 +119,7 @@
                             </div>
                             <div class="d-flex">
                                 <div>
-                                    <select id="users_page_limit" class="form-select mt-3 mx-3 w-75 dropdown_pagination">
+                                    <select id="users_list_limit" class="form-select mt-3 mx-3 w-75 dropdown_pagination">
                                         <option value="10" selected>10</option>
                                         <option value="20">20</option>
                                         <option value="30">30</option>
@@ -146,7 +148,7 @@
                             <tbody>
                             </tbody>
                             <tfoot>
-                                
+
                             </tfoot>
                         </table>
                     </div>

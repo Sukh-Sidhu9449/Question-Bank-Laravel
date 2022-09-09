@@ -8,8 +8,11 @@ $(document).ready(function () {
 
     $('#show_block_data').hide();
     $('#load_users_list').hide();
-    $(document).on('click','#show_block_btn',function(){
-        let block_id=$(this).data('id');
+    var users_count=0;
+    var ques_count=0;
+
+    function Fetch_Block_Data(limit,ques_count) {
+        let block_id=$('#store_block_id').val();
         $('#show_block_data').show();
         $('#show_blocks').hide();
         $("#block_table > tbody").empty();
@@ -17,6 +20,10 @@ $(document).ready(function () {
         $.ajax({
             type: "get",
             url: "/admin/blocks/"+block_id,
+            data:{
+                limit:limit,
+                ques_count:ques_count
+            },
             dataType: "json",
             success: function (response) {
                 // console.log(response);
@@ -45,24 +52,28 @@ $(document).ready(function () {
                         text: 'No record Found!',
                         timer: 1000
                       })
-                    // $('#test_table').html('<img src="/img/no-record-found.gif" width=100%>');
 
                 }
 
             }
         });
+      }
+
+    $(document).on('click','#show_block_btn',function(){
+        let block_id=$(this).data('id');
+        $('#store_block_id').val(block_id);
+        let limit = $('#block_data_limit').find(":selected").text();
+        ques_count=0;
+        Fetch_Block_Data(limit,ques_count);
     });
-    var users_count=0;
-    $(document).on('click', '#assign_users_btn', function (e) {
-        e.preventDefault();
+
+    function Fetch_Users_Data(limit,users_count){
+        let block_id=$('#store_block_id').val();
         $('#load_users_list').show();
         $('#show_block_data').hide();
         $('#show_blocks').hide();
-        let block_id = $(this).data('id');
-        let limit = $('#users_page_limit').find(":selected").text();
         // console.log(limit);
         $("#users_detail_table > tbody").empty();
-        users_count = 0;
         $.ajax({
             type: "get",
             url: "/admin/blockusers",
@@ -119,6 +130,13 @@ $(document).ready(function () {
             }
         });
 
+    }
+    $(document).on('click', '#assign_users_btn', function (e) {
+        e.preventDefault();
+        let limit = $('#users_list_limit').find(":selected").text();
+        users_count = 0;
+        Fetch_Users_Data(limit,users_count);
+
     });
 
 
@@ -164,4 +182,26 @@ $(document).ready(function () {
         });
     });
 
+    // $('#show_blocks_limit').on('change', function () {
+    //     let page_limit = this.value;
+    //     let technology_id = $('#store_technology_id').val();
+    //     let framework_id = $('#store_framework_id').val();
+    //     FetchQuestion(id, technology_id, framework_id, page_limit);
+    //     // alert($page_limit);
+    // });
+
+    $('#block_data_limit').on('change', function () {
+        let limit = this.value;
+        ques_count=0;
+        Fetch_Block_Data(limit,ques_count);
+        // alert($page_limit);
+    });
+
+    $('#users_list_limit').on('change', function () {
+        let limit = this.value;
+        users_count=0;
+        Fetch_Users_Data(limit,users_count);
+
+        // alert($page_limit);
+    });
 });
