@@ -265,6 +265,35 @@ left: 200px;
 margin-top: -37px;
 }
 
+/* quiz -question design code */
+
+.section{
+  position:relative;
+  width:80%;
+  padding-top: 20px;
+  margin-left:10%;
+  height:auto !important;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;  
+}
+.question_section{
+
+ margin-left:10%;
+  font-weight: 700;
+  font-size: 20px;
+  padding:20px;
+  width:70%;
+
+}
+#form22{
+  margin-left:10%;
+  width:70%;
+  margin-top:8px;
+}
+.edit{
+  margin-left: 10%;
+  padding:5px;
+}
+
 
 
 

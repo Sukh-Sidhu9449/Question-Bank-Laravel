@@ -4,6 +4,13 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\tech_user_Controller;
 use App\Http\Controllers\UserUpdateController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\quiz_questionController;
+use App\Http\Controllers\questionController;
+
+
+
+
 
 
 
@@ -62,6 +69,15 @@ use App\Http\Controllers\UserUpdateController;
         Route::get('/user_edit',[UserUpdateController::class,'index']);
         Route::post('/user_edit',[UserUpdateController::class,'update'])->name('user_edit');
         Route::get('/core_php',[tech_user_Controller::class,'get_question']);
+        Route::get('/notification/{u_id}',[NotificationController::class,'get_Notification']);
+        Route::get('/get_count_value',[NotificationController::class,'get_COUNT']);
+        Route::get('/quiz/{block_id}/{u_id}',[quiz_questionController::class,'quiz_question']);
+        Route::post('/insertanswer',[quiz_questionController::class,'insert_answer']);
+        Route::put('/updateanswer',[quiz_questionController::class,'update_answer']);
+        
+
+
+
 
 
 

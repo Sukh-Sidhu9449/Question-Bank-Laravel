@@ -40,9 +40,10 @@ class tech_user_Controller extends Controller
               // dd($exp_id);
               $d=DB::table('questions as q')
               ->join('answers as a','a.question_id','=','q.id')
+              ->join('frameworks as f','f.id','=','q.framework_id')
               ->where([
                 ['q.framework_id',$fid],
-                ['q.technology_id',$techid]
+                ['f.technology_id',$techid]
             ]);
             // dd($d);
             }
@@ -50,9 +51,10 @@ class tech_user_Controller extends Controller
            {
               $d=DB::table('questions as q')
               ->join('answers as a','a.question_id','=','q.id')
+              ->join('frameworks as f','f.id','=','q.framework_id')
               ->where([
                   ['q.framework_id',$fid] ,
-                  ['q.technology_id',$techid],
+                  ['f.technology_id',$techid],
                   ['q.experience_id',$exp_id]
               ]);
               // dd($d);

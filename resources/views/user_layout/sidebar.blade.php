@@ -21,11 +21,14 @@
         <div class=" col-md-6 col-sm-8 col-10">
             <div class="row">
                 <div class="col-md-4 col-lg-8 col-sm-3 col-2 COL">
+                    <input type="text" id="user_id"value="{{Auth::user()->id}}" hidden>
+                 
+
                 </div>
                 <div class="col-md-4 col-lg-4 col-sm-3 col-2 d-flex div">
-
-                    <i class="fa-regular fa-bell bell py-4" data-bs-toggle="modal" data-bs-target="#myModal"></i>
-                    <span class=" mt-1"  style="text-align:center; padding-top:2px;width:12%;background-color: red; color:white; border-radius:50%; height:25px; font-size:12px;">29</span>
+                   
+                    <i class="fa-regular fa-bell bell py-4" data-bs-toggle="modal" id="notification_value" data-bs-target="#myModal"></i>
+                    <span class="count  mt-1"  style="text-align:center; padding-top:3px;width:10%;background-color: red; color:white; border-radius:40%; height:25px; font-size:12px;"></span>
                     <div class="dropdown">
                         <button class=" dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="{{ asset('user_img/img/user.jpg') }}" class="img2"></button>
@@ -36,6 +39,7 @@
                             <li><a class="dropdown-item" href="{{ route('logout') }}">Log Out</a></li>
                         </ul>
                     </div>
+                    <p>{{Auth::user()->name}}</p>
                 </div>
             </div>
 
@@ -53,8 +57,8 @@
                 </div>
 
                 <!-- Modal body -->
-                <div class="modal-body">
-                    <p>1.your php quiz is ready<a href="#">clickhere</a>
+                <div class="modal-body " id="notification" style="font-size:15px;">
+                 
                 </div>
 
 
@@ -83,20 +87,6 @@
                 </ul>
             </div>
         </nav>
-        {{-- <nav class="navbar navbar-expand-lg  navbar-dark  justify-content-center shadow .navbar-toggler" id="myHeader">
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav justify-content-center collapse.navbar-collapse ">
-                @foreach ($technologies as $items)
-                    <li class="nav-item ">
-                        <a class="nav-link" data-id="{{ $items->id }}"
-                            href="#">{{ $items->technology_name }}&nbsp; | </a>
-
-                    </li>
-                @endforeach
-
-            </ul>
-        </div>
-    </nav> --}}
     </div>
 
     <script>

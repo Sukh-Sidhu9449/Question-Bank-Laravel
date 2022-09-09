@@ -1,8 +1,8 @@
 @section('main-content')
 
-<input type="text" id="tech_id" value="" >
-<input type="text" id="frame_id" value="">
-<input type="text" id="experiance_id" value="">
+<input type="text" id="tech_id" value="" hidden >
+<input type="text" id="frame_id" value="" hidden>
+<input type="text" id="experiance_id" value="" hidden>
 
 <div class="container div2" >
     <div class="row">

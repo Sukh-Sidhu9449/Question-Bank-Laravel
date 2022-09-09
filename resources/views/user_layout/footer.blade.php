@@ -1,5 +1,5 @@
 <!-- Footer -->
-<footer class="text-center text-lg-start bg-white text-muted" style="margin-top: 300px;">
+<footer class="text-center text-lg-start bg-white text-muted" style="display:none;">
     <!-- Section: Social media -->
     <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
       <!-- Left -->
@@ -123,6 +123,9 @@
 
 <script type="text/javascript" src="{{ asset('/js/nav_bar_click.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/js/php_tech.js') }}"></script>
+<script type="text/javascript" src="{{ asset('/js/Notification.js') }}"></script>
+<script type="text/javascript" src="{{ asset('/js/quiz_question.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>  
 
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> --}}
