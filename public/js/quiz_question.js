@@ -24,7 +24,7 @@ $('.edit').hide();
     // ***********************************end area ******************************************
 
 
-    // insert and getb  value of txt area and question id******************
+    // insert and get  value of txt area and question id******************
 
     $.ajaxSetup({
         headers: {
@@ -66,7 +66,7 @@ $('.edit').hide();
             dataType: "json",
             success:function(response)
             {
-                console.log(response);
+                // console.log(response);
         
                 $(last_id).val(response.id);
             }
@@ -74,7 +74,7 @@ $('.edit').hide();
         
 
     });
-    
+// edit answer***************************************
     $(document).on('click', ".edit", function (e) {
         e.preventDefault();
         let parent = $(this).parent().find('.text-info');
@@ -84,7 +84,7 @@ $('.edit').hide();
         $(this).hide();
         
     });
-
+// update answer code********************************************
     $(document).on('click','.update', function (e) {
         e.preventDefault();
         let last=$(this).parent().find('.last_id').val();
@@ -108,7 +108,7 @@ $('.edit').hide();
             dataType: "json",
             success:function(response)
             {
-                console.log(response);
+                // console.log(response);
         
                 
                 // $(last_id).val(response.id);
@@ -118,4 +118,25 @@ $('.edit').hide();
     });
 
     // ********************end code area**************************************
+
+    // update status of block to done;
+    $(document).on('click','#submit',function(){
+        // alert("hello");
+
+  let block_id = $(this).parent().find('#block_id').val();
+  console.log(block_id);
+        $.ajax({
+
+            type:"put",
+            url:"/upatestatus",
+            data:{
+                block_id:block_id
+            },
+            dataType:"json",
+            success:function(response)
+            {
+                console.log(response);
+            }
+        });
+    });
 });

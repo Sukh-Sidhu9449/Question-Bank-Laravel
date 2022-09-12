@@ -12,8 +12,14 @@ $(document).ready(function(){
             },
             dataType: "json",
             success: function (response) {
-                // console.log(response);
+                console.log(response);
+                if(response=="")
+                {
+                    $('.count').hide();
+                }
+                else{
                 $('.count').text(response);
+                }
                 
             }
         });

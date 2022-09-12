@@ -74,6 +74,8 @@ use App\Http\Controllers\questionController;
         Route::get('/quiz/{block_id}/{u_id}',[quiz_questionController::class,'quiz_question']);
         Route::post('/insertanswer',[quiz_questionController::class,'insert_answer']);
         Route::put('/updateanswer',[quiz_questionController::class,'update_answer']);
+        Route::put('/upatestatus',[quiz_questionController::class,'upatestatus']);
+
         
 
 
