@@ -29,11 +29,11 @@ class NotificationController extends Controller
 
     }
     public function get_COUNT(Request $request)
-    {
-            $u_id=$request->u_id;
-          $get_count=DB::table('userquizzes')->where('users_id',$u_id)->get();
-         $count=count($get_count);
-         return response()->json($count);
+{
+        $u_id=$request->u_id;
+        $get_count=DB::table('userquizzes')->where([['users_id',$u_id],['status','pending']])->get();
+        $count=count($get_count);
+        return response()->json($count);
     }
 
 }

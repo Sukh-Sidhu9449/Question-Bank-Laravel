@@ -77,7 +77,7 @@
                 </div>
                 <div class="text-white font-medium">{{ Auth::user()->name }}</div>
                 <form action="" method="">
-                    <div class="dropdown-content">
+                    <div class="dropdown-menu">
                         <a href="{{ url('admin/profile') }}">
                             <button type="button" class="profile_details">Update Profile</button>
                         </a>

@@ -117,5 +117,29 @@ $(document).ready(function () {
 
         });
 
+    // update status of block to done;
+    $(document).on('click','#submit',function(){
+        // alert("hello");
+
+  let block_id = $(this).parent().find('#block_id').val();
+  console.log(block_id);
+        $.ajax({
+
+            type:"put",
+            url:"/upatestatus",
+            data:{
+                block_id:block_id
+            },
+            dataType:"json",
+            success:function(response)
+            {
+                console.log(response);
+            }
+        });
+    });
+
+
         // ********************end code area**************************************
+
+
     });
