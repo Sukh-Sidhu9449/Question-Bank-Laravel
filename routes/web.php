@@ -61,6 +61,7 @@ Route::group(['middleware' => ['web', 'checkadmin']], function () {
     // Route::get('/admin/users/list', [UserController::class, 'getUsers']);
     Route::get('/admin/userassessment/{id}', [UserController::class, 'assessmentIndex']);
     Route::get('/admin/assessmentdata', [UserController::class, 'getSubmittedBlock']);
+    Route::post('/admin/userassessment',[UserController::class,'insertIndividualMarks']);
 
     Route::get('/admin/quiz', [QuizController::class, 'index'])->name('quiz.index');
     Route::get('/admin/quiz/questions', [QuizController::class, 'getquestions']);

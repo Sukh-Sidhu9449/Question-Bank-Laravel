@@ -35,8 +35,7 @@ $(document).ready(function(){
             console.log(response);
             $notification_data="<span> ";
             $.each(response.notification,function(key,value){
-
-                $notification_data+= '<p ><a data-id= "'+value.id+'" href="#" id="start_quiz">'+ value.block_name + '</a></p>';
+                $notification_data+= '<p><a data-id= "'+value.id+'" href="#" id="start_quiz">'+ value.block_name + '</a></p>';
 
             });
             $notification_data += '</span>';

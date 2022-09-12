@@ -44,8 +44,8 @@ $(document).ready(function () {
         reader.readAsDataURL(this.files[0]);
 
        });
-
-       document.querySelector(".updateAdmin").addEventListener('click', function(){
+$(document).on('click',".updateAdmin",function(){
+    //    document.querySelector(".updateAdmin").addEventListener('click', function(){
         Swal.fire({
             title: 'Success!',
             text: 'Profile updated Successfully.',

@@ -128,7 +128,7 @@ class UserController extends Controller
             ->where([
                 ['uq.id', $id],
             ])
-            ->select('ua.users_id','uq.id', 'q.question', 'ua.answer', 'bq.question_id')
+            ->select('ua.users_id','uq.id', 'q.question', 'ua.answer', 'ua.id as question_id')
             ->get();
         if ($submitted_data) {
             if (count($submitted_data) > 0) {
@@ -140,4 +140,20 @@ class UserController extends Controller
             return response()->json(['message'=>'Query Failed','status' => 404]);
         }
     }
+
+    public function insertIndividualMarks(Request $request){
+        // $quiz_id=$request->quiz_id;
+        $ques_id=$request->ques_id;
+        $single_mark=$request->single_mark;
+        $data=[
+         'marks_per_ques'=>$single_mark
+        ];
+        $query=DB::table('user_assessments')->where('id',$ques_id)->update($data);
+        if($query){
+            return response()->json(['status'=>200]);
+        }else{
+            return response()->json(['status'=>404]);
+
+        }
+     }
 }

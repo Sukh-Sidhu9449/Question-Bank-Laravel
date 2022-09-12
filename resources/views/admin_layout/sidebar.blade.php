@@ -59,14 +59,12 @@
                             <span class="red_circle">
 
                             </span>
-                            </span>
+                        </span>
                     </div>
-                    <div id="notifications_desc" class="dropdown-content">
+                    <div id="notifications_desc" class="dropdown-content notication_heading">
 
                     </div>
                 </div>
-
-
             </div>
         </div>
 
