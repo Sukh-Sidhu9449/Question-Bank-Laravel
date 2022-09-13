@@ -4,16 +4,14 @@
 
 <div class="container-fluid p-0">
     <div class="container-fluid p-4 quiz_question">Take a Quiz    </div>
-    
     <div class="section">
         <form  action="" method="post">
         @csrf
-                @foreach ($quiz_question as $key=>$data)   
+                @foreach ($quiz_question as $key=>$data)
 
         <div class="question_section shadow">
             Q.
-            {{-- {{$loop->iteration}} --}}
-            {{ $quiz_question->firstItem() + $loop->index }}</td>
+            {{ $quiz_question->firstItem() + $loop->index }}
             {{$data->question }}
         </div>
         <div class="md-form mt-3 amber-textarea active-amber-textarea">
@@ -31,12 +29,9 @@
         @endforeach
     </form>
     {{ $quiz_question->links() }}
-        
         <button class="btn btn-primary mt-2 mb-5" name="submit" id="submit">submit</button>
-    
-
     </div>
-   
+
 
 </div>
 

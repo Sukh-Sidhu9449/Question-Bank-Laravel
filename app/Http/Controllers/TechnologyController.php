@@ -31,13 +31,7 @@ class TechnologyController extends Controller
         ]);
     }
 
-
-    public function store(Request $request)
-    {
-    }
-
     // Fetch all Technologies
-
     public function show()
     {
         $technologies = DB::table('technologies')->get();
@@ -56,9 +50,6 @@ class TechnologyController extends Controller
 
     public function update(Request $request)
     {
-
-        // return response()->json([$request->technology_id]);
-        // DB::table('technologies')->find($request->technology_id);
         $tech_data = [
             'technology_name' => $request->edit_technology_name,
             'technology_description' => $request->edit_technology_description,

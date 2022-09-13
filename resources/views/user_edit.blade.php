@@ -8,8 +8,8 @@
                     <div class="mb-3">
                         <h2>Update Records</h2>
                         @foreach ($users as $std)
-                            <div class="d-flex" style="margin-top: 50px;">
-                                <svg style="margin-right:-40px;margin-left:50px;margin-top:10px;"
+                            <div class="d-flex" style="margin-top: 0px;">
+                                <svg style="margin-right:-40px;margin-left:50px;margin-top:0px;"
                                     xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
                                     class="bi bi-person-fill" viewBox="0 0 16 16">
                                     <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
@@ -35,7 +35,7 @@
                                 d="M3 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V2zm6 11a1 1 0 1 0-2 0 1 1 0 0 0 2 0z" />
                         </svg>
                         <input type="text" class="form-control second" id="mobile_no_id" placeholder="Mobile Number"
-                            name="mobile_no" value="{{ $std->mobile_no }}">
+                            name="mobile_no" value="">
                     </div>
                     <div class="mb-3 d-flex">
                         <svg style="margin-right:-40px;margin-left:50px;margin-top:10px;"xmlns="http://www.w3.org/2000/svg"

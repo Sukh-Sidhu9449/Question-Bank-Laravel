@@ -14,10 +14,10 @@ class UserUpdateController extends Controller
         //dd($users);
         //$user = App\User::where('id',$id)->first();
 
-        
-        return view('user_edit',['users'=>$users,'technologies'=>$technologies]); 
+
+        return view('user_edit',['users'=>$users,'technologies'=>$technologies]);
     }
-    
+
     public function update(Request $request){
         $id =Auth::user()->id;
         $name = $request->input('name');
@@ -44,7 +44,6 @@ class UserUpdateController extends Controller
             }
             $image= "/img/".$unique_image;
         }
-        
              DB::table('users')
               ->where('id','=',$id)
               ->update(['name' =>$name,
@@ -56,7 +55,7 @@ class UserUpdateController extends Controller
                         'current_company'=>$current_company,
                         'experience'=>$experience,
                         'image'=>$image,
-                       ]);   
-                       return redirect('/user_edit');        
+                       ]);
+                       return redirect('/user_edit');
                     }
                 }

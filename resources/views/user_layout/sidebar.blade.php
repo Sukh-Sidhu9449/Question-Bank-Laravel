@@ -22,11 +22,10 @@
             <div class="row">
                 <div class="col-md-4 col-lg-8 col-sm-3 col-2 COL">
                     <input type="text" id="user_id"value="{{Auth::user()->id}}" hidden>
-                 
+
 
                 </div>
                 <div class="col-md-4 col-lg-4 col-sm-3 col-2 d-flex div">
-                   
                     <i class="fa-regular fa-bell bell py-4" data-bs-toggle="modal" id="notification_value" data-bs-target="#myModal"></i>
                     <span class="count  mt-1"  style="text-align:center; padding-top:3px;width:10%;background-color: red; color:white; border-radius:40%; height:25px; font-size:12px;"></span>
                     <div class="dropdown">
@@ -52,13 +51,12 @@
                 <!-- Modal Header -->
 
                 <div class="modal-header">
-                    <h4 class="modal-title">Quiz Notification</h4>
+                    <h5 class="modal-title">Quiz Notification</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
 
                 <!-- Modal body -->
                 <div class="modal-body " id="notification" style="font-size:15px;">
-                 
                 </div>
 
 

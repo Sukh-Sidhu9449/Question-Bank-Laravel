@@ -30,8 +30,8 @@ class quiz_questionController extends Controller
 
         $user_id=Auth::user()->id;
         $data=[
-            'block_question_id' => $request->question_id, 
-            'answer' => $request->answer, 
+            'block_question_id' => $request->question_id,
+            'answer' => $request->answer,
             'users_id'=>$user_id,
             'quiz_id'=>$request->quiz_id
         ];
@@ -49,7 +49,7 @@ class quiz_questionController extends Controller
     public function update_answer(Request $request){
         $last_id=$request->last_id;
         $data=[
-                        'answer' => $request->answer,           
+                        'answer' => $request->answer,
         ];
 
         $query=DB::table('user_assessments')->where('id',$last_id)->update($data);
@@ -77,6 +77,5 @@ class quiz_questionController extends Controller
         }
 
     }
-    
-    
+
 }

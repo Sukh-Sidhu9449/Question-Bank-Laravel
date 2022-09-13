@@ -7,7 +7,6 @@
         <span>Get connected with us on social networks:</span>
       </div>
       <!-- Left -->
-  
       <!-- Right -->
       <div>
         <a href="" class="me-4 link-secondary">
@@ -32,7 +31,6 @@
       <!-- Right -->
     </section>
     <!-- Section: Social media -->
-  
     <!-- Section: Links  -->
     <section class="">
       <div class="container text-center text-md-start mt-5">
@@ -50,7 +48,6 @@
             </p>
           </div>
           <!-- Grid column -->
-  
           <!-- Grid column -->
           <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
             <!-- Links -->
@@ -71,7 +68,6 @@
             </p>
           </div>
           <!-- Grid column -->
-  
           <!-- Grid column -->
           <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
             <!-- Links -->
@@ -92,7 +88,6 @@
             </p>
           </div>
           <!-- Grid column -->
-  
           <!-- Grid column -->
           <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
             <!-- Links -->
@@ -111,7 +106,6 @@
       </div>
     </section>
     <!-- Section: Links  -->
-  
     <!-- Copyright -->
     <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.025); margin-top:150px;">
       © 2022 Copyright:
@@ -132,6 +126,8 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flickity/1.0.0/flickity.pkgd.js"></script>
 <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
 
 </body>
 
