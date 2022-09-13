@@ -13,8 +13,6 @@ use App\Http\Controllers\UserUpdateController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\quiz_questionController;
 
-
-
 Route::get('/register', [AuthController::class, 'loadRegister']);
 Route::post('/register', [AuthController::class, 'userRegister'])->name('userRegister');
 Route::get('/login', function () {
@@ -74,9 +72,6 @@ Route::group(['middleware' => ['web', 'checkadmin']], function () {
     Route::post('/admin/asssignblock', [QuizController::class, 'assign_block']);
 
 
-
-
-
     Route::get('/admin/profile', [AuthController::class, 'index']);
     Route::get('/admin/profile/user', [AuthController::class, 'getProfileData']);
     Route::put('/admin/profile', [AuthController::class, 'update'])->name('profile.update');
@@ -97,5 +92,4 @@ Route::group(['middleware' => ['web', 'checkuser']], function () {
     Route::post('/insertanswer', [quiz_questionController::class, 'insert_answer']);
     Route::put('/updateanswer', [quiz_questionController::class, 'update_answer']);
     Route::put('/upatestatus',[quiz_questionController::class,'upatestatus']);
-
 });
