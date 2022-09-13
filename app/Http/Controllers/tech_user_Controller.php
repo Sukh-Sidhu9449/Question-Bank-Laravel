@@ -32,9 +32,15 @@ class tech_user_Controller extends Controller
     {
         
           $fid=$request->fid;
-
           $techid=$request->tech_id;
           $exp_id=$request->experience_id;
+          $limit= $request->limit;
+          $count= $request->count;
+          if ($count == 0) {
+              $offset = 0;
+        } else {
+            $offset = $count * $limit;
+        }
             if($exp_id==0)
             {
               // dd($exp_id);
@@ -59,7 +65,9 @@ class tech_user_Controller extends Controller
               ]);
               // dd($d);
             }
-             $d=$d->select('q.question','a.question_id','a.answer')->get();
+             $d=$d->select('q.question','a.question_id','a.answer') ->offset($offset)->limit($limit)
+             ->get();
+
               //  dd($d);
               if(count($d)>0){
                 return response()->json([

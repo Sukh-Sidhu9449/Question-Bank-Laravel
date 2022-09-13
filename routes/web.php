@@ -72,11 +72,6 @@ Route::group(['middleware' => ['web', 'checkadmin']], function () {
     Route::get('/admin/blocks/{id}', [QuizController::class, 'fetch_block_questions']);
     Route::get('/admin/blockusers', [QuizController::class, 'fetch_users']);
     Route::post('/admin/asssignblock', [QuizController::class, 'assign_block']);
-
-
-
-
-
     Route::get('/admin/profile', [AuthController::class, 'index']);
     Route::get('/admin/profile/user', [AuthController::class, 'getProfileData']);
     Route::put('/admin/profile', [AuthController::class, 'update'])->name('profile.update');
