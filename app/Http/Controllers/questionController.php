@@ -118,7 +118,7 @@ class QuestionController extends Controller
             'status' => 200
         ]);
     }
-
+    
     //Delete Question Answer
     public function destroy($id)
     {
