@@ -37,15 +37,15 @@ $(document).ready(function(){
         success: function (response) {
 
             console.log(response);
-            
+
             $notification_data="<span> ";
             $.each(response.notification,function(key,value){
-                if(value.status=='Pending'){
+                if(value.status=='P'){
                 $notification_data+= '<p><a data-id= "'+value.id+'" href="#" id="start_quiz">'+value.status+' ' + value.block_name + '</a></p>';
 
-                }else if(value.status=='Checked'){
+                }else if(value.status=='C'){
                     $notification_data+= '<p><a data-aggregate= "'+value.block_aggregate+'" data-feedback="'+value.feedback+'" href="#" id="checked_quiz">'+value.status+' ' + value.block_name + '</a></p>';
-    
+
                     }
 
             });
