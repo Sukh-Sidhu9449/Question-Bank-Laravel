@@ -208,8 +208,15 @@ class AuthController extends Controller
     }
     public function logout(Request $request)
     {
-        Auth::logout();
+            Auth::logout();
         $request->Session()->flush();
-        return response()->json(['status'=>200]);
+        return redirect('/');
+
+    }
+
+    public function adminlogout(Request $request){
+        Auth::logout();
+            $request->Session()->flush();
+            return response()->json(['status'=>200]);
     }
 }

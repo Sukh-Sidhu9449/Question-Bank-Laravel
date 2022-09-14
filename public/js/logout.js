@@ -3,7 +3,7 @@ $(document).ready(function(){
         e.preventDefault();
         $.ajax({
             type: "GET",
-            url: "/logout",
+            url: "/admin/logout",
             // data: "data",
             dataType: "json",
             success: function (response) {

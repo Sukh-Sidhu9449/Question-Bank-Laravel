@@ -21,6 +21,8 @@ Route::get('/login', function () {
 Route::get('/', [AuthController::class, 'loadlogin']);
 Route::post('/login', [AuthController::class, 'userlogin'])->name('userlogin');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/admin/logout', [AuthController::class, 'adminlogout']);
+
 
 Route::group(['middleware' => ['web', 'checkadmin']], function () {
 
