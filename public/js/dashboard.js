@@ -160,7 +160,7 @@ $(document).ready(function () {
         var str2 = "Uncheck";
         if (TickElement.indexOf(str2) != -1) {
             $('.CheckUncheck').html('Please Check First');
-
+            // $('#dynamic_submitted_block').html('<img id="loadingimage" src="/img/loading.gif" alt="logo" width="100px" height="100px">').(3000);
         } else {
             var marks = '';
             var total = 0;
@@ -177,6 +177,7 @@ $(document).ready(function () {
                 aggergate = parseFloat(total / i);
                 aggergate = aggergate.toFixed(2);
             }
+
             $('#store_aggregate').val(aggergate);
             $('.individual_marks').prop('disabled', true);
             $('#FeedbackModal').modal('show');

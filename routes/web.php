@@ -13,8 +13,6 @@ use App\Http\Controllers\UserUpdateController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\quiz_questionController;
 
-
-
 Route::get('/register', [AuthController::class, 'loadRegister']);
 Route::post('/register', [AuthController::class, 'userRegister'])->name('userRegister');
 Route::get('/login', function () {
@@ -92,5 +90,4 @@ Route::group(['middleware' => ['web', 'checkuser']], function () {
     Route::post('/insertanswer', [quiz_questionController::class, 'insert_answer']);
     Route::put('/updateanswer', [quiz_questionController::class, 'update_answer']);
     Route::put('/upatestatus',[quiz_questionController::class,'upatestatus']);
-
 });
