@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 date_default_timezone_set("Asia/Calcutta");
@@ -53,11 +54,12 @@ class QuizController extends Controller
 
     public function savequestions(Request $request)
     {
+        $admin_id=Auth::user()->id;
         $block_name = $request->block_name;
         $insert_data = $request->insert;
         $questions = explode(",", $insert_data);
 
-        $query = DB::table('blocks')->insert(['block_name' => $block_name, 'created_at' => date('Y:m:d H:i:s')]);
+        $query = DB::table('blocks')->insert(['block_name' => $block_name,'admin_id'=>$admin_id, 'created_at' => date('Y:m:d H:i:s')]);
         if ($query) {
             $block_id = DB::table('blocks')->select('id')->where('block_name', $block_name)->value('id');
             $data = array();

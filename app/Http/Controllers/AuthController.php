@@ -37,10 +37,13 @@ class AuthController extends Controller
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         if($user->save()){
-            $id=DB::table('users')->select('id')->where('name',$request->name)->value('id');
-            DB::table('usertechnologies')->insert(['users_id'=>$id]);
+            // $id=DB::table('users')->select('id')->where('name',$request->name)->value('id');
+            // DB::table('usertechnologies')->insert(['users_id'=>$id]);
+            return response()->json(['status' => '200']);
+        }else{
+            return response()->json(['status' => '404']);
         }
-        return response()->json(['success' => 'succesfully']);
+
     }
     public function loadlogin()
     {
@@ -59,6 +62,14 @@ class AuthController extends Controller
             'password' => 'string|required'
 
         ]);
+        if($request->rememberme===null){
+            setcookie('login_email',$request->email,100);
+            setcookie('login_pass',$request->password,100);
+         }
+         else{
+            setcookie('login_email',$request->email,time()+60*60*24*100);
+            setcookie('login_pass',$request->password,time()+60*60*24*100);
+         }
         $userCredential = $request->only('email', 'password');
         if (Auth::attempt($userCredential)) {
             $last_login=Auth::user()->last_login;
@@ -168,12 +179,18 @@ class AuthController extends Controller
     }
 
     public function fetch_notifications(){
-        $notifications=Db::table('userquizzes as uq')->where('uq.status','Submitted')
+        $notifications=Db::table('userquizzes as uq')->where('uq.status','S')->orWhere('uq.status','U')
                             ->join('users as u','u.id','=','uq.users_id')
                             ->join('blocks as b','b.id','=','uq.block_id')
-                            ->select('uq.id','u.name','b.block_name','uq.submitted_at')
+                            ->select('uq.id','uq.status','u.name','b.block_name','uq.submitted_at')
                             ->get();
-        $count_notifications=count($notifications);
+
+        $countNotifications=Db::table('userquizzes as uq')->where('uq.status','S')
+                            ->join('users as u','u.id','=','uq.users_id')
+                            ->join('blocks as b','b.id','=','uq.block_id')
+                            ->select('uq.id','uq.status','u.name','b.block_name','uq.submitted_at')
+                            ->get();
+        $count_notifications=count($countNotifications);
         if(count($notifications)>0){
             return response()->json(['count_notifications'=>$count_notifications,'notifications'=>$notifications,'status'=>200]);
         }else{
@@ -193,6 +210,6 @@ class AuthController extends Controller
     {
         Auth::logout();
         $request->Session()->flush();
-        return redirect('/');
+        return response()->json(['status'=>200]);
     }
 }

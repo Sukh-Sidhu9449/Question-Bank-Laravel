@@ -22,7 +22,7 @@ class quiz_questionController extends Controller
         ->join('block_questions','block_questions.block_id','=','userquizzes.block_id')
         ->join('questions','block_questions.question_id','=','questions.id')
         ->where('userquizzes.block_id',$block_id)
-        ->select('userquizzes.id as u','block_questions.block_id','block_questions.id','questions.question')->paginate(3);
+        ->select('userquizzes.id as u','block_questions.block_id','block_questions.id','questions.question')->get();
          return view("user.quiz_question",['quiz_question'=>$quiz_question_data,'technologies'=>$technologies]);
     }
     public function insert_answer(Request $request)

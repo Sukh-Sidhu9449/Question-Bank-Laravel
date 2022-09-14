@@ -12,8 +12,8 @@
                 @foreach ($quiz_question as $key=>$data)
 
         <div class="question_section shadow">
-            Q.
-            {{ $quiz_question->firstItem() + $loop->index }}
+            Q.{{$loop->iteration}}
+            {{-- {{ $quiz_question->firstItem() + $loop->index }} --}}
             {{$data->question }}
         </div>
         <div class="md-form mt-3 amber-textarea active-amber-textarea">
@@ -30,11 +30,11 @@
         </div>
         @endforeach
     </form>
-    {{ $quiz_question->links() }}
+    {{-- {{ $quiz_question->links() }} --}}
         <button class="btn btn-primary mt-2 mb-5" name="submit" id="submit">submit</button>
-      
+
     </div>
-   
+
 
 
 </div>

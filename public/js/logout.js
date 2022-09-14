@@ -5,9 +5,20 @@ $(document).ready(function(){
             type: "GET",
             url: "/logout",
             // data: "data",
-            // dataType: "dataType",
+            dataType: "json",
             success: function (response) {
-                window.location="/login";
+                if(response.status==200){
+                    Swal.fire({
+                        title: 'Success!',
+                        text: 'Logout Successfully.',
+                        type: 'success',
+                        icon:'success',
+                        timer: 1000
+                     }).then(function () {
+                        window.location = '/login';
+                    });
+                }
+
             }
         });
 
