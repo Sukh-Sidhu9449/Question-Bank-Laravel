@@ -26,7 +26,7 @@
 
                 </div>
                 <div class="col-md-4 col-lg-4 col-sm-3 col-2 d-flex div">
-                    <i class="fa-regular fa-bell bell py-4" data-bs-toggle="modal" id="notification_value" data-bs-target="#myModal"></i>
+                    <i class="fa-regular fa-bell bell py-4" id="notification_value" ></i>
                     <span class="count mt-1"></span>
                     <div class="dropdown">
                         <button class=" dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -113,34 +113,3 @@
             </div>
         </nav>
     </div>
-
-    <script>
-        $(document).ready(function() {
-            $(".btn").click(function() {
-                var val = parseInt($('#group').find('.badge').text());
-
-                // Check for the button clicked
-                if ($(this).hasClass('btn-danger')) {
-                    $('#group').find('.badge').text(val - 1);
-                } else if ($(this).hasClass('btn-success')) {
-                    $('#group').find('.badge').text(val + 1);
-                }
-            });
-        });
-
-
-        window.onscroll = function() {
-            myFunction()
-        };
-
-        var header = document.getElementById("myHeader");
-        var sticky = header.offsetTop;
-
-        function myFunction() {
-            if (window.pageYOffset > sticky) {
-                header.classList.add("sticky");
-            } else {
-                header.classList.remove("sticky");
-            }
-        }
-    </script>

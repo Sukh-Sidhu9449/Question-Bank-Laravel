@@ -14,14 +14,14 @@ date_default_timezone_set("Asia/Calcutta");
 class quiz_questionController extends Controller
 {
     //
-    public function quizQuestion($block_id,$u_id)
+    public function quizQuestion($quiz_id,$u_id)
     {
         $technologies = DB::table('technologies')->whereBetween('id', [1,10])->get();
 
         $query=DB::table('userquizzes')
         ->join('block_questions','block_questions.block_id','=','userquizzes.block_id')
         ->join('questions','block_questions.question_id','=','questions.id')
-        ->where('userquizzes.block_id',$block_id)
+        ->where('userquizzes.id',$quiz_id)
         ->select('userquizzes.id as u','block_questions.block_id','block_questions.id','questions.question')->get();
 
         $quizQuestionData = array();
@@ -32,6 +32,7 @@ class quiz_questionController extends Controller
             $array['id'] = $userTech->id;
             $array['question'] = $userTech->question;
             $array['answer'] = $this->getAnswer($userTech->u,$userTech->id);
+            $array['answerid']=$this->getAnswerId($userTech->u,$userTech->id);
 
             $quizQuestionData[] = $array;
         }
@@ -41,6 +42,17 @@ class quiz_questionController extends Controller
          return view("user.quiz_question",['quizQuestionData'=>$quizQuestionData,'technologies'=>$technologies]);
     }
 
+    public function getAnswerId($quiz_id,$ques_id)
+    {
+        $query = DB::table('user_assessments as ua')
+        ->select('ua.id')
+        ->where([['ua.quiz_id',$quiz_id],['ua.block_question_id', $ques_id]])->value('id');
+        // ->where('u.role', 'user')
+    //    $answer=$query[0];
+
+        return $query;
+
+    }
     public function getAnswer($quiz_id,$ques_id)
     {
         $query = DB::table('user_assessments as ua')
@@ -79,10 +91,12 @@ class quiz_questionController extends Controller
         $data=[
                 'answer' => $request->answer,
         ];
-        $query=DB::table('user_assessments')->where('block_question_id',$last_id)->update($data);
-        if($query){
-            return response()->json(['status'=>200]);
-        }
+      
+            $query=DB::table('user_assessments')->where('id',$last_id)->update($data);
+            if($query){
+                return response()->json(['status'=>200]);
+            }
+        
     }
     public function updateStatus(Request $request)
     {
@@ -95,13 +109,28 @@ class quiz_questionController extends Controller
             'status'=>'S',
             'submitted_at'=>$date,
         ];
-        $query=DB::table('userquizzes')->where([['users_id',$user_id],['block_id',$block_id]])->update($update_status);
+        $query = DB::table('userquizzes')->where([['users_id',$user_id],['block_id',$block_id]])->update($update_status);
         if($query)
         {
             return response()->json(['status'=>200,
                 'message'=>"you have successfully submit your quiz"
         ]);
         }
+
+    }
+    public function statusInitiate()
+    {
+        $user_id=Auth::user()->id;
+        
+        $statusInitiate = [
+            'status'=>'I'
+        ];
+        $query = DB::table('userquizzes')->where([['users_id',$user_id],['status','P']])->update($statusInitiate);
+       
+            return response()->json(['status'=>200,
+            'message'=>"status update to initiate"
+    ]);
+        
 
     }
 

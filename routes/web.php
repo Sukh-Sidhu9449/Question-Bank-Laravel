@@ -92,4 +92,6 @@ Route::group(['middleware' => ['web', 'checkuser']], function () {
     Route::post('/insertanswer', [quiz_questionController::class, 'insertAnswer']);
     Route::put('/updateanswer', [quiz_questionController::class, 'updateAnswer']);
     Route::put('/upatestatus',[quiz_questionController::class,'updateStatus']);
+    Route::put('/quiz',[quiz_questionController::class,'statusInitiate']);
+
 });
