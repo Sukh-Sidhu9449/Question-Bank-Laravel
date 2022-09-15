@@ -129,7 +129,7 @@
                     <div class="bg-white">
                         <table id="test_table" class="table table-hover">
                             <thead class="table-dark">
-                                <th>#</th>
+                                <th><input type="checkbox" id="select-all"></th>
                                 <th>S.N.</th>
                                 <th>Quiz Questions</th>
                             </thead>
@@ -138,8 +138,7 @@
                             <tfoot>
                                 <tr>
                                     <td colspan="2">
-                                        <input type="checkbox" id="select-all"><span>&nbsp;&nbsp;&nbsp;&nbsp; Select
-                                            All</span>
+                                        
                                     </td>
                                     <td>
                                         <form>
