@@ -17,7 +17,9 @@ class NotificationController extends Controller
             ['users_id',$u_id],['status','=','P']
         ])
         ->orWhere([['users_id',$u_id],['status','C']])
-        ->Select('blocks.id','blocks.block_name','userquizzes.status','userquizzes.block_aggregate','userquizzes.feedback')->get();
+        ->orWhere([['users_id',$u_id],['status','I']])
+
+        ->Select('userquizzes.id','blocks.block_name','userquizzes.status','userquizzes.block_aggregate','userquizzes.feedback')->get();
         // dd($notificaton);
         // $count=count($notificaton);
         return response()->json([

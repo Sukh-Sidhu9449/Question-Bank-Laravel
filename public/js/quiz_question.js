@@ -26,11 +26,22 @@ $(document).ready(function () {
         $('#block_id').val(block_id);
         console.log(block_id);
         $('#myModal').hide();
+        $.ajax({
+            type: "put",
+            url: "/quiz",
+            dataType: "json",
+            success: function (response) {
+                if(response.status==200){
+                    swal.fire("Start your quiz").then(function () {
+                        // get_question(block_id);
+                        window.location = "/quiz/" + block_id + "/" + u_id;
+                    })
+                }
+                
+            }
+        });
 
-        swal.fire("Start your quiz").then(function () {
-            // get_question(block_id);
-            window.location = "/quiz/" + block_id + "/" + u_id;
-        })
+        
 
     });
     $(document).on('click', "#checked_quiz", function (e) {
@@ -93,7 +104,7 @@ $(document).ready(function () {
             },
             dataType: "json",
             success: function (response) {
-                console.log(response);
+                // console.log(response);
                 if(response.success==true)
                 {
                     $.toast({
@@ -104,7 +115,7 @@ $(document).ready(function () {
                         showHideTransition: 'slide'
                     })
                 }
-                //  $(last).val(response.id);
+                // $(".last_id").val(response.id);
 
             }
         });
@@ -121,9 +132,9 @@ $(document).ready(function () {
         let parent = $(this).parent().find('.text-info');
         $(parent).attr("disabled", false);
         $(this).parent().find('.update').show();
-        var last_id = $(this).parent().find('.last_id');
+        var last_id = $(this).parent().find('.last_id').val();
         $(this).hide();
-        // console.log(last_id);
+        console.log(last_id);
         $(this).parent().find('.enter').hide();
         //  $('.update').show();
         $(this).parent().find('.update').show();
@@ -138,6 +149,16 @@ $(document).ready(function () {
         console.log(last);
         let parent = $(this).parent().find('.text-info');
         let answer = parent.val();
+        if(answer == ''){
+            $.toast({
+                heading: 'Error',
+                text: ' You can not Insert Empty field',
+                showHideTransition: 'slide',
+                position:'bottom-center',
+                icon: 'error'
+            })
+            return false;
+        }
         $(parent).attr("disabled", true);
         $(this).parent().find('.edit').show();
         $(this).hide();
@@ -155,6 +176,7 @@ $(document).ready(function () {
             },
             dataType: "json",
             success: function (response) {
+                console.log(response);
                 $.toast({
                     text: 'Yes! update succesfully>.',
                     hideAfter: 1000 ,
@@ -188,10 +210,21 @@ $(document).ready(function () {
             success: function (response) {
                 // console.log(response);
                 $('#msg').empty();
-                var msg = response.message;
-                $("#msg").append(msg).fadeOut(9000);
-
-                // console.log(msg);
+               if(response.status==200)
+               {
+                $.toast({
+                    heading: 'Submit',
+                    text: 'Quiz has been Submitted Successfully.',
+                    showHideTransition: 'slide',
+                    position: 'top-center',
+                    icon: 'success',
+                    show: 1000 
+                })
+               }
+               else{
+                console.log("not done");
+               }
+                
 
             }
         });
