@@ -169,11 +169,11 @@ class UserController extends Controller
      public function feedbackBlock(Request $request){
         $QuizId=$request->QuizId;
         $Aggergate=$request->Aggergate;
-        $Feedback=$request->Feedback;
+        // $Feedback=$request->Feedback;
 
         $data=[
             'block_aggregate'=>$Aggergate,
-            'feedback'=>$Feedback,
+            // 'feedback'=>$Feedback,
             'status'=>'C',
         ];
 
