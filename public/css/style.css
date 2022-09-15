@@ -5,9 +5,12 @@ body {
 
     font-family: 'Open Sans',sans-serif;
     overflow:inherit;
-
-
   }
+
+  .aaa{
+    overflow-x: hidden;
+  }
+
   .row {
     /* background-color: #b3b6b7; */
     height: 70px;

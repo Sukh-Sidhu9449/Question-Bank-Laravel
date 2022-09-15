@@ -15,7 +15,7 @@ class QuizController extends Controller
         $technologies = DB::table('technologies')->get();
         return view('admin.quiz', ['technologies' => $technologies]);
     }
-    public function getquestions(Request $request)
+    public function getQuestions(Request $request)
     {
         $tech_id = $request->tech_id;
         $frame_id = $request->frame_id;
@@ -52,7 +52,7 @@ class QuizController extends Controller
         }
     }
 
-    public function savequestions(Request $request)
+    public function saveQuestions(Request $request)
     {
         $admin_id=Auth::user()->id;
         $block_name = $request->block_name;
@@ -88,7 +88,7 @@ class QuizController extends Controller
         }
     }
 
-    public function fetch_all_blocks(Request $request)
+    public function fetchAllBlocks(Request $request)
     {
         // $limit = $request->limit;
         // $quiz_count = $request->quiz_count;
@@ -102,7 +102,7 @@ class QuizController extends Controller
         return view('admin.viewBlocks', ['blocks' => $blocks]);
     }
 
-    public function fetch_block_questions(Request $request, $id)
+    public function fetchBlockQuestions(Request $request, $id)
     {
         $limit = $request->limit;
         $ques_count = $request->ques_count;
@@ -129,7 +129,7 @@ class QuizController extends Controller
         }
     }
 
-    public function fetch_users(Request $request)
+    public function fetchUsers(Request $request)
     {
         $limit = $request->limit;
         $users_count = $request->users_count;
@@ -151,7 +151,7 @@ class QuizController extends Controller
         }
     }
 
-    public function assign_block(Request $request)
+    public function assignBlock(Request $request)
     {
         $block_id = $request->block_id;
         $user_id = $request->user_id;

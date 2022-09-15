@@ -14,7 +14,7 @@ date_default_timezone_set("Asia/Calcutta");
 class quiz_questionController extends Controller
 {
     //
-    public function quiz_question($block_id,$u_id)
+    public function quizQuestion($block_id,$u_id)
     {
         $technologies = DB::table('technologies')->whereBetween('id', [1,10])->get();
 
@@ -52,7 +52,7 @@ class quiz_questionController extends Controller
         return $query;
 
     }
-    public function insert_answer(Request $request)
+    public function insertAnswer(Request $request)
     {
 
         $user_id=Auth::user()->id;
@@ -73,19 +73,18 @@ class quiz_questionController extends Controller
         );
 
     }
-    public function update_answer(Request $request){
+    public function updateAnswer(Request $request){
         $last_id=$request->last;
         // dd($last_id);
         $data=[
                 'answer' => $request->answer,
         ];
-
         $query=DB::table('user_assessments')->where('block_question_id',$last_id)->update($data);
         if($query){
             return response()->json(['status'=>200]);
         }
     }
-    public function upatestatus(Request $request)
+    public function updateStatus(Request $request)
     {
         $user_id=Auth::user()->id;
        $date= date('Y:m:d H:i:s');

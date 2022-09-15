@@ -39,14 +39,25 @@ $(document).ready(function () {
             }
 
         },
-        success: function() {
-            Swal.fire({
-                    title: 'Success!',
-                    text: 'Profile updated Successfully.',
-                    type: 'success',
-                    icon:'success',
-                    timer: 1000
-                 });
+        // success: function() {
+        //     Swal.fire({
+        //             title: 'Success!',
+        //             text: 'Profile updated Successfully.',
+        //             type: 'success',
+        //             icon:'success',
+        //             timer: 1000
+        //          });
+        // }
+        submitHandler:function(form)
+        {
+            swal({
+                title: 'Success!',
+                text: 'Profile updated Successfully.',
+                type: 'success',
+                icon:'success',
+                timer: 1000
+            });
+            form.submit();
         }
 
     });
@@ -95,15 +106,6 @@ $(document).ready(function () {
         reader.readAsDataURL(this.files[0]);
 
        });
-$(document).on('click',".updateAdmin",function(){
-    //    document.querySelector(".updateAdmin").addEventListener('click', function(){
-        // Swal.fire({
-        //     title: 'Success!',
-        //     text: 'Profile updated Successfully.',
-        //     type: 'success',
-        //     icon:'success',
-        //     timer: 1000
-        //  });
-      });
+
 
 });

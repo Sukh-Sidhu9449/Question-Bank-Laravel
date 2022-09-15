@@ -178,7 +178,7 @@ class AuthController extends Controller
         ]);
     }
 
-    public function fetch_notifications(){
+    public function fetchNotifications(){
         $notifications=Db::table('userquizzes as uq')->where('uq.status','S')->orWhere('uq.status','U')
                             ->join('users as u','u.id','=','uq.users_id')
                             ->join('blocks as b','b.id','=','uq.block_id')
