@@ -394,3 +394,25 @@ body {
     border: none;
     outline: none;
 }
+.skipText{
+  color:green;
+  font-style: italic;
+  margin-left: 10%;
+}
+.edit{
+  margin-right: 90%;
+}
+.enter{
+  margin-top:5px;
+  margin-left:110px;
+
+}
+#skipAnswer{
+  margin-left: 57%;
+  margin-top: 3px;
+
+}
+.update{
+  margin-top:5px;
+  margin-left:110px;
+}

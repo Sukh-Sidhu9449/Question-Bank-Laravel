@@ -3,7 +3,7 @@ $(document).ready(function(){
         e.preventDefault();
         $.ajax({
             type: "GET",
-            url: "/admin/logout",
+            url: "/logout",
             // data: "data",
             dataType: "json",
             success: function (response) {
@@ -23,5 +23,6 @@ $(document).ready(function(){
         });
 
     });
-
+  
+  
 });

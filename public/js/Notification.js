@@ -3,6 +3,7 @@ $(document).ready(function(){
     count_notifications();
 
     function count_notifications(){
+       
         let u_id=$('#user_id').val();
         $.ajax({
             type: "get",
@@ -12,7 +13,7 @@ $(document).ready(function(){
             },
             dataType: "json",
             success: function (response) {
-                console.log(response);
+                // console.log(response);
                 if(response=="")
                 {
                     $('.count').hide();

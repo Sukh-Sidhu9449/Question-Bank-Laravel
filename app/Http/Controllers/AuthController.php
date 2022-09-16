@@ -206,14 +206,6 @@ class AuthController extends Controller
     {
         return view('admin.dashboard');
     }
-    public function logout(Request $request)
-    {
-            Auth::logout();
-        $request->Session()->flush();
-        return redirect('/');
-
-    }
-
     public function adminlogout(Request $request){
         Auth::logout();
             $request->Session()->flush();
