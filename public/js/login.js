@@ -58,7 +58,6 @@ $(document).ready(function () {
                     Swal.fire({
                         title: 'Success!',
                         text: 'Admin Login Successfully.',
-                        type: 'success',
                         icon:'success',
                         timer: 1000
                      }).then(function () {
@@ -69,7 +68,6 @@ $(document).ready(function () {
                     Swal.fire({
                         title: 'Success!',
                         text: 'User Login Successfully.',
-                        type: 'success',
                         icon:'success',
                         timer: 1000
                      }).then(function () {

@@ -9,8 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\navbarTechnologyController;
-
-
+use Illuminate\Support\Facades\Cookie;
 
 class AuthController extends Controller
 {
@@ -63,12 +62,12 @@ class AuthController extends Controller
 
         ]);
         if($request->rememberme===null){
-            setcookie('login_email',$request->email,100);
-            setcookie('login_pass',$request->password,100);
+           Cookie::queue('login_email',$request->email,100);
+           Cookie::queue('login_pass',$request->password,100);
          }
          else{
-            setcookie('login_email',$request->email,time()+60*60*24*100);
-            setcookie('login_pass',$request->password,time()+60*60*24*100);
+            Cookie::queue('login_email',$request->email,time()+60*60*24*100);
+           Cookie::queue('login_pass',$request->password,time()+60*60*24*100);
          }
         $userCredential = $request->only('email', 'password');
         if (Auth::attempt($userCredential)) {
@@ -208,6 +207,8 @@ class AuthController extends Controller
     }
     public function logout(Request $request)
     {
+        // Cookie::queue(Cookie::forget('login_email'));
+        // Cookie::queue(Cookie::forget('login_pass'));
             Auth::logout();
         $request->Session()->flush();
         return redirect('/');
@@ -215,6 +216,8 @@ class AuthController extends Controller
     }
 
     public function adminlogout(Request $request){
+        // Cookie::queue(Cookie::forget('login_email'));
+        // Cookie::queue(Cookie::forget('login_pass'));
         Auth::logout();
             $request->Session()->flush();
             return response()->json(['status'=>200]);
