@@ -12,6 +12,8 @@ $(document).ready(function () {
         },
         errorPlacement: function(error, element) {
             error.appendTo('#errorspan');
+          },success:function(){
+            $('.make_test').removeAttr('disabled');
           }
     });
 
@@ -279,6 +281,7 @@ $(document).ready(function () {
             }
         });
         insert=insert.toString();
+        $(this).attr('disabled', true);
         if(insert==''){
             $.toast({
                 heading: 'Warning',
@@ -292,6 +295,7 @@ $(document).ready(function () {
             })
             return false;
         }
+
         // console.log(insert);
         $.ajax({
             type: "Post",
