@@ -11,6 +11,7 @@ $(document).ready(function () {
     var users_count=0;
     var ques_count=0;
 
+    //Fetch Stored Block Data
     function Fetch_Block_Data(limit,ques_count) {
         let block_id=$('#store_block_id').val();
         $('#show_block_data').show();
@@ -59,6 +60,7 @@ $(document).ready(function () {
         });
       }
 
+      //Fetch Detail of Selected Block
     $(document).on('click','#show_block_btn',function(){
         let block_id=$(this).data('id');
         $('#store_block_id').val(block_id);
@@ -67,11 +69,13 @@ $(document).ready(function () {
         Fetch_Block_Data(limit,ques_count);
     });
 
+    //Function for Fetching Users
     function Fetch_Users_Data(limit,users_count){
         let block_id=$('#store_block_id').val();
         $('#load_users_list').show();
         $('#show_block_data').hide();
         $('#show_blocks').hide();
+
         // console.log(limit);
         $("#users_detail_table > tbody").empty();
         $.ajax({
@@ -79,27 +83,37 @@ $(document).ready(function () {
             url: "/admin/blockusers",
             data: {
                 limit: limit,
-                users_count: users_count
+                users_count: users_count,
             },
             dataType: "json",
             success: function (response) {
-                // console.log(response);
+                console.log(response);
                 if (response.status == 200) {
                     let i = 1;
                     var users_data = "";
                     $.each(response.users, function (key, value) {
-                        users_data += `<tr>
+                        if(value.block_id == block_id){
+                        users_data += `<tr >
+                                            <td><input type="checkbox" class="get_value" data-id="`+ value.id + `" disabled><span class="text-danger">&nbsp;&nbsp;Alreay Assigned<span></td>
+                                            <td>`+ i + `</td>
+                                            <td>`+ value.name + `</td>
+                                            <td>`+ value.email + `</td>
+                                         </tr>`;
+                                        }
+                                        else{
+                                            users_data += `<tr>
                                             <td><input type="checkbox" class="get_value" data-id="`+ value.id + `"></td>
                                             <td>`+ i + `</td>
                                             <td>`+ value.name + `</td>
                                             <td>`+ value.email + `</td>
                                          </tr>`;
+                                        }
                         i++;
                     });
                     $('#users_detail_table').append(users_data);
                     $("#users_detail_table > tfoot").html(`<tr>
                     <td colspan="2">
-                        
+
                     </td>
                     <td colspan="2">
                         <form>
@@ -131,6 +145,8 @@ $(document).ready(function () {
         });
 
     }
+
+    //Fetch Users Click Event
     $(document).on('click', '#assign_users_btn', function (e) {
         e.preventDefault();
         let limit = $('#users_list_limit').find(":selected").text();
@@ -139,7 +155,7 @@ $(document).ready(function () {
 
     });
 
-
+    //Assign Blocks to Users
     $(document).on('click','#assign_block', function (e) {
         e.preventDefault();
         let block_id=$(this).data('id');

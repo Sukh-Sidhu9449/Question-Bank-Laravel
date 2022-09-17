@@ -185,4 +185,20 @@ class UserController extends Controller
         }
 
      }
+     public function feedbackData(Request $request){
+        $quizId=$request->quizId;
+        $feedback=$request->feedback;
+
+        $data=[
+            'feedback'=>$feedback,
+        ];
+
+        $query=DB::table('userquizzes')->where('id',$quizId)->update($data);
+        if($query){
+            return response()->json(['status'=>200]);
+        }else{
+            return response()->json(['status'=>404]);
+        }
+
+     }
 }

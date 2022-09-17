@@ -22,7 +22,12 @@
 
             <textarea id="form22"  class="md-textarea form-control text-info text-black" data-id="{{$loop->iteration}}" rows="3" placeholder="write your Answer" value="">{{$data['answer']}}</textarea>
             <i class="bi bi-pen-fill edit btn btn-default" data-id=""></i>
+            @if($data['answerid'] == '')
+            <input type="text" class="last_id" value="" hidden/>
+            @else
             <input type="text" class="last_id" value="{{$data['answerid']}}" hidden/>
+            @endif
+
             <button class="btn btn-primary enter">Insert</button>
             <button class="btn btn-primary update ">Update</button>
         </div>

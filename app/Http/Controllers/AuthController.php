@@ -178,13 +178,13 @@ class AuthController extends Controller
     }
 
     public function fetchNotifications(){
-        $notifications=Db::table('userquizzes as uq')->where('uq.status','S')->orWhere('uq.status','U')
+        $notifications = Db::table('userquizzes as uq')->where('uq.status','S')->orWhere('uq.status','U')
                             ->join('users as u','u.id','=','uq.users_id')
                             ->join('blocks as b','b.id','=','uq.block_id')
                             ->select('uq.id','uq.status','u.name','b.block_name','uq.submitted_at')
                             ->get();
 
-        $countNotifications=Db::table('userquizzes as uq')->where('uq.status','S')
+        $countNotifications = Db::table('userquizzes as uq')->where('uq.status','S')
                             ->join('users as u','u.id','=','uq.users_id')
                             ->join('blocks as b','b.id','=','uq.block_id')
                             ->select('uq.id','uq.status','u.name','b.block_name','uq.submitted_at')
@@ -195,6 +195,22 @@ class AuthController extends Controller
         }else{
             return response()->json(['count_notifications'=>0,'status'=>404]);
         }
+    }
+
+    public function notificationPanel(){
+        $adminId = Auth::user()->id;
+
+        $notificationData = DB::table('userquizzes as uq')
+                            ->join('blocks as b','b.id','=','uq.block_id')
+                            ->join('users as u','u.id','=','uq.users_id')
+                            ->where('b.admin_id',$adminId)
+                            ->select('uq.id','uq.block_aggregate','uq.feedback','uq.status','b.block_name','u.name')
+                            ->get()
+        ;
+        // print "<pre>";
+        // print_r($notificationData);
+        // exit;
+        return view('admin.notifications',['notificationData'=>$notificationData]);
     }
 
     public function loadDashboard()

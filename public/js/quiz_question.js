@@ -37,11 +37,11 @@ $(document).ready(function () {
                         window.location = "/quiz/" + block_id + "/" + u_id;
                     })
                 }
-                
+
             }
         });
 
-        
+
 
     });
     $(document).on('click', "#checked_quiz", function (e) {
@@ -96,6 +96,7 @@ $(document).ready(function () {
         $.ajax({
             type: "post",
             url: "/insertanswer",
+            context:this,
             data: {
                 answer: answer,
                 question_id: question_id,
@@ -107,6 +108,8 @@ $(document).ready(function () {
                 // console.log(response);
                 if(response.success==true)
                 {
+                    $(this).parent().find('.last_id').val(response.id);
+                    // $(".last_id").val(response.id);
                     $.toast({
                         text: 'Yes! Inserted succesfully>.',
                         hideAfter: 1000 ,
@@ -115,7 +118,7 @@ $(document).ready(function () {
                         showHideTransition: 'slide'
                     })
                 }
-                // $(".last_id").val(response.id);
+
 
             }
         });
@@ -218,13 +221,13 @@ $(document).ready(function () {
                     showHideTransition: 'slide',
                     position: 'top-center',
                     icon: 'success',
-                    show: 1000 
+                    show: 1000
                 })
                }
                else{
                 console.log("not done");
                }
-                
+
 
             }
         });

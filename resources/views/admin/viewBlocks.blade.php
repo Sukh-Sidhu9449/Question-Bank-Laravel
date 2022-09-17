@@ -33,6 +33,7 @@
                         <thead class="">
                             <th>S.N.</th>
                             <th>Quiz Blocks</th>
+                            <th>Number of Questions</th>
                             <th>Action</th>
                         </thead>
                         <tbody>
@@ -40,6 +41,7 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $block->block_name }}</td>
+                                    <td></td>
                                     <td>
                                         <button id="show_block_btn" type="button" data-id="{{ $block->id }}"
                                             class="btn btn-info"><i class="fa-solid fa-eye"></i>&nbsp;Show</button>
@@ -140,7 +142,7 @@
                     <div class="bg-white">
                         <table id="users_detail_table" class="table table-hover">
                             <thead class="table-dark">
-                                <th><input type="checkbox" id="select-all"></th>
+                                <th>#</th>
                                 <th>S.N.</th>
                                 <th>User Name</th>
                                 <th>Email</th>

@@ -25,7 +25,7 @@ $(document).ready(function(){
     }
     $('#notification_value').click(function(){
       let u_id=$('#user_id').val();
-   
+
 
 
 
@@ -35,7 +35,7 @@ $(document).ready(function(){
         url: "/notification/"+u_id,
         success: function (response) {
 
-            console.log(response);
+            // console.log(response);
             var notification_data="<span> ";
             if((response.notification.length)==0){
             }else{
