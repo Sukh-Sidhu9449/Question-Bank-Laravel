@@ -161,7 +161,7 @@ $(document).ready(function () {
                             e.preventDefault();
                             window.location = "/admin/technologies";
                         });
-                        $('.noDataFound').html('<img src="/img/no_record_found.jpg" width=100%;>');
+                        $('.noDataFound').html('<img src="/img/No data-cuate.png" width=50% height=50%; style="margin-left:25%">');
 
 
                     }
