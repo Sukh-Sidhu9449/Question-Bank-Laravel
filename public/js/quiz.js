@@ -1,4 +1,6 @@
 $(document).ready(function () {
+
+    //JqValidation for Create  quiz block
     $('#testDescriptionForm').validate({
         rules:{
             test_description: {
@@ -40,7 +42,9 @@ $(document).ready(function () {
         }
     });
 
-    var quiz_count = 0;
+    var quiz_count = 0;   //Global Variable
+
+    //Fetch Frameworks of a Technology
     $(document).on('click', '#clickable_quiz', function (e) {
         e.preventDefault();
         // alert();
@@ -100,6 +104,7 @@ $(document).ready(function () {
         });
     });
 
+    //Function for Fetching Questions
     function FetchQuizQuestion(tech_id, id, exp_id, limit) {
         // $('#test_table').html('');
         $("#test_table > tbody").empty();
@@ -163,6 +168,8 @@ $(document).ready(function () {
             }
         });
     }
+
+    //Click Event for Fetching Questions
     $(document).on('click', '#clickframeworkquiz', function (e) {
         e.preventDefault();
         $('#load_frameworks_quiz').hide();
@@ -182,6 +189,7 @@ $(document).ready(function () {
 
     });
 
+    //Select all Functionality
     $(document).on('click','#select-all',function (event) {
         var $that = $(this);
         $(':checkbox').each(function () {
