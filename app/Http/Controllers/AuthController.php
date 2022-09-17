@@ -221,16 +221,6 @@ class AuthController extends Controller
     {
         return view('admin.dashboard');
     }
-    public function logout(Request $request)
-    {
-        // Cookie::queue(Cookie::forget('login_email'));
-        // Cookie::queue(Cookie::forget('login_pass'));
-            Auth::logout();
-        $request->Session()->flush();
-        return redirect('/');
-
-    }
-
     public function adminlogout(Request $request){
         // Cookie::queue(Cookie::forget('login_email'));
         // Cookie::queue(Cookie::forget('login_pass'));

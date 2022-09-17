@@ -20,8 +20,7 @@ Route::get('/login', function () {
 });
 Route::get('/', [AuthController::class, 'loadlogin']);
 Route::post('/login', [AuthController::class, 'userlogin'])->name('userlogin');
-Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
-Route::get('/admin/logout', [AuthController::class, 'adminlogout']);
+Route::get('/logout', [AuthController::class, 'adminlogout']);
 
 
 Route::group(['middleware' => ['web', 'checkadmin']], function () {
@@ -95,5 +94,7 @@ Route::group(['middleware' => ['web', 'checkuser']], function () {
     Route::put('/updateanswer', [quiz_questionController::class, 'updateAnswer']);
     Route::put('/upatestatus',[quiz_questionController::class,'updateStatus']);
     Route::put('/quiz',[quiz_questionController::class,'statusInitiate']);
+    Route::post('/skipAnswer', [quiz_questionController::class, 'skipAnswer']);
+
 
 });
