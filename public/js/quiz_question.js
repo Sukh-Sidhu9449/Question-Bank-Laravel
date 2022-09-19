@@ -244,7 +244,7 @@ $(document).ready(function () {
     });
     //************************UODATE ANSWER END******************************************* */
 
-    //**********************************update status of block to SUBMITTED***************************;
+    //**********************************UPDATE STATUS OF BLOCK TO SUBMITTED***************************;
 
     $(document).on('click', '#submit', function () {
         // alert("hello");
@@ -264,14 +264,17 @@ $(document).ready(function () {
                 $('#msg').empty();
                if(response.status==200)
                {
-                $.toast({
-                    heading: 'Submit',
-                    text: 'Quiz has been Submitted Successfully.',
-                    showHideTransition: 'slide',
-                    position: 'top-center',
+                Swal.fire({
+                    position: 'top-bottom',
                     icon: 'success',
-                    show: 1000
+                    title: 'Your work has been saved',
+                    timer: 1500
+                  }).then(function () {
+                    // get_question(block_id);
+                    window.location = "/dashboard";
                 })
+
+
                }
                else{
                 $.toast({
