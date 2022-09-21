@@ -26,9 +26,9 @@
             <input type="text"id="quiz_started_at" value=" {{$data['started_at']}}" hidden>
 
 
-            <textarea id="form22"  class="md-textarea form-control text-info text-black" data-id="{{$loop->iteration}}" rows="3" placeholder="write your Answer" value="">{{$data['answer']}}</textarea>
+            <textarea id="form22"  class="md-textarea form-control text-black text-info" data-id="{{$loop->iteration}}" rows="3" placeholder="write your Answer" value="">{{$data['answer']}}</textarea>
             <span class="skipText">Skipped</span>
-            <i class="bi bi-pen-fill edit btn btn-default" data-id=""></i>
+            <i class="bi bi-pen-fill btn btn-default edit" data-id=""></i>
 
             @if($data['answerid']=='')
             <input type="text" class="last_id" value=""hidden/>
@@ -38,7 +38,7 @@
 
             <button class="btn btn-primary enter">Insert</button>
             <button class="btn btn-primary update ">Update</button>
-            <input type="button" class="btn btn-warning " value="Skip" id="skipAnswer">
+            <input type="button" class="btn btn-warning skipAnswer" value="Skip" id="skipAnswer">
         </div>
         @endforeach
     </form>

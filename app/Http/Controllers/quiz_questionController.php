@@ -127,7 +127,7 @@ class quiz_questionController extends Controller
     public function updateStatus(Request $request)
     {
         $user_id=Auth::user()->id;
-       $date= date('Y:m:d H:i:s');
+       $date= date('Y-m-d H:i:s');
         // $date->toDateTimeString();
         $block_id=$request->block_id;
         $update_status=

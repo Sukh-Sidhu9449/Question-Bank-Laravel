@@ -16,8 +16,7 @@ $(document).ready(function () {
                 $(this).parent().find('#skipAnswer').hide();
                 $(this).attr("disabled", true);
             }
-            else if(($.trim($(this).val())) == "0")
-            {
+            else if (($.trim($(this).val())) == "0") {
                 $(this).parent().find('#skipAnswer').show();
             }
         });
@@ -38,7 +37,7 @@ $(document).ready(function () {
             url: "/quiz",
             dataType: "json",
             success: function (response) {
-                if(response.status==200){
+                if (response.status == 200) {
                     swal.fire("Start your quiz").then(function () {
                         // get_question(block_id);
                         window.location = "/quiz/" + block_id + "/" + u_id;
@@ -97,7 +96,7 @@ $(document).ready(function () {
         $.ajax({
             type: "post",
             url: "/insertanswer",
-            context:this,
+            context: this,
             data: {
                 answer: answer,
                 question_id: question_id,
@@ -107,12 +106,11 @@ $(document).ready(function () {
             dataType: "json",
             success: function (response) {
                 // console.log(response);
-                if(response.success==true)
-                {
+                if (response.success == true) {
                     $(this).parent().find('.last_id').val(response.id);
                     $.toast({
                         text: 'Yes! Inserted succesfully>.',
-                        hideAfter: 1000 ,
+                        hideAfter: 1000,
                         icon: 'success',
                         position: 'bottom-center',
                         showHideTransition: 'slide'
@@ -128,7 +126,7 @@ $(document).ready(function () {
 
     // ***************************SKIP ANSWER**********************************************************
 
-    $(document).on('click',"#skipAnswer",function(){
+    $(document).on('click', "#skipAnswer", function () {
         let parent = $(this).parent().find('.text-info');
         let question_id = $(this).parent().find('input').val();
         // console.log(question_id);
@@ -144,22 +142,22 @@ $(document).ready(function () {
 
         $.ajax({
 
-            type:"post",
-            url:"/skipAnswer",
-            context:this,
-            data:{
+            type: "post",
+            url: "/skipAnswer",
+            context: this,
+            data: {
                 question_id: question_id,
                 // block_id:block_id,
                 quiz_id: quiz_id
 
             },
-            dataType:"json",
-            success:function(response){
+            dataType: "json",
+            success: function (response) {
                 $(this).parent().find('.last_id').val(response.id);
 
                 $.toast({
                     text: 'You skipped question>.',
-                    hideAfter: 1000 ,
+                    hideAfter: 1000,
                     icon: 'success',
                     position: 'bottom-center',
                     showHideTransition: 'slide'
@@ -201,12 +199,12 @@ $(document).ready(function () {
         // console.log(last);
         let parent = $(this).parent().find('.text-info');
         let answer = parent.val();
-        if(answer == ''){
+        if (answer == '') {
             $.toast({
                 heading: 'Error',
                 text: ' You can not Insert Empty field',
                 showHideTransition: 'slide',
-                position:'bottom-center',
+                position: 'bottom-center',
                 icon: 'error'
             })
             return false;
@@ -231,7 +229,7 @@ $(document).ready(function () {
                 // console.log(response);
                 $.toast({
                     text: 'Yes! update succesfully>.',
-                    hideAfter: 1000 ,
+                    hideAfter: 1000,
                     icon: 'success',
                     position: 'bottom-center',
                     showHideTransition: 'slide'
@@ -248,8 +246,12 @@ $(document).ready(function () {
 
     $(document).on('click', '#submit', function () {
         // alert("hello");
+        submitQuiz();
+    });
+
+    function submitQuiz() {
         $('#msg').show();
-        let block_id = $(this).parent().find('#block_id').val();
+        let block_id = $(document).find('#block_id').val();
         // console.log(block_id);
         $.ajax({
 
@@ -262,37 +264,34 @@ $(document).ready(function () {
             success: function (response) {
                 // console.log(response);
                 $('#msg').empty();
-               if(response.status==200)
-               {
-                Swal.fire({
-                    position: 'top-bottom',
-                    icon: 'success',
-                    title: 'Your work has been saved',
-                    timer: 1500
-                  }).then(function () {
-                    // get_question(block_id);
-                    window.location = "/dashboard";
-                })
+                if (response.status == 200) {
+                    Swal.fire({
+                        position: 'top-bottom',
+                        icon: 'success',
+                        title: 'Your work has been saved',
+                        timer: 1500
+                    }).then(function () {
+                        // get_question(block_id);
+                        window.location = "/dashboard";
+                    })
 
 
-               }
-               else{
-                $.toast({
-                    heading: 'Error',
-                    text: 'Something Went Wrong',
-                    showHideTransition: 'slide',
-                    position: 'top-center',
-                    icon: 'error',
-                    show: 1000
-                })
-               }
+                }
+                else {
+                    $.toast({
+                        heading: 'Error',
+                        text: 'Something Went Wrong',
+                        showHideTransition: 'slide',
+                        position: 'top-center',
+                        icon: 'error',
+                        show: 1000
+                    })
+                }
 
 
             }
         });
-    });
-
-
+    }
 
 
     // ********************end code area**************************************

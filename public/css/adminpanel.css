@@ -662,4 +662,7 @@ footer a{
     text-decoration: none;
     font-size:22px;
 }
+.pdfColumn{
+    width: 60px;
+}
 
