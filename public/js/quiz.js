@@ -5,16 +5,26 @@ $(document).ready(function () {
         rules:{
             test_description: {
                 required: true,
-            }
+            },
+             test_timer:{
+                required: true,
+                digits:true,
+             }
         },
         messages: {
             test_description: {
                 required: "Please add description",
             },
+            test_timer:{
+                required: "Please enter timer value in minutes",
+                digits:"Timer must be in digits",
+             }
         },
         errorPlacement: function(error, element) {
-            error.appendTo('#errorspan');
-          },success:function(){
+
+            error.insertAfter(element.append('<br/>'));
+          },
+          success:function(){
             $('.make_test').removeAttr('disabled');
           }
     });
@@ -282,6 +292,7 @@ $(document).ready(function () {
         e.preventDefault();
         $('#testDescriptionForm').valid();
         let block_name=$('#test_description').val();
+        let timer=$('#test_timer').val();
         var insert = [];
         $(':checkbox').each(function () {
             if ($(this).is(":checked")) {
@@ -310,7 +321,8 @@ $(document).ready(function () {
             url: "/admin/quiz/questions",
             data: {
                 block_name:block_name,
-                insert:insert
+                insert:insert,
+                timer:timer
             },
             dataType: "json",
             success: function (response) {

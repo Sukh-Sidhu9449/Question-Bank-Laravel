@@ -59,7 +59,8 @@
                                 <h6 class="page-title p-3 mt-2">
                                     <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                                         <ol class="breadcrumb">
-                                            <li class="breadcrumb-item"><a class="bread_home" href="#">Technologies</a></li>
+                                            <li class="breadcrumb-item"><a class="bread_home"
+                                                    href="#">Technologies</a></li>
                                             <li class="breadcrumb-item active bread_tech" aria-current="page"></li>
                                         </ol>
                                     </nav>
@@ -91,11 +92,12 @@
                                 <h6 class="page-title p-3 mt-2">
                                     <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                                         <ol class="breadcrumb">
-                                          <li class="breadcrumb-item"><a class="bread_home" href="#">Technologies</a></li>
-                                          <li class="breadcrumb-item"><a class="bread_technology" href="#"></a></li>
-                                          <li class="breadcrumb-item active bread_frame" aria-current="page"></li>
+                                            <li class="breadcrumb-item"><a class="bread_home"
+                                                    href="#">Technologies</a></li>
+                                            <li class="breadcrumb-item"><a class="bread_technology" href="#"></a></li>
+                                            <li class="breadcrumb-item active bread_frame" aria-current="page"></li>
                                         </ol>
-                                      </nav>
+                                    </nav>
                                 </h6>
                             </div>
                             <div class="d-flex">
@@ -142,7 +144,13 @@
                                             <label for="test_description"><strong>Description</strong></label>
                                             <input type="text" name="test_description" id="test_description"
                                                 class="test_description">
-                                                <div id="errorspan" class="text-danger"></div>
+                                            <div class="text-danger errorspan"></div>
+                                            <br>
+
+                                            <label for="test_timer"><strong>Timer</strong></label>
+                                            <input type="text" name="test_timer" id="test_timer" class="test_timer"
+                                            placeholder="In Minutes">
+                                            <div class="text-danger errorspan"></div>
                                             <button type="submit" class="btn btn-primary make_test">Create Quiz</button>
                                         </form>
                                     </td>

@@ -3,8 +3,12 @@
 
 
 <div class="container-fluid p-0">
+
     <div class="container-fluid p-4 quiz_question">Take a Quiz    </div>
     <div class="section">
+        <div id="getting" class=""></div>
+        <br>
+        <br>
         <form  action="" method="post">
         @csrf
                 @foreach ($quizQuestionData as $key=>$data)
@@ -18,7 +22,8 @@
             <input type="text" class="q_" value="{{$data['id']}}" hidden/>
             <input type="text"id="block_id" value=" {{$data['block_id']}}" hidden>
             <input type="text"id="quiz_id" value=" {{$data['u']}}" hidden>
-
+            <input type="text"id="quiz_timer" value=" {{$data['timer']}}" hidden>
+            <input type="text"id="quiz_started_at" value=" {{$data['started_at']}}" hidden>
 
 
             <textarea id="form22"  class="md-textarea form-control text-info text-black" data-id="{{$loop->iteration}}" rows="3" placeholder="write your Answer" value="">{{$data['answer']}}</textarea>

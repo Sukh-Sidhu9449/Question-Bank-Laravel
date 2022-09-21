@@ -10,6 +10,7 @@
             </div>
         </div>
     </div>
+    
     <div class="container-fluid">
         <div class="row">
             <!-- Column -->
@@ -65,12 +66,12 @@
                                         @endif
 
                                     </td>
-                                    <td>
-                                        <a href="/admin/view-pdf/{{$userblockStatus->id}}"><i class="bi bi-eye-fill"></i> </a> <a href="/admin/download-pdf/{{$userblockStatus->id}}"><i class="bi bi-cloud-arrow-down-fill"></i></a>
+                                    <td class="pdfColumn">
 
                                         @if($userblockStatus->block_aggregate == '')
                                             {{'-'}}
                                         @else
+                                        <a href="/admin/view-pdf/{{$userblockStatus->id}}"><i class="bi bi-eye-fill viewPdf"></i> </a> <a href="/admin/download-pdf/{{$userblockStatus->id}}"><i class="bi bi-cloud-arrow-down-fill downPdf"></i></a>
                                         @endif
                                     </td>
                                 </tr>
