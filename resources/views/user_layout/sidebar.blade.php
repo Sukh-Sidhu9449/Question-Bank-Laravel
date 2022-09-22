@@ -37,7 +37,6 @@
                             <li><a class="dropdown-item" href=" " id="logout">Log Out</a></li>
                         </ul>
                     </div>
-                    {{-- <p>{{Auth::user()->name}}</p> --}}
 
                 </div>
             </div>
@@ -102,7 +101,7 @@
             </button>
             <div class="collapse navbar-collapse shadow justify-content-center" id="navbarNav">
                 <ul class="navbar-nav justify-content-center" id="nav-menu">
-                    
+
                     @foreach ($technologies as $items)
                     {{-- <li class="active"></li> --}}
                         <li class="nav-item" >
@@ -117,8 +116,7 @@
         </nav>
     </div>
     <script>
-       
-      
+
+
 
     </script>
- 

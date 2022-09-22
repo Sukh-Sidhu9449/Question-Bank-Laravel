@@ -13,9 +13,12 @@ date_default_timezone_set("Asia/Calcutta");
 
 class quiz_questionController extends Controller
 {
-    //
     public function quizQuestion($quiz_id,$u_id)
     {
+        $startedTime=DB::table('userquizzes')->where('id',$quiz_id)->value('started_at');
+        if($startedTime==''){
+            DB::table('userquizzes')->where('id',$quiz_id)->update(['started_at'=>date('Y-m-d H:i:s')]);
+        }
         $technologies = DB::table('technologies')->whereBetween('id', [1,10])->get();
 
         $query=DB::table('userquizzes')
@@ -113,7 +116,6 @@ class quiz_questionController extends Controller
     }
     public function updateAnswer(Request $request){
         $last_id=$request->last;
-        // dd($last_id);
         $data=[
                 'answer' => $request->answer,
         ];
