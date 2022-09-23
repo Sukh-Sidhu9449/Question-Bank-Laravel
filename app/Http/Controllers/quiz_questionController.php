@@ -19,6 +19,8 @@ class quiz_questionController extends Controller
         if($startedTime==''){
             DB::table('userquizzes')->where('id',$quiz_id)->update(['started_at'=>date('Y-m-d H:i:s')]);
         }
+
+
         $technologies = DB::table('technologies')->whereBetween('id', [1,10])->get();
 
         $query=DB::table('userquizzes')
@@ -42,6 +44,7 @@ class quiz_questionController extends Controller
 
             $quizQuestionData[] = $array;
         }
+
         // print '<pre>';
         // print_r($quizQuestionData);
         // exit;
@@ -53,9 +56,6 @@ class quiz_questionController extends Controller
         $query = DB::table('user_assessments as ua')
         ->select('ua.id')
         ->where([['ua.quiz_id',$quiz_id],['ua.block_question_id', $ques_id]])->value('id');
-        // ->where('u.role', 'user')
-    //    $answer=$query[0];
-
         return $query;
 
     }
@@ -64,9 +64,6 @@ class quiz_questionController extends Controller
         $query = DB::table('user_assessments as ua')
         ->select('ua.answer')
         ->where([['ua.quiz_id',$quiz_id],['ua.block_question_id', $ques_id]])->value('answer');
-        // ->where('u.role', 'user')
-    //    $answer=$query[0];
-
         return $query;
 
     }
@@ -130,7 +127,6 @@ class quiz_questionController extends Controller
     {
         $user_id=Auth::user()->id;
        $date= date('Y-m-d H:i:s');
-        // $date->toDateTimeString();
         $block_id=$request->block_id;
         $update_status=
         [
@@ -148,18 +144,7 @@ class quiz_questionController extends Controller
     }
     public function statusInitiate()
     {
-        $user_id=Auth::user()->id;
-
-        $statusInitiate = [
-            'status'=>'I'
-        ];
-        $query = DB::table('userquizzes')->where([['users_id',$user_id],['status','P']])->update($statusInitiate);
-
-            return response()->json(['status'=>200,
-            'message'=>"status update to initiate"
-    ]);
-
-
+            return response()->json(['status'=>200]);
     }
 
 }

@@ -10,7 +10,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="container-fluid">
         <div class="row">
             <!-- Column -->
@@ -26,6 +26,7 @@
                                 <th>Aggregate Marks</th>
                                 <th>Feedback</th>
                                 <th>PDF</th>
+                                <th>Mail</th>
                             </thead>
                             <tbody>
                                 @foreach ($notificationData as $userblockStatus)
@@ -72,6 +73,14 @@
                                             {{'-'}}
                                         @else
                                         <a href="/admin/view-pdf/{{$userblockStatus->id}}"><i class="bi bi-eye-fill viewPdf"></i> </a> <a href="/admin/download-pdf/{{$userblockStatus->id}}"><i class="bi bi-cloud-arrow-down-fill downPdf"></i></a>
+                                        @endif
+                                    </td>
+                                    <td>
+
+                                        @if($userblockStatus->block_aggregate == '')
+                                            {{'-'}}
+                                        @else
+                                        <a href="/mail/{{$userblockStatus->id}}"><i class="bi bi-envelope-fill sendMail"></i></a>
                                         @endif
                                     </td>
                                 </tr>

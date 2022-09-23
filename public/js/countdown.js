@@ -34,23 +34,45 @@ $(document).ready(function () {
             }
 
             var diff = (parseInt(d1sec - d2sec));
-            // alert(diff);
             $('#getting').countdown({ until: diff, onExpiry: disableFunction });
 
             function disableFunction() {
+                $('.enter').each(function () {
+                    let answer = $(this).parent().find('.text-info').val();
+                    let question_id = $(this).parent().find('input').val();
+                    let quiz_id = $(this).parent().find('#quiz_id').val();;
+                    let last_id = $(this).parent().find('.last_id').val();
 
-                $('.edit').hide();
-                $('.enter').hide();
-                $('.update').hide();
-                $('.skipAnswer').hide();
-                $('.text-info').attr('readonly', true);
+                    if (last_id == '') {
+                        $.ajax({
+                            type: "post",
+                            url: "/insertanswer",
+                            data: {
+                                answer: '0',
+                                question_id: question_id,
+                                quiz_id: quiz_id
+                            },
+                            dataType: "json",
+                            success: function (response) {
+                                if (response.success == true) {
+                                    $.toast({
+                                        text: 'Yes! Inserted succesfully>.',
+                                        hideAfter: 1000,
+                                        icon: 'success',
+                                        position: 'bottom-center',
+                                        showHideTransition: 'slide'
+                                    })
+                                }
+                            }
+                        });
+                    }
+                });
                 submitQuiz();
             }
 
             function submitQuiz() {
                 $('#msg').show();
                 let block_id = $(document).find('#block_id').val();
-                // console.log(block_id);
                 $.ajax({
 
                     type: "put",
@@ -60,7 +82,6 @@ $(document).ready(function () {
                     },
                     dataType: "json",
                     success: function (response) {
-                        // console.log(response);
                         $('#msg').empty();
                         if (response.status == 200) {
                             Swal.fire({
@@ -82,16 +103,11 @@ $(document).ready(function () {
                                 show: 1000
                             })
                         }
-
-
                     }
                 });
             }
-
         }
     });
-
-
 });
 
 

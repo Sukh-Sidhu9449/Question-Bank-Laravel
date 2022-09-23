@@ -33,7 +33,7 @@ $(document).ready(function () {
         // console.log(block_id);
         $('#myModal').hide();
         $.ajax({
-            type: "put",
+            type: "get",
             url: "/quiz",
             dataType: "json",
             success: function (response) {
@@ -119,8 +119,6 @@ $(document).ready(function () {
 
             }
         });
-
-
     });
     //******************** */ insert anser code area END*************************************************************
 
@@ -245,7 +243,39 @@ $(document).ready(function () {
     //**********************************UPDATE STATUS OF BLOCK TO SUBMITTED***************************;
 
     $(document).on('click', '#submit', function () {
-        // alert("hello");
+        $('.enter').each(function(){
+            let answer = $(this).parent().find('.text-info').val();
+            let question_id = $(this).parent().find('input').val();
+            let quiz_id = $(this).parent().find('#quiz_id').val();
+            let last_id = $(this).parent().find('.last_id').val();
+
+            if(last_id == ''){
+                $.ajax({
+                    type: "post",
+                    url: "/insertanswer",
+                    data: {
+                        answer: '0',
+                        question_id: question_id,
+                        quiz_id: quiz_id
+                    },
+                    dataType: "json",
+                    success: function (response) {
+                        // console.log(response);
+                        if (response.success == true) {
+                            // $(this).parent().find('.last_id').val(response.id);
+                            $.toast({
+                                text: 'Yes! Inserted succesfully>.',
+                                hideAfter: 1000,
+                                icon: 'success',
+                                position: 'bottom-center',
+                                showHideTransition: 'slide'
+                            })
+                        }
+
+                    }
+                });
+            }
+        });
         submitQuiz();
     });
 
@@ -266,7 +296,7 @@ $(document).ready(function () {
                 $('#msg').empty();
                 if (response.status == 200) {
                     Swal.fire({
-                        position: 'top-bottom',
+                        position: 'bottom',
                         icon: 'success',
                         title: 'Your work has been saved',
                         timer: 1500
