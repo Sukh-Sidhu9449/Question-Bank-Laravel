@@ -39,15 +39,6 @@ $(document).ready(function () {
             }
 
         },
-        // success: function() {
-        //     Swal.fire({
-        //             title: 'Success!',
-        //             text: 'Profile updated Successfully.',
-        //             type: 'success',
-        //             icon:'success',
-        //             timer: 1000
-        //          });
-        // }
         submitHandler:function(form)
         {
             swal.fire({

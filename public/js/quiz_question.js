@@ -6,6 +6,7 @@ $(document).ready(function () {
     $('.update').hide();
     $('.skipText').hide();
     $('#submit').hide();
+    checkSubmit();
     function checkSubmit(){
         let last_id_get=$(document).find('.last_id');
         var last_id_count=0;
@@ -21,7 +22,7 @@ $(document).ready(function () {
         if(last_id_count == last_id_total){
             $('#submit').show();
         }
-        console.log(last_id_total);
+        // console.log(last_id_total);
     }
     $(this).parent().find('#skipText').hide();
     function checkAnswerValue() {

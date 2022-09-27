@@ -56,7 +56,7 @@
             <div class="heading">
                 <h4>Admin Panel</h4>
             </div>
-            <div class="notification_bar" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <div class="notification_bar" data-bs-toggle="modal" data-bs-target="#notificationModal">
                 <div class="d-flex dropdown">
                     <div class="notification">
                         <i class="bi bi-bell-fill" id="bi"></i>
@@ -68,11 +68,11 @@
                             </span>
                         </span>
                     </div>
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                         <div class="modal-content" style="margin-top: 91px; margin-left: -123px; width: 75%; ">
                             <div class="modal-header">
-                            <h5 class="modal-title text-dark" id="exampleModalLabel">Notifications</h5>
+                            <h5 class="modal-title text-dark" id="notificationModalLabel">Notifications</h5>
                             </div>
                             <div class="modal-body" id="notifications_desc" class="dropdown-content notication_heading">
                             </div>

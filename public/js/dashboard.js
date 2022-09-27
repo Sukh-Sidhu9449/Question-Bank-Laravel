@@ -167,13 +167,14 @@ $(document).ready(function () {
             url: "/admin/notifiications",
             dataType: "json",
             success: function (response) {
-                // console.log(response.count_notifications);
+                // console.log(response);
                 if (response.status == 200) {
                     $('.red_circle').show();
                     var countNotification=parseInt(response.count_notifications);
                     if (countNotification < 10) {
                         if(countNotification==0){
                             $('.red_circle').hide();
+
                         }else{
                             $('.red_circle').text(response.count_notifications);
                         }
@@ -193,7 +194,9 @@ $(document).ready(function () {
                     $('#notifications_desc').append(notifications_desc);
                 } else if (response.status == 404) {
                     $('.red_circle').hide();
-                    $('.notication_heading').hide();
+                    $('.notification_bar').removeAttr('data-bs-target');
+                    $('.notification_bar').removeAttr('data-bs-toggle');
+
                 }
             }
         });
