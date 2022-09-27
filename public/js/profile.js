@@ -50,7 +50,7 @@ $(document).ready(function () {
         // }
         submitHandler:function(form)
         {
-            swal({
+            swal.fire({
                 title: 'Success!',
                 text: 'Profile updated Successfully.',
                 type: 'success',

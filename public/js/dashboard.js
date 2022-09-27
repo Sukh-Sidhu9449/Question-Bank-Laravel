@@ -1,7 +1,21 @@
 $(document).ready(function () {
-    $("#popupImage").hide();
-    $('#userBlockStatus').DataTable();
+    $('#userBlockStatus').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '/admin/notificationPanel',
+        columns: [
+            {data: 'DT_RowIndex', name: 'Dt_RowIndex'},
+            {data: 'name', name: 'name'},
+            {data: 'block_name', name: 'block_name'},
+            {data: 'status', name: 'status'},
+            {data: 'block_aggregate', name: 'block_aggregate'},
+            {data: 'feedback', name: 'feedback'},
+            {data: 'pdf', name: 'pdf', orderable:false, searchable:false} ,
+            {data: 'mail', name: 'mail', orderable:false, searchable:false}
+        ]
+    });
 
+    $("#popupImage").hide();
     $('#feedbackForm').validate({
         rules: {
             feedbackInput: {
@@ -109,7 +123,7 @@ $(document).ready(function () {
                                 html: "<p><b>Aggregate Marks</b>: "+aggergate+"</p>",
                                 timer: 2000
                             }).then(function () {
-                                window.location.href='/admin/notificationPanel';
+                                window.location.href='/admin/indexNotification';
                             });
                         }
                     });
@@ -171,9 +185,9 @@ $(document).ready(function () {
                     $.each(response.notifications, function (key, value) {
                         // $('.notication_heading').show();
                         if(value.status=='S'){
-                        notifications_desc += `<a class="notification_div" href="/admin/userassessment/` + value.id + `" ><p> <b>` + value.name + `</b> submitted ` + value.block_name + `</p></a><hr>`;
+                        notifications_desc += `<a class="notification_div" href="/admin/userassessment/` + value.id + `" ><p> <b>` + value.name + `</b> submitted ` + value.block_name + `</p></a><hr class="hr">`;
                         }else if(value.status=='U'){
-                            notifications_desc += `<a class="notification_div" href="/admin/userassessment/` + value.id + `" ><p> <b>` + value.name + `</b> under review ` + value.block_name + `</p></a><hr>`;
+                            notifications_desc += `<a class="notification_div" href="/admin/userassessment/` + value.id + `" ><p> <b>` + value.name + `</b> under review ` + value.block_name + `</p></a><hr class="hr">`;
                         }
                     });
                     $('#notifications_desc').append(notifications_desc);
