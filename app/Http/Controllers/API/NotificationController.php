@@ -1,17 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
-class NotificationController extends Controller
+class NotificationControllers extends Controller
 {
-
-
     public function getNotification($u_id)
-    {
+    { 
         $statusInitiate = [
             'status' => 'I'
         ];

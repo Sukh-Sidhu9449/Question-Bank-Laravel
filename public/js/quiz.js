@@ -316,7 +316,7 @@ $(document).ready(function () {
         }
 
         // console.log(insert);
-       
+
         $.ajax({
             type: "Post",
             url: "/admin/quiz/questions",
@@ -335,7 +335,7 @@ $(document).ready(function () {
                         icon: 'success',
                         timer: 1000
                     }).then(function () {
-                        window.location='/admin/totalquizblocks';
+                        window.location='/admin/indexblock';
                     });
                 }
             }

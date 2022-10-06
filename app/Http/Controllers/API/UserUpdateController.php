@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
+use App\Http\Controllers\Controller;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -18,7 +19,8 @@ class UserUpdateController extends Controller
         //$user = App\User::where('id',$id)->first();
         
 
-        return view('user_edit', ['users' => $users, 'technologies' => $technologies]);
+        // return view('user_edit', ['users' => $users, 'technologies' => $technologies]);
+        return response($users);
     }
 
     public function update(Request $request)
@@ -26,16 +28,17 @@ class UserUpdateController extends Controller
         $id = Auth::user()->id;
 
         $data = [
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'gender' => $request->input('gender'),
-            'address' => $request->input('address'),
-            'phone_number' => $request->input('phone_number'),
-            'last_company' => $request->input('last_company'),
-            'designation' => $request->input('designation'),
-            'experience' => $request->input('experience'),
+            'name' => $request->name,
+            'email' => $request->email,
+            'gender' => $request->gender,
+            'address' => $request->address,
+            'phone_number' => $request->phone_number,
+            'last_company' => $request->last_company,
+            'designation' => $request->designation,
+            'experience' => $request->experience,
 
         ];
+        // return response($data);
         // $image=$request->input('image');
 
         if ($request->hasFile('image')) {
@@ -73,6 +76,9 @@ class UserUpdateController extends Controller
             }
             DB::table('usertechnologies')->insert($technology_data);
         }
-        return redirect('/user_edit');
+        // return redirect('/user_edit');
+        return response([
+            'message'=>'Update successfully',
+        ],200);
     }
 }

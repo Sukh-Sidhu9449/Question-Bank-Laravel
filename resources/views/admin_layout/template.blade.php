@@ -52,6 +52,9 @@
 <script src="{{ asset('js/quiz.js') }}"></script>
 <script src="{{ asset('js/blockdata.js') }}"></script>
 <script src="{{ asset('js/countdown.js') }}"></script>
+<script src="{{ asset('js/mail.js') }}"></script>
+
+
 
 </body>
 </html>
