@@ -16,7 +16,7 @@ class UserUpdateController extends Controller
         $users = DB::table('users')->where('id', $id)->get();
         //dd($users);
         //$user = App\User::where('id',$id)->first();
-
+        
 
         return view('user_edit', ['users' => $users, 'technologies' => $technologies]);
     }
