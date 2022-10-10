@@ -8,19 +8,18 @@ use Validator;
 use Auth;
 use App\Models\User;
 
-class UserController extends Controller
+class AuthController extends Controller
 {
     public function register(Request $request){
         //validater
         $validator = Validator::make($request->all(),[
-            'name' => 'required',
-            'email' => 'required',
-            'password' => 'required',
-            'cPassword' => 'required | same:password'
+            'name' => 'string|required|min:4',
+            'email' => 'string|email|required|max:100|unique:users',
+            'password' => 'string|required|confirmed|min:8',
+            
         ]);
         if($validator->fails()){
             $response = [
-                'success' => false,
                 'message' => $validator->errors()
             ];
             return response()->json($response,409);
@@ -37,7 +36,6 @@ class UserController extends Controller
 
         $response = [
             'data' => $success,
-            'message' => 'User register successfully'
         ];
 
         return response()->json($response,200);
@@ -53,7 +51,6 @@ class UserController extends Controller
 
             $response = [
                 'data' => $success,
-                'message' => 'User Login successfully'
             ];
 
             return response()->json($response,200);
@@ -72,7 +69,6 @@ class UserController extends Controller
         auth()->user()->tokens()->delete();
         return response([
             'message' => 'Logout successfully',
-            'status' => 'success',
         ],200);
     }
 

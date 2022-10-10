@@ -18,26 +18,32 @@ class QuizQuestionController extends Controller
     //
     public function quizQuestion($quiz_id)
     {
-        $query=DB::table('userquizzes')
-        ->join('block_questions','block_questions.block_id','=','userquizzes.block_id')
-        ->join('questions','block_questions.question_id','=','questions.id')
-        ->where('userquizzes.id',$quiz_id)
-        ->select('userquizzes.id as u','block_questions.block_id','block_questions.id','questions.question')->get();
-
-        $quizQuestionData = array();
-        foreach($query as $key=> $userTech)
-        {
-            $array['userQuizzesId'] = $userTech->u;
-            $array['blockId'] = $userTech->block_id;
-            $array['blockQuestionId'] = $userTech->id;
-            $array['question'] = $userTech->question;
-            $array['answer'] = $this->getAnswer($userTech->u,$userTech->id);
-            $array['answerId']=$this->getAnswerId($userTech->u,$userTech->id);
-
-            $quizQuestionData[] = $array;
+        try{
+            $query=DB::table('userquizzes')
+            ->join('block_questions','block_questions.block_id','=','userquizzes.block_id')
+            ->join('questions','block_questions.question_id','=','questions.id')
+            ->where('userquizzes.id',$quiz_id)
+            ->select('userquizzes.id as u','block_questions.block_id','block_questions.id','questions.question')->get();
+    
+            $quizQuestionData = array();
+            foreach($query as $key=> $userTech)
+            {
+                $array['userQuizzesId'] = $userTech->u;
+                $array['blockId'] = $userTech->block_id;
+                $array['blockQuestionId'] = $userTech->id;
+                $array['question'] = $userTech->question;
+                $array['answer'] = $this->getAnswer($userTech->u,$userTech->id);
+                $array['answerId']=$this->getAnswerId($userTech->u,$userTech->id);
+    
+                $quizQuestionData[] = $array;
+            }
+        }catch(QueryException $e){
+            return response()->json(['message'=> $e->getMessage()],404);
         }
-       
-        return response($quizQuestionData);
+       if(empty($quizQuestionData)){
+        return response()->json(['message'=>'Content not found for Quiz Id ='.$quiz_id],404);
+       }
+        return response()->json(['data'=>$quizQuestionData],200);
     }
 
     public function getAnswerId($quiz_id,$ques_id)
@@ -90,11 +96,10 @@ class QuizQuestionController extends Controller
 
             DB::table('user_assessments')->insert($data);
             $id = DB::getPdo()->lastInsertId();
+            $userAssessmentData = DB::table('user_assessments')->where('id',$id)->select('id as userAssessmentId','users_id as usersId','quiz_id as quizId','block_question_id as blockQuestionId','answer')->get();
             return response()->json(
                 [
-                    'id'=>$id,
-                    'success' => true,
-                    'message' => 'Data inserted successfully'
+                    'data'=>$userAssessmentData
                 ],200
             );
         }

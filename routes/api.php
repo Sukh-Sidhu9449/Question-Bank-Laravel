@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\QuizQuestionController;
 use App\Http\Controllers\API\UserUpdateController;
 use App\Http\Controllers\API\NavBarController;
@@ -26,7 +26,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::prefix('v1')->group(function () {
 Route::middleware(['auth:sanctum'])->group(function(){
    
-    Route::controller(UserController::class)->group(function(){
+    Route::controller(AuthController::class)->group(function(){
 
     Route::get('logout','logout');
     Route::put('update','update');
@@ -60,10 +60,10 @@ Route::middleware(['auth:sanctum'])->group(function(){
             });     
 });
 
-Route::controller(UserController::class)->group(function(){
+Route::controller(AuthController::class)->group(function(){
     Route::post('login','login');
     Route::post('register','register');
-    Route::post('exptable','index');
+    // Route::post('exptable','index');
 });
 
 
