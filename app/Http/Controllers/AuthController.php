@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\user;
-use App\Models\Datamodel;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\navbarTechnologyController;
 use Illuminate\Support\Facades\Cookie;
 use Yajra\DataTables\Facades\DataTables;

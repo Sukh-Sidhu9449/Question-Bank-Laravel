@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Pdf;
-use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
 {
@@ -19,51 +18,81 @@ class UserController extends Controller
     }
 
 
-    public function getUsers(Request $request)
+    public function getUsers()
     {
-        $query = DB::table('users as u')
-        ->select('u.id', 'u.name', 'u.email', 'u.designation', 'u.last_company', 'u.experience')
-        ->where('u.role', 'user')
-        ->get();
+        try{
+            $query = DB::table('users')
+            ->select('id', 'name', 'email', 'designation', 'last_company as lastCompany', 'experience')
+            ->where('role', 'user')
+            ->get();
 
-        return DataTables::of($query)
-            ->addIndexColumn()
-            // ->addColumn('action', function ($user) {
-            //     return '<a href="#edit-'.$user->id.'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a>';
-            // })
-            ->addColumn('technology_name', function($user){
-                $query = DB::table('usertechnologies as ut')
-                ->select('t.technology_name')
-                ->where('ut.users_id',$user->id)
-                ->join('technologies as t', 't.id', '=', 'ut.technology_id')->get('technology_name');
-                $i=0;
-                if(count($query)>0){
-                    foreach($query as $key=> $userTech){
-                        $std[$i]=$userTech->technology_name;
-                        $i++;
-                    }
-                    $technologies=implode(',',$std);
-                }else{
-                    $technologies='';
-                }
-                return $technologies;
-            })
-            // ->editColumn('name', 'Shri: {{$name}}')
-            ->setRowId('id')
-            ->setRowClass(function ($user) {
-                return $user->id % 2 == 0 ? 'alert-success' : 'alert-warning';
-            })
-            ->removeColumn('id')
-            ->make(true);
+            $getUsers = array();
+            foreach($query as $key=> $user){
+                $array['id'] = $user->id;
+                $array['name'] = $user->name;
+                $array['email'] = $user->email;
+                $array['designation'] = $user->designation;
+                $array['lastCompany'] = $user->lastCompany;
+                $array['experience'] = $user->experience;
+                $array['technologyiesId'] = $this->getTechnologiesId($user->id);
+                $array['technologies'] = $this->getTechnologies($user->id);
+
+                $getUsers[] = $array;
+            }
+        }catch (QueryException $ex) {
+            return response()->json(['message' => $ex->getMessage()], 404);
+        }
+        return response()->json(['data'=>$getUsers],200);
+    }
+
+    public function getTechnologies($id){
+        $query = DB::table('usertechnologies as ut')
+        ->select('t.technology_name')
+        ->where('ut.users_id',$id)
+        ->join('technologies as t', 't.id', '=', 'ut.technology_id')->get('technology_name');
+        $i=0;
+        if(count($query)>0){
+            foreach($query as $key=> $userTech){
+                $std[$i]=$userTech->technology_name;
+                $i++;
+            }
+            $technologies=implode(',',$std);
+        }else{
+            $technologies='';
+        }
+        return $technologies;
+    }
+
+    public function getTechnologiesId($id){
+        $query = DB::table('usertechnologies as ut')
+        ->select('t.id')
+        ->where('ut.users_id',$id)
+        ->join('technologies as t', 't.id', '=', 'ut.technology_id')->get('id');
+        $i=0;
+        if(count($query)>0){
+            foreach($query as $key=> $userTech){
+                $std[$i]=$userTech->id;
+                $i++;
+            }
+            $technologies=implode(',',$std);
+        }else{
+            $technologies='';
+        }
+        return $technologies;
     }
 
     public function store(Request $request)
     {
-        // dd($request->all());
         $validate = Validator::make($request->all(), [
             'name' => 'string|required|min:4',
             'email' => 'string|email|required|max:100|unique:users',
-            'password' => 'string|required|confirmed|min:8'
+            'password' => 'string|required|confirmed|min:8',
+            'role' => 'required',
+            'designation' => 'required',
+            'currentCompany' => 'required',
+            'lastCompany' => 'required',
+            'experience' => 'required',
+            'technologiesId' => 'required',
         ]);
         if ($validate->passes()) {
             $values = [
@@ -72,26 +101,25 @@ class UserController extends Controller
                 'password' => bcrypt($request->password),
                 'role' => $request->role,
                 'designation' => $request->designation,
-                'current_company' => $request->current_company,
-                'last_company' => $request->last_company,
+                'current_company' => $request->currentCompany,
+                'last_company' => $request->lastCompany,
                 'experience' => $request->experience,
             ];
             $query = DB::table('users')->insert($values);
+            $id = DB::getPdo()->lastInsertId();
             if ($query) {
-                $id = DB::table('users')->select('id')->where('name', $request->name)->value('id');
-
-                $technologies_id = $request->technologies_id;
-                $technologies_ids = explode(", ", $technologies_id);
-                $technology_data = array();
-                foreach ($technologies_ids as $technology_id) {
-                    if ($technology_id != "") {
-                        $technology_data[] = array(
+                $technologiesId = $request->technologiesId;
+                $technologiesIds = explode(", ", $technologiesId);
+                $technologyData = array();
+                foreach ($technologiesIds as $technologyId) {
+                    if ($technologyId != "") {
+                        $technologyData[] = array(
                             'users_id' => $id,
-                            'technology_id' => $technology_id
+                            'technology_id' => $technologyId
                         );
                     }
                 }
-                $query2 = DB::table('usertechnologies')->insert($technology_data);
+                $query2 = DB::table('usertechnologies')->insert($technologyData);
                 if ($query2) {
                     return response()->json(['status' => 200]);
                 } else {
@@ -99,13 +127,12 @@ class UserController extends Controller
                 }
             }
         } else {
-            return response()->json(['status' => 409, 'errors' => $validate->errors()->toArray()]);
+            return response()->json([ 'errors' => $validate->errors()->toArray()],409);
         }
     }
 
     public function assessmentIndex($id)
     {
-
         DB::table('userquizzes')->where('status','S')->update(['status'=>'U']);
         $submittedblock = DB::table('userquizzes as uq')
             ->join('users as u', 'u.id', '=', 'uq.users_id')
@@ -201,7 +228,6 @@ class UserController extends Controller
         }else{
             return response()->json(['status'=>404]);
         }
-
      }
 
      //PDF View Functionality

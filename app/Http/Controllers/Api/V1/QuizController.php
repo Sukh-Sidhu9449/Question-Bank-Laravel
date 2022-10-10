@@ -12,13 +12,7 @@ use Yajra\DataTables\Facades\DataTables;
 date_default_timezone_set("Asia/Calcutta");
 class QuizController extends Controller
 {
-    public function index()
-    {
-        $technologies = DB::table('technologies')->get();
-        return view('admin.quiz', ['technologies' => $technologies]);
-    }
-
-    public function fetchFrameworks(Request $request){
+        public function fetchFrameworks(Request $request){
         $technology_id=$request->technology_id;
         $id=explode(',', $technology_id);
         $frameworks= DB::table('frameworks as f')
