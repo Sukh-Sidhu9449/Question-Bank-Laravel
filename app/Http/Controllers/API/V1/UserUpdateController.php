@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
+
+use App\Http\Controllers\Controller;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Redirect;
 
 class UserUpdateController extends Controller
 {
@@ -19,9 +18,10 @@ class UserUpdateController extends Controller
         $users = DB::table('users')->where('id', $id)->get();
         //dd($users);
         //$user = App\User::where('id',$id)->first();
-        
 
-        return view('user_edit', ['users' => $users, 'technologies' => $technologies]);
+
+        // return view('user_edit', ['users' => $users, 'technologies' => $technologies]);
+        return response($users);
     }
 
     public function update(Request $request)
@@ -29,16 +29,17 @@ class UserUpdateController extends Controller
         $id = Auth::user()->id;
 
         $data = [
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'gender' => $request->input('gender'),
-            'address' => $request->input('address'),
-            'phone_number' => $request->input('phone_number'),
-            'last_company' => $request->input('last_company'),
-            'designation' => $request->input('designation'),
-            'experience' => $request->input('experience'),
+            'name' => $request->name,
+            'email' => $request->email,
+            'gender' => $request->gender,
+            'address' => $request->address,
+            'phone_number' => $request->phone_number,
+            'last_company' => $request->last_company,
+            'designation' => $request->designation,
+            'experience' => $request->experience,
 
         ];
+        // return response($data);
         // $image=$request->input('image');
 
         if ($request->hasFile('image')) {
@@ -76,22 +77,9 @@ class UserUpdateController extends Controller
             }
             DB::table('usertechnologies')->insert($technology_data);
         }
-        return redirect('/user_edit');
-    }
-
-    public function updatePassword(Request $request)
-    {
-
-        #Match The Old Password
-        if(!Hash::check($request->old_password, auth()->user()->password)){
-           // dd('old_password');
-            return back()->with("error", "Old Password Doesn't match!");
-        }
-        #Update the new Password
-        User::whereId(auth()->user()->id)->update([
-            'password' => Hash::make($request->new_password)
-        ]);
-
-        return back()->with("status",'Password has been Updated');
+        // return redirect('/user_edit');
+        return response([
+            'message'=>'Update successfully',
+        ],200);
     }
 }

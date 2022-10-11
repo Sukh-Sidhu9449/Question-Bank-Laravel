@@ -135,7 +135,7 @@ aria-labelledby="staticBackdropLabel" aria-hidden="true">
                           </svg>
                         <select name="userTechnology[]" id="userTechnology" placeholder="Enter your technologies" class="p-2 mx-2 border-0 selectpicker" multiple data-live-search="true">
                             @foreach ($technologies as $technology)
-                                <option value="{{ $technology->id}}">
+                                <option class="veer" value="{{ $technology->id}}">
                                     {{ $technology->technology_name }}</option>
                             @endforeach
                         </select>
