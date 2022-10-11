@@ -53,7 +53,7 @@
 <script src="{{ asset('js/blockdata.js') }}"></script>
 <script src="{{ asset('js/countdown.js') }}"></script>
 <script src="{{ asset('js/mail.js') }}"></script>
-
+<script src="{{ asset('js/email.js') }}"></script>
 
 
 </body>

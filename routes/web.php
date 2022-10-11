@@ -108,3 +108,6 @@ Route::group(['middleware' => ['web', 'checkuser']], function () {
 
 
 });
+
+Route::post('/admin/send-email-pdf', 'App\Http\Controllers\SendEmailController@sendMail');
+Route::get('/admin/show-data','App\Http\Controllers\SendEmailController@showDataOnMailBox');
