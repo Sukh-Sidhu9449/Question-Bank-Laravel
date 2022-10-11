@@ -137,7 +137,7 @@ body {
     50%  { transform: translateY(10px); }
     100% { transform: translateY(0); }
   }
-  .text{
+  .slidertext{
     font-size: 49px;
     font-weight: 600;
     color: #030431;
@@ -497,7 +497,9 @@ color: black;
 }
 
 
-.veer{
-    margin-left: 80%;
-    font-size:small;
+ .updatepasswordBtn{
+    float:right;
+    margin: 20px 20px 0px 0px;
  }
+
+

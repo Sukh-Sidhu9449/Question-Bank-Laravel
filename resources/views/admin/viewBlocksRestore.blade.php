@@ -8,11 +8,10 @@
                     <div class="page_title">
                         <div>
                             <h5 class="page-title p-3 mt-2">Quiz</h5>
-
                         </div>
                         <div class="d-flex">
                             <div>
-                                <a href="{{ url('/viewBlocksRestore')}}" class="btn btn-xs btn-danger pull-right " style="margin-top:25%; margin-left:-25%;  ">Trash</a>
+
                             </div>
                             <div>
                             </div>
@@ -25,15 +24,14 @@
         <div id="block_data" class="container-fluid">
             <div class="first_section">
                 <div class="bg-white">
-                    <table id="indexblocks" class="table table-hover">
+                    <table id="restoreblock" class="table table-hover">
                         <thead class="">
                             <th>S.N.</th>
                             <th>Quiz Blocks</th>
-                            <th>Number of Questions</th>
+                            {{-- <th>Number of Questions</th> --}}
                             <th>Action</th>
                         </thead>
                         <tbody>
-
                         </tbody>
                         <tfoot>
                         </tfoot>
@@ -42,11 +40,7 @@
                 </div>
             </div>
         </div>
-        {{-- <div class="page_loader">
-            <button class="pageloader_button" id="pageloader_quiz_button">Load more...</button>
-            <img src="{{ asset('img/pageloader.gif') }}" alt="Show/Hide Image"
-                class="page_loader_image"id="quiz_page_loader_image" height="80px" width="300px" />
-        </div> --}}
+
     </div>
     <div id="show_block_data">
         <div class="first_section">
@@ -54,7 +48,7 @@
                 <div class="row align-items-center">
                     <div class="page_title">
                         <div>
-                            <h5 class="page-title p-3 mt-2">Block Detail</h5>
+                            <h5 class="page-title p-3 mt-2">Block Details</h5>
                         </div>
                         <div class="d-flex">
                             <div>
@@ -117,9 +111,7 @@
                     </div>
                 </div>
             </div>
-            {{-- <div class="spinner-grow" role="status">
-                <span class="sr-only">Loading...</span>
-            </div> --}}
+
             <div id="dynamic_users_detail" class="container-fluid">
                 <div class="first_section">
                     <div class="bg-white">
@@ -140,14 +132,6 @@
                     </div>
                 </div>
             </div>
-            <div class="page_loader">
-                <button class="pageloader_button" id="pageloader_quiz_button">Load more...</button>
-                <img src="{{ asset('img/pageloader.gif') }}" alt="Show/Hide Image"
-                    class="page_loader_image"id="quiz_page_loader_image" height="80px" width="300px" />
-            </div>
-
-
-
         </div>
     </div>
     <br>

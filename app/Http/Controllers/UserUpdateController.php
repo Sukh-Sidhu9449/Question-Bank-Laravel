@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 
 class UserUpdateController extends Controller
 {
@@ -16,7 +19,7 @@ class UserUpdateController extends Controller
         $users = DB::table('users')->where('id', $id)->get();
         //dd($users);
         //$user = App\User::where('id',$id)->first();
-        
+
 
         return view('user_edit', ['users' => $users, 'technologies' => $technologies]);
     }
@@ -74,5 +77,21 @@ class UserUpdateController extends Controller
             DB::table('usertechnologies')->insert($technology_data);
         }
         return redirect('/user_edit');
+    }
+
+    public function updatePassword(Request $request)
+    {
+
+        #Match The Old Password
+        if(!Hash::check($request->old_password, auth()->user()->password)){
+           // dd('old_password');
+            return back()->with("error", "Old Password Doesn't match!");
+        }
+        #Update the new Password
+        User::whereId(auth()->user()->id)->update([
+            'password' => Hash::make($request->new_password)
+        ]);
+
+        return back()->with("status",'Password has been Updated');
     }
 }

@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\FrameworkController;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\McqController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\TechnologyController;
 use App\Http\Controllers\UserController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\tech_user_Controller;
 use App\Http\Controllers\UserUpdateController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\quiz_questionController;
+use App\Http\Controllers\SoftDeleteController;
 
 Route::get('/register', [AuthController::class, 'loadRegister']);
 Route::post('/register', [AuthController::class, 'userRegister'])->name('userRegister');
@@ -72,6 +74,12 @@ Route::group(['middleware' => ['web', 'checkadmin']], function () {
     Route::get('/admin/view-pdf/{id}',[UserController::class,'viewPDF']);
     Route::get('/admin/download-pdf/{id}',[UserController::class,'downloadPDF']);
 
+
+    Route::get('/admin/mcq_questions',[McqController::class, 'index'])->name('admin/mcq_questions');
+    Route::post('/admin/mcq_frameworks',[McqController::class, 'show']);
+    Route::post('/admin/mcq_questions',[McqController::class, 'getMcq']);
+    Route::post('/admin/mcq_questions/addMcq',[McqController::class,'addMcq']);
+
     Route::get('/admin/quiz', [QuizController::class, 'index'])->name('quiz.index');
     Route::get('/admin/quiz/frameworks',[QuizController::class,'fetchFrameworks']);
     Route::get('/admin/quiz/questions', [QuizController::class, 'getQuestions']);
@@ -81,6 +89,12 @@ Route::group(['middleware' => ['web', 'checkadmin']], function () {
     Route::get('/admin/blocks/{id}', [QuizController::class, 'fetchBlockQuestions']);
     Route::get('/admin/blockusers', [QuizController::class, 'fetchUsers']);
     Route::post('/admin/asssignblock', [QuizController::class, 'assignBlock']);
+
+
+    Route::get('/viewBlocks/destroy/{id}',[SoftDeleteController::class, 'destroy']);
+    Route::get('/admin/restoreBlocks/{id}',[SoftDeleteController::class, 'restore']);
+    Route::get('/viewBlocksRestore',function(){ return view('admin.viewBlocksRestore');});
+    Route::get('/admin/restoreBlocks',[QuizController::class,'restoreBlocks'])->name ('restoreBlocks');
 
     Route::get('/mail/{id}',[MailController::class,'Mail']);
     Route::post('/mail',[MailController::class,'sendMail']);
@@ -95,6 +109,8 @@ Route::group(['middleware' => ['web', 'checkuser']], function () {
     Route::get('/user_edit', [UserUpdateController::class, 'index']);
     Route::post('/user_edit', [UserUpdateController::class, 'update'])->name('user_edit');
     Route::get('/core_php', [tech_user_Controller::class, 'getQuestion']);
+
+    Route::post('/update-password', [UserUpdateController::class, 'updatePassword'])->name("update-password");
 
     Route::put('/notification/{u_id}', [NotificationController::class, 'getNotification']);
     Route::get('/get_count_value', [NotificationController::class, 'getCount']);

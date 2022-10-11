@@ -14,11 +14,11 @@
         <div class="carousel-inner p-0">
             <div class="carousel-item active">
                 <img src="{{ asset('user_img/img/crouel3.webp') }}" alt="Los Angeles" class="d-block">
-             
+
                 <div class="carousel-caption" id="text">
                     <h6 class="justify-content-left quotes">The New Way To Learn properly In With Us...<h6>
                 </div>
-              
+
             </div>
             <div class="carousel-item">
                 <img src="{{ asset('user_img/img/trtrtr052.gif') }}" alt="Chicago" class="d-block">
@@ -30,7 +30,7 @@
                 <img src="{{ asset('user_img/img/qb.gif') }}"
                 alt="New York" class="d-block">
                 <div class="carousel-caption text-black justify-content-left">
-                  
+
                 </div>
             </div>
         </div>
@@ -81,7 +81,7 @@
 
 
             <div class="slider">
-                <h2 class="text">Lets See our Popular Technologies</h2>
+                <h2 class="slidertext">Lets See our Popular Technologies</h2>
                 <div class="gallery js-flickity"data-flickity-options='{ "wrapAround": true }'>
 
                     @foreach ($technologies3 as $items)

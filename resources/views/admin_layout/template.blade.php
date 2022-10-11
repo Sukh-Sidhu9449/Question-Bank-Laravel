@@ -53,6 +53,8 @@
 <script src="{{ asset('js/blockdata.js') }}"></script>
 <script src="{{ asset('js/countdown.js') }}"></script>
 <script src="{{ asset('js/mail.js') }}"></script>
+<script src="{{ asset('js/mcqQuestions.js') }}"></script>
+<script src="{{ asset('js/addMcqQuestions.js') }}"></script>
 
 
 
