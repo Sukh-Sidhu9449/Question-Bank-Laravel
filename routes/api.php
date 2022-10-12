@@ -5,7 +5,7 @@ use App\Http\Controllers\Api\V1\TechnologyController;
 use App\Http\Controllers\Api\V1\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\QuizQuestionController;
 use App\Http\Controllers\Api\V1\UserUpdateController;
 use App\Http\Controllers\Api\V1\NavBarController;

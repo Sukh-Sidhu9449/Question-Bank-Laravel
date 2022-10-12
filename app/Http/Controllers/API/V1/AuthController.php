@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -34,8 +34,6 @@ class AuthController extends Controller
         $success['token'] = $user->createToken('MyApp')->plainTextToken;
         $success['name'] = $user->name;
         $success['email'] = $user->email;
-        $success['password'] = $user->password;
-        $success['cPassword'] = $user->password;
 
         $response = [
             'data' => $success,
@@ -50,7 +48,6 @@ class AuthController extends Controller
             $success['token'] = $user->createToken('MyApp')->plainTextToken;
             $success['name'] = $user->name;
             $success['email'] = $user->email;
-            $success['password'] = $user->password;
 
             $response = [
                 'data' => $success,
