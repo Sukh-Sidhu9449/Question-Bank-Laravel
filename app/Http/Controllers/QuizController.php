@@ -279,17 +279,31 @@ class QuizController extends Controller
             $offset = $ques_count * $limit;
             // dd($limit);
         }
-        $block_questions = DB::table('block_questions as bq')->where('bq.block_id', $id)
-            ->join('questions as q', 'bq.question_id', '=', 'q.id')
-            ->select('q.question')
+        $blockMcqQuestions = "";
+        $block_questions = "";
+
+        $blockType = DB::table('blocks')->where('id',$id)->select('type')->value('type');
+        if($blockType == 'MCQ'){
+            $blockMcqQuestions = DB::table('block_questions as bq')->where('bq.block_id', $id)
+            ->join('mcq_questions as mq', 'bq.question_id', '=', 'mq.id')
+            ->select('mq.mcq_questions as question')
             ->offset($offset)->limit($limit)
             ->get();
-        if (count($block_questions) > 0) {
+        }else{
+            $block_questions = DB::table('block_questions as bq')->where('bq.block_id', $id)
+                ->join('questions as q', 'bq.question_id', '=', 'q.id')
+                ->select('q.question')
+                ->offset($offset)->limit($limit)
+                ->get();
+        }
+        if ($block_questions != "" || $blockMcqQuestions != "" ) {
             return response()->json([
                 'block' => $block_questions,
+                'blockMcq' => $blockMcqQuestions,
                 'status' => 200
             ]);
-        } else {
+        }
+        else{
             return response()->json([
                 'status' => 404
             ]);

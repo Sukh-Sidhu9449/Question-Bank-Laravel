@@ -56,14 +56,25 @@ $(document).ready(function () {
                 if (response.status == 200) {
                     let i = 1;
                     var block_questions = "";
-                    $.each(response.block, function (key, value) {
-                        block_questions += `<tr>
-                                            <td>`+ i + `</td>
-                                            <td>`+ value.question + `</td>
-                                         </tr>`;
-                        i++;
+                    if(response.blockMcq == "" ){
+                        $.each(response.block, function (key, value) {
+                            block_questions += `<tr>
+                                                <td>`+ i + `</td>
+                                                <td>`+ value.question + `</td>
+                                             </tr>`;
+                            i++;
 
-                    });
+                        });
+                    }else{
+                        $.each(response.blockMcq, function (key, value) {
+                            block_questions += `<tr>
+                                                <td>`+ i + `</td>
+                                                <td>`+ value.question + `</td>
+                                             </tr>`;
+                            i++;
+
+                        });
+                    }
                     $('#block_table').append(block_questions);
                     $("#block_table > tfoot").empty();
                     $("#block_table > tfoot").html('<button type="button" id="assign_users_btn" data-id="' + block_id + '" class="btn btn-info"><i class="fa-solid fa-eye"></i>&nbsp;Assign</button>');

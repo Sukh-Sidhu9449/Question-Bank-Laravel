@@ -33,7 +33,7 @@ class NotificationController extends Controller
             ])
             ->orWhere([['users_id', $u_id], ['status', 'C']])
             ->orWhere([['users_id', $u_id], ['status', 'I']])
-            ->select('userquizzes.id', 'blocks.block_name', 'userquizzes.status', 'userquizzes.block_aggregate', 'userquizzes.feedback')
+            ->select('userquizzes.id', 'blocks.block_name','blocks.type', 'userquizzes.status', 'userquizzes.block_aggregate', 'userquizzes.feedback')
             ->orderBy('userquizzes.id','desc')
             ->get();
 
@@ -61,7 +61,7 @@ class NotificationController extends Controller
             ['users_id',$user_id]
         ])
 
-        ->select('userquizzes.id','blocks.block_name','userquizzes.status','users.name')
+        ->select('userquizzes.id','blocks.block_name','blocks.type','userquizzes.status','users.name')
         ->orderBy('userquizzes.id','desc')
         ->get();
 
