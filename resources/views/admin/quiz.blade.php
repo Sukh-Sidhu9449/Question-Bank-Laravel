@@ -62,8 +62,10 @@
                                 <h6 class="page-title p-3 mt-2">
                                     <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                                         <ol class="breadcrumb">
-                                            <li class="breadcrumb-item"><a class="bread_home" href="#">Technologies</a></li>
-                                            <li class="breadcrumb-item active bread_tech" aria-current="page">Frameworks</li>
+                                            <li class="breadcrumb-item"><a class="bread_home"
+                                                    href="#">Technologies</a></li>
+                                            <li class="breadcrumb-item active bread_tech" aria-current="page">Frameworks
+                                            </li>
                                         </ol>
                                     </nav>
                                 </h6>
@@ -94,16 +96,20 @@
                                 <h6 class="page-title p-3 mt-2">
                                     <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                                         <ol class="breadcrumb">
-                                          <li class="breadcrumb-item"><a class="bread_home" href="#">Technologies</a></li>
-                                          <li class="breadcrumb-item"><a class="bread_technology" href="#">Frameworks</a></li>
-                                          <li class="breadcrumb-item active bread_frame" aria-current="page">Questions</li>
+                                            <li class="breadcrumb-item"><a class="bread_home"
+                                                    href="#">Technologies</a></li>
+                                            <li class="breadcrumb-item"><a class="bread_technology"
+                                                    href="#">Frameworks</a></li>
+                                            <li class="breadcrumb-item active bread_frame" aria-current="page">Questions
+                                            </li>
                                         </ol>
-                                      </nav>
+                                    </nav>
                                 </h6>
                             </div>
                             <div class="d-flex">
                                 <div class="random_btn">
-                                    <button class="btn btn-primary aaa" data-bs-toggle="modal" data-bs-target="#exampleModal">Random</button>
+                                    <button id="randomBtn" class="btn btn-primary aaa" data-bs-toggle="modal"
+                                        data-bs-target="#randomQuesModal">Random</button>
                                 </div>
                                 <div>
 
@@ -156,7 +162,7 @@
 
                                             <label for="test_timer"><strong>Timer</strong></label>
                                             <input type="text" name="test_timer" id="test_timer" class="test_timer"
-                                            placeholder="In Minutes">
+                                                placeholder="In Minutes">
                                             <div class="text-danger errorspan"></div>
                                             <button type="submit" class="btn btn-primary make_test">Create Quiz</button>
                                         </form>
@@ -175,34 +181,87 @@
                 </div>
             </div>
 
-             <!-- Modal -->
-             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <!-- Modal -->
+            <div class="modal fade" id="randomQuesModal" tabindex="-1" aria-labelledby="randomQuesModalLabel"
+                aria-hidden="true">
                 <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Choose Random Number</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class=" totalqueslabel">
-                            <label class="form-label" for="totalQues">Total Questions</label>
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="randomQuesModalLabel">Choose Random Number</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
                         </div>
-                        <div>
-                            <input type="text" class="form-control" readonly>
-                        </div>
-                        <div class="noofquestion">
-                            <label class="form-label" for="noOfQues">No. of Questions</label>
-                        </div>
-                        <div>
-                            <input type="text" class="form-control">
-                        </div>
+                        <div class="modal-body">
+                            <div class=" totalqueslabel">
+                                <label class="form-label" for="totalQues">Total Questions</label>
+                            </div>
+                            <div>
+                                <input id="totalQues" name="totalQues" type="text" class="form-control" readonly>
+                            </div>
+                            <div class="noofquestion">
+                                <label class="form-label" for="noOfQues">No. of Questions</label>
+                            </div>
+                            <div>
+                                <input id="noOfQues" name="noOfQues"type="number" class="form-control" required>
+                            </div>
+                            <div>
+                                <span id="randomQuesError" class="text-danger"></span>
+                            </div>
 
 
-                    </div>
-                    <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Save</button>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="genterateRandom" class="btn btn-primary">Generate
+                                Questions</button>
+                        </div>
                     </div>
                 </div>
+            </div>
+
+            {{-- Modal Display Question --}}
+
+            <div class="modal fade" id="modal2" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content"style=" width: 150%;">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Random Questions</h5>
+                            {{-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> --}}
+                        </div>
+                        <div class="modal-body">
+                            <div class="bg-white">
+                                <table id="randomTestTable" class="table table-hover">
+                                    <thead class="table-dark">
+                                        <th><input type="checkbox" id="select-all-random"></th>
+                                        <th>S.N.</th>
+                                        <th>Quiz Questions</th>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="3">
+                                                <form id="testRandomDescriptionForm" method="POST">
+                                                    <label for="test_description"><strong>Description</strong></label>
+                                                    <input type="text" name="testRandomDescription"
+                                                        id="testRandomDescription" class="test_description">
+                                                    <div id="errorspan" class="text-danger"></div>
+                                                    <br>
+
+                                                    <label for="randomTestTimer"><strong>Timer</strong></label>
+                                                    <input type="text" name="randomTestTimer" id="randomTestTimer"
+                                                        class="test_timer" placeholder="In Minutes">
+                                                    <div class="text-danger errorspan"></div>
+                                                    <button type="submit" class="btn btn-primary makeRandomQuesTest">Create Quiz</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
 

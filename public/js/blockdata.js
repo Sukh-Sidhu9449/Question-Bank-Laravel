@@ -7,6 +7,7 @@ $(document).ready(function () {
         columns: [
             {data: 'DT_RowIndex', name: 'Dt_RowIndex'},
             {data: 'block_name', name: 'block_name'},
+            {data: 'type', name: 'type'},
             {data: 'question_count', name: 'question_count'},
             {data: 'action', name: 'action'}
         ]

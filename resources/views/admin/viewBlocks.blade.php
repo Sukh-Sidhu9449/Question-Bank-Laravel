@@ -29,6 +29,7 @@
                         <thead class="">
                             <th>S.N.</th>
                             <th>Quiz Blocks</th>
+                            <th>Type</th>
                             <th>Number of Questions</th>
                             <th>Action</th>
                         </thead>

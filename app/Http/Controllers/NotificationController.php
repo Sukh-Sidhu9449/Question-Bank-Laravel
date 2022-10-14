@@ -26,7 +26,6 @@ class NotificationController extends Controller
         if (count($query2) > 0) {
             DB::table('userquizzes')->where([['users_id', $u_id], ['status', 'C']])->update($statusAlreadyReviewed);
         }
-
         $notificaton = DB::table('userquizzes')
             ->join('blocks', 'blocks.id', '=', 'userquizzes.block_id')
             ->where([
@@ -38,7 +37,7 @@ class NotificationController extends Controller
             ->orderBy('userquizzes.id','desc')
             ->get();
 
-        return response($notificaton)->json([
+        return response()->json([
             'notification' => $notificaton,
         ]);
     }

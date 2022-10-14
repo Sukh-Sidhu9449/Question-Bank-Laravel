@@ -45,13 +45,12 @@ Route::prefix('v1')->group(function () {
     Route::controller(UserController::class)->group(function (){
     Route::post('/users', 'store');
     Route::get('/users/list', 'getUsers');
-    Route::get('/admin/userassessment/{id}', [UserController::class, 'assessmentIndex']);
+    Route::get('/admin/userassessment/{quizId}', [UserController::class, 'getAssessment']);
     Route::get('/admin/assessmentdata', [UserController::class, 'getSubmittedBlock']);
     Route::post('/admin/userassessment',[UserController::class,'insertIndividualMarks']);
     Route::post('/admin/assessmentfeedback',[UserController::class,'feedbackBlock']);
     Route::post('/admin/feedback',[UserController::class,'feedbackData']);
-    Route::get('/admin/view-pdf/{id}',[UserController::class,'viewPDF']);
-    Route::get('/admin/download-pdf/{id}',[UserController::class,'downloadPDF']);
+    Route::get('/admin/getpdfdata/{id}',[UserController::class,'getPdfData']);
     });
 });
 

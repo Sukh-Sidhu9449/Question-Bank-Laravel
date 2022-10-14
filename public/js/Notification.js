@@ -49,7 +49,6 @@ $(document).ready(function(){
 
                 }else if(value.status=='C'){
                     notification_data+= '<p><a class="notification_design" data-aggregate= "'+value.block_aggregate+'" data-feedback="'+value.feedback+'" href="#" id="checked_quiz">Reviwed ' + value.block_name + '</a></p><hr>';
-
                 }
                 else if(value.status=='I')
                 {

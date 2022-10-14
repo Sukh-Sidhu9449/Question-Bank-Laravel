@@ -6,6 +6,7 @@ use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\FrameworkController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\McqController;
+use App\Http\Controllers\McqQuizBlockController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\TechnologyController;
 use App\Http\Controllers\UserController;
@@ -54,7 +55,7 @@ Route::group(['middleware' => ['web', 'checkadmin']], function () {
     Route::post('/admin/experiences', [ExperienceController::class, 'store']);
     Route::get('/admin/experiences/edit/{id}', [ExperienceController::class, 'edit']);
     Route::post('/admin/experiences/edit/{id}', [ExperienceController::class, 'update']);
-    Route::delete('/admin/experiences/delete/{id}', [ExperienceController::class, 'destroy']);
+    // Route::delete('/admin/experiences/delete/{id}', [ExperienceController::class, 'destroy']);
 
     Route::get('/admin/questions/{id}/{limit}/{count}', [QuestionController::class, 'index']);
     Route::post('/admin/questions', [QuestionController::class, 'store']);
@@ -80,10 +81,17 @@ Route::group(['middleware' => ['web', 'checkadmin']], function () {
     Route::post('/admin/mcq_questions',[McqController::class, 'getMcq']);
     Route::post('/admin/mcq_questions/addMcq',[McqController::class,'addMcq']);
 
+    Route::get('/admin/McqQuizBlock',[McqQuizBlockController::class,'index'])->name('admin/McqQuizBlock');
+    Route::get('/admin/QuizBlocks/Frameworks',[McqQuizBlockController::class,'fetchFramework']);
+    Route::get('/admin/Mcq/questions',[McqQuizBlockController::class,'getMcqQuestions']);
+
+
     Route::get('/admin/quiz', [QuizController::class, 'index'])->name('quiz.index');
     Route::get('/admin/quiz/frameworks',[QuizController::class,'fetchFrameworks']);
     Route::get('/admin/quiz/questions', [QuizController::class, 'getQuestions']);
     Route::post('/admin/quiz/questions', [QuizController::class, 'saveQuestions']);
+    Route::get('/admin/quiz/randomquestions', [QuizController::class, 'getRandomQuestions']);
+    // Route::post('/admin/quiz/randomquestions', [QuizController::class, 'saveRandomQuestions']);
     Route::get('/admin/indexblock', [QuizController::class, 'indexBlocks']);
     Route::get('/admin/totalquizblocks', [QuizController::class, 'fetchAllBlocks']);
     Route::get('/admin/blocks/{id}', [QuizController::class, 'fetchBlockQuestions']);
@@ -122,6 +130,10 @@ Route::group(['middleware' => ['web', 'checkuser']], function () {
     Route::post('/skipAnswer', [quiz_questionController::class, 'skipAnswer']);
     Route::get('/notificationPanel', [NotificationController::class, 'NotificationPanel']);
     Route::get('/user/download-pdf/{id}',[UserController::class,'downloadPDF']);
+
+    Route::get('/user/mcq',[UserController::class,'getIndex']);
+
+
 
 
 });
