@@ -79,6 +79,9 @@ Route::group(['middleware' => ['web', 'checkadmin']], function () {
     Route::post('/admin/mcq_frameworks',[McqController::class, 'show']);
     Route::post('/admin/mcq_questions',[McqController::class, 'getMcq']);
     Route::post('/admin/mcq_questions/addMcq',[McqController::class,'addMcq']);
+    Route::get('/admin/mcq_questions/getEditMcq',[McqController::class,'getMcqData']);
+    Route::delete('/admin/mcq_questions/removeAnswer',[McqController::class,'removeAnswer']);
+    Route::post('/admin/mcq_questions/editMcq',[McqController::class,'editMcq']);
 
     Route::get('/admin/quiz', [QuizController::class, 'index'])->name('quiz.index');
     Route::get('/admin/quiz/frameworks',[QuizController::class,'fetchFrameworks']);
