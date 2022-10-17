@@ -37,7 +37,7 @@
                     <form method="post" class="formEdit" action="{{ url('/admin/mcq_questions/editMcq') }}">
                         @csrf
                         <input type="hidden"  id="mcqQuestionId" name="id">
-                        <input type="text" class="form-control" id="mcq_frameworkid" name="frameworkId" value=""
+                        <input type="text" class="form-control" id="mcq_frameworkidEdit" name="frameworkId" value=""
                                placeholder="Add Question" hidden><br>
                         <select name="experience" class="form-select form-select-lg mb-3"
                                 aria-label=".form-select-lg example" id="experience">
@@ -47,7 +47,7 @@
                         </select>
                         <input type="text" class="form-control" id="mcq_question_edit" name="mcq_question" value=""
                                placeholder="Add Question"><br>
-                        <div id="multipleAnswersDiv" class="after-add-more">
+                        <div id="multipleAnswersDiv">
 
                         </div>
 

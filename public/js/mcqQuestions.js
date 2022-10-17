@@ -47,7 +47,7 @@ $(document).ready(function () {
         $(".addTech").show();
         var frameworkId = $(this).data("id");
         $(".form3 #mcq_frameworkid").val(frameworkId);
-        $(".formEdit #mcq_frameworkid").val(frameworkId);
+        $(".formEdit #mcq_frameworkidEdit").val(frameworkId);
         //console.log(frameworkId);
 
         $.ajax({
@@ -127,6 +127,7 @@ $(document).ready(function () {
     })
 
     $('.form3').on('submit', function(event) {
+
         //Add validation rule for dynamically generated name fields
         $('.add-more-input').each(function() {
             $(this).rules("add",
