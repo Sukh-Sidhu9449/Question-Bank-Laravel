@@ -139,17 +139,20 @@ class McqController extends Controller
         $answers=$request->mcq_answer;
         $correctAnswer=$request->correctAnswer;
         $answerData=[];
+
         foreach ($answers as $answer) {
             $mcqAnswers = DB::table('mcq_answers')->where('mcq_question_id', $request->id)->where('mcq_answers', $answer)->first();
 
             if(!$mcqAnswers) {
                 if ($correctAnswer == $answer) {
+
                     $answerData[] = array(
                         'mcq_question_id' => $id,
                         'mcq_answers' => $answer,
                         'status' => 1
                     );
                 } else {
+
                     $answerData[] = array(
                         'mcq_question_id' => $id,
                         'mcq_answers' => $answer,
