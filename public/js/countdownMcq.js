@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
     $(function () {
-        var mcqTimer = $('#mcqTimer').val().trim();
+        var mcqTimer = $('#mcqTimer').val();
         var mcqStartTime = $('#mcqStartTime').val();
         // console.log(mcqStartTime);
         // console.log(mcqTimer);
