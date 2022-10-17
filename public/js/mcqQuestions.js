@@ -46,7 +46,8 @@ $(document).ready(function () {
         $(".hii").hide();
         $(".addTech").show();
         var frameworkId = $(this).data("id");
-        $("#mcq_frameworkid").val(frameworkId);
+        $(".form3 #mcq_frameworkid").val(frameworkId);
+        $(".formEdit #mcq_frameworkidEdit").val(frameworkId);
         //console.log(frameworkId);
 
         $.ajax({
@@ -70,7 +71,7 @@ $(document).ready(function () {
                             i +
                             ` ` +
                             value.question +
-                            `</h4>  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mcqModal">
+                            `</h4>  <button type="button" class="btn btn-primary" id="editMCQBtn" data-id="`+ value.id + `">
                             Edit
                           </button>`;
                         $.each(value.answer, function (key, value) {
@@ -105,4 +106,116 @@ $(document).ready(function () {
         });
     });
 
+
+    $(document).on("click", ".remove", function (e) {
+        $(this).parents(".control-group").remove();
+    })
+    $(document).on("click", ".add-more", function (e) {
+        var counter = parseInt($('.counter').val());
+        var html = '<div class="control-group input-group" style="margin-top:10px">\n' +
+            '                            <input type="text" name="mcq_answer[' + counter +']" class="form-control mb-3 add-more-input" placeholder="Enter Answer Here"><br>\n' +
+            '                            <div class="input-group-btn">\n' +
+            '                                <button class="btn btn-danger remove" type="button"><i class="glyphicon glyphicon-remove"></i> Remove</button>\n' +
+            '                            </div>\n' +
+            '                        </div>';
+        var inputLength = $('.add-more-input').length;
+        if(inputLength <= 5) {
+            $(".after-add-more").append(html);
+            $('.counter').val( counter + 1 );
+        }
+
+    })
+
+    $('.form3').on('submit', function(event) {
+
+        //Add validation rule for dynamically generated name fields
+        $('.add-more-input').each(function() {
+            $(this).rules("add",
+                {
+                    required: true,
+                    messages: {
+                        required: "Please Enter Answer",
+                    }
+                });
+        });
+    });
+    $(".form3").validate({
+        rules:{
+            experience_id:{required:true},
+            mcq_question:{required:true},
+            correctAnswer:{required:true},
+
+
+        },
+        messages:{
+            experience_id:{
+                required:"Enter experience",
+            },
+            mcq_question:{
+                required:"Please enter Question",
+            },
+            correctAnswer:{
+                required:"Please enter correct answer",
+            },
+        }
+
+
+    });
+    $(document).on("click", "#editMCQBtn", function (e) {
+        var id = $(this).attr('data-id');
+        $("#mcqQuestionId").val(id);
+        $("#mcqModal").modal('show');
+        $.ajax({
+            method: "get",
+            url: "/admin/mcq_questions/getEditMcq",
+            data: {
+                id: id
+            },
+            dataType: "JSON",
+            success: function (response) {
+                if(response.status==200){
+                    var experience =response.mcqQuestions.experience_id;
+                    var mcqQuestion =response.mcqQuestions.mcq_questions;
+                    $('#experience option[value='+experience+']').attr("selected", "selected");
+                    $("#mcq_question_edit").val(mcqQuestion);
+                    $.each(response.mcqAnswers, function (key, value) {
+                        var removeBtn ='<div class="input-group-btn"><button class="btn btn-danger removeDatabase" type="button" data-id="'+value.mcq_question_id+'"><i class="glyphicon glyphicon-remove"></i> Remove</button></div>';
+                        var addBtn ='<div class="input-group-btn"><button class="btn btn-success add-more" type="button"><i class="glyphicon glyphicon-plus"></i> Add</button></div>';
+                        var html = '<div class="control-group input-group">\n' +
+                            '<input type="text" name="mcq_answer[]" class="form-control mb-3 add-more-input" placeholder="Enter Name Here" value="'+value.mcq_answers+'"><br>';
+                        if(key == 0){
+                            html += addBtn;
+                        }else{
+                            html += removeBtn;
+                        }
+                        html +=  '</div>';
+                        $('#multipleAnswersDiv').append(html);
+
+                        if(value.status == 1){
+                            $("#correctAnswerEdit").val(value.mcq_answers);
+                        }
+                    })
+
+                }
+            }
+        });
+    })
+
+    $(document).on("click", ".removeDatabase", function (e) {
+        var id = $(this).attr('data-id');
+        var elem = $(this);
+        $.ajax({
+            method: "delete",
+            url: "/admin/mcq_questions/removeAnswer",
+            data: { id: id },
+            dataType: "JSON",
+            success: function (response) {
+                if(response.status==200) {
+                    elem.parents(".control-group").remove();
+                    elem.parent().remove();
+                }
+            }
+        })
+    })
 });
+
