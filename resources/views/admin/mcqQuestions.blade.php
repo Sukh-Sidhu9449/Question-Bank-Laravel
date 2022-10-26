@@ -9,16 +9,30 @@
                     <div class="bddTech">
                         <!-- Modal of add question and answer outer-->
                         <button type="button" class="btn btn-success mt-3 mx-5 addTech" data-bs-toggle="modal"
-                                data-bs-target="#outerAddModal">Add Questions</button>
+                            data-bs-target="#outerAddModal">Add Questions</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    @foreach ($technologies as $techno)
-        <button class="btn btn-info mt-2 mcqQuestion" data-id="{{ $techno->id }}">{{ $techno->technology_name }}</button>
-    @endforeach
-    <div class="con" id="mcq">
+    <div>
+        <h1 class="fs-5 ms-3 my-4 ">MCQ Questions</h1>
+    </div>
+    <div id="mcqTechnologies" class="container-custom">
+        <div class="row">
+
+
+            <div class="button-custom text-center ">
+                @foreach ($technologies as $techno)
+                    <button class="button cancel-button  mt-5 mcqQuestion"
+                        data-id="{{ $techno->id }}">{{ $techno->technology_name }}</button>
+                @endforeach
+            </div>
+
+        </div>
+    </div>
+
+    <div class="con" id="mcqFramework">
     </div>
     <div class="conn" id="mcq_q">
     </div>
@@ -36,23 +50,23 @@
                 <div class="modal-body">
                     <form method="post" class="formEdit" action="{{ url('/admin/mcq_questions/editMcq') }}">
                         @csrf
-                        <input type="hidden"  id="mcqQuestionId" name="id">
-                        <input type="text" class="form-control" id="mcq_frameworkidEdit" name="frameworkId" value=""
-                               placeholder="Add Question" hidden><br>
+                        <input type="hidden" id="mcqQuestionId" name="id">
+                        <input type="text" class="form-control" id="mcq_frameworkidEdit" name="frameworkId"
+                            value="" placeholder="Add Question" hidden><br>
                         <select name="experience" class="form-select form-select-lg mb-3"
-                                aria-label=".form-select-lg example" id="experience">
+                            aria-label=".form-select-lg example" id="experience">
                             @foreach ($experiences as $experience)
                                 <option value="{{ $experience->id }}">{{ $experience->experience_name }}</option>
                             @endforeach
                         </select>
                         <input type="text" class="form-control" id="mcq_question_edit" name="mcq_question" value=""
-                               placeholder="Add Question"><br>
+                            placeholder="Add Question"><br>
                         <div id="multipleAnswersDiv">
 
                         </div>
 
-                        <input type="text" class="form-control" id="correctAnswerEdit" name="correctAnswer" value=""
-                               placeholder="Correct Answer"><br>
+                        <input type="text" class="form-control" id="correctAnswerEdit" name="correctAnswer"
+                            value="" placeholder="Correct Answer"><br>
                         <button type="submit" class="btn btn-primary">Save changes</button>
                     </form>
                 </div>
@@ -74,25 +88,27 @@
                     <form method="post" class="form3" action="{{ url('/admin/mcq_questions/addMcq') }}">
                         @csrf
                         <input type="text" class="form-control" id="mcq_frameworkid" name="frameworkId" value=""
-                               placeholder="Add Question" hidden><br>
+                            placeholder="Add Question" hidden><br>
                         <select name="experience" class="form-select form-select-lg mb-3"
-                                aria-label=".form-select-lg example">
+                            aria-label=".form-select-lg example">
                             @foreach ($experiences as $experience)
                                 <option value="{{ $experience->id }}">{{ $experience->experience_name }}</option>
                             @endforeach
                         </select>
                         <input type="text" class="form-control" id="mcq_question" name="mcq_question" value=""
-                               placeholder="Add Question"><br>
+                            placeholder="Add Question"><br>
                         <div class="input-group">
-                            <input type="text" name="mcq_answer[]" class="form-control mb-3 add-more-input" placeholder="Enter Answer Here"><br>
+                            <input type="text" name="mcq_answer[]" class="form-control mb-3 add-more-input"
+                                placeholder="Enter Answer Here"><br>
                             <div class="input-group-btn">
-                                <button class="btn btn-success add-more" type="button"><i class="glyphicon glyphicon-plus"></i> Add</button>
+                                <button class="btn btn-success add-more" type="button"><i
+                                        class="glyphicon glyphicon-plus"></i> Add</button>
                             </div>
                         </div>
                         <input type="hidden" class="counter" value="1">
                         <div class="after-add-more"></div>
-                        <input type="text" class="form-control" id="correctAnswer" name="correctAnswer" value=""
-                               placeholder="Correct Answer"><br>
+                        <input type="text" class="form-control" id="correctAnswer" name="correctAnswer"
+                            value="" placeholder="Correct Answer"><br>
                         <button type="submit" class="btn btn-primary">Save changes</button>
                     </form>
                 </div>
@@ -101,4 +117,4 @@
         <br>
         <br>
         <!--end of modal-->
-@endsection
+    @endsection

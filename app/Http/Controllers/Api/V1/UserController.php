@@ -223,7 +223,7 @@ class UserController extends Controller
         return response()->json(['data' => $updatedData],200);
     }
 
-    public function feedbackBlock(Request $request)
+    public function aggregateBlock(Request $request)
     {
         try {
             if (!isset($request->quizId)) {

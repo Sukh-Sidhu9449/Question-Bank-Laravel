@@ -20,7 +20,7 @@ class McqController extends Controller
             ->where('technology_id',$technology_id)->get();
         // dd($frameworks);
         return response()->json([
-            'technology_id'=>$frameworks,
+            'frameworks'=>$frameworks,
             'status'=>200
         ]);
     }

@@ -83,7 +83,7 @@
 }
 .heading h4{
     margin-top: 20px;
-    font-family: cursive !important;
+
     text-transform: capitalize;
 }
 
@@ -722,3 +722,40 @@ footer a{
     margin-right: 4px;
     border-radius: 15px !important;
 }
+/* 17/10/2022 */
+
+
+.button-custom{
+    position: absolute;
+    top: 35%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    margin: 0 auto;
+    right: 0;
+    left: 0;
+
+}
+.container-custom{
+    height: 100%;
+    position: relative;
+    background-color: #e8eaec;
+
+}
+button {
+    height: 50px;
+    width: 100px;
+    border-radius: 4px;
+    background-color: white;
+    outline: none;
+    margin: 5px;
+    transition: 0.2s;
+    cursor: pointer;
+  }
+  button.cancel-button {
+    color: #54667a;
+    border: 1px solid #54667a;
+  }
+  button.cancel-button:hover {
+    background-color: #54667a;
+    color: white;
+  }

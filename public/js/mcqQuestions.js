@@ -1,10 +1,10 @@
 $(document).ready(function () {
-    $(".PHPQuestion").hide();
+    $("#mcqFramework").hide();
     $(".addTech").hide();
     $(".mcqQuestion").click(function (e) {
         e.preventDefault();
-        $(".mcqQuestion").hide();
-        $(".PHPQuestion").show();
+        $("#mcqTechnologies").hide();
+        $("#mcqFramework").show();
 
         var technology_id = $(".mcqQuestion").data("id");
         //console.log(technology_id);
@@ -15,12 +15,12 @@ $(document).ready(function () {
             data: { technology_id: technology_id },
             dataType: "JSON",
             success: function (response) {
-                // console.log(response);
+                //  console.log(response);
                 if (response.status == 200) {
-                    var mcq_questions = " ";
+                    var mcqFrameworks = " ";
                     let i = 1;
-                    $.each(response.technology_id, function (key, value) {
-                        mcq_questions +=
+                    $.each(response.frameworks, function (key, value) {
+                        mcqFrameworks +=
                             `<div class="col-lg-12 col-md-12">
                         <div id="white_bo">
                         <div id="clicframework" data-id="` +
@@ -36,7 +36,7 @@ $(document).ready(function () {
                         </div>`;
                         i++;
                     });
-                    $("#mcq").append(mcq_questions);
+                    $('#mcqFramework').append(mcqFrameworks);
                 }
             },
         });
@@ -71,7 +71,7 @@ $(document).ready(function () {
                             i +
                             ` ` +
                             value.question +
-                            `</h4>  <button type="button" class="btn btn-primary" id="editMCQBtn" data-id="`+ value.id + `">
+                            `</h4>  <button type="button" class="btn btn-primary" id="editMCQBtn" data-id="` + value.id + `">
                             Edit
                           </button>`;
                         $.each(value.answer, function (key, value) {
@@ -113,23 +113,23 @@ $(document).ready(function () {
     $(document).on("click", ".add-more", function (e) {
         var counter = parseInt($('.counter').val());
         var html = '<div class="control-group input-group" style="margin-top:10px">\n' +
-            '                            <input type="text" name="mcq_answer[' + counter +']" class="form-control mb-3 add-more-input" placeholder="Enter Answer Here"><br>\n' +
+            '                            <input type="text" name="mcq_answer[' + counter + ']" class="form-control mb-3 add-more-input" placeholder="Enter Answer Here"><br>\n' +
             '                            <div class="input-group-btn">\n' +
             '                                <button class="btn btn-danger remove" type="button"><i class="glyphicon glyphicon-remove"></i> Remove</button>\n' +
             '                            </div>\n' +
             '                        </div>';
         var inputLength = $('.add-more-input').length;
-        if(inputLength <= 5) {
+        if (inputLength <= 5) {
             $(".after-add-more").append(html);
-            $('.counter').val( counter + 1 );
+            $('.counter').val(counter + 1);
         }
 
     })
 
-    $('.form3').on('submit', function(event) {
+    $('.form3').on('submit', function (event) {
 
         //Add validation rule for dynamically generated name fields
-        $('.add-more-input').each(function() {
+        $('.add-more-input').each(function () {
             $(this).rules("add",
                 {
                     required: true,
@@ -140,22 +140,22 @@ $(document).ready(function () {
         });
     });
     $(".form3").validate({
-        rules:{
-            experience_id:{required:true},
-            mcq_question:{required:true},
-            correctAnswer:{required:true},
+        rules: {
+            experience_id: { required: true },
+            mcq_question: { required: true },
+            correctAnswer: { required: true },
 
 
         },
-        messages:{
-            experience_id:{
-                required:"Enter experience",
+        messages: {
+            experience_id: {
+                required: "Enter experience",
             },
-            mcq_question:{
-                required:"Please enter Question",
+            mcq_question: {
+                required: "Please enter Question",
             },
-            correctAnswer:{
-                required:"Please enter correct answer",
+            correctAnswer: {
+                required: "Please enter correct answer",
             },
         }
 
@@ -173,25 +173,25 @@ $(document).ready(function () {
             },
             dataType: "JSON",
             success: function (response) {
-                if(response.status==200){
-                    var experience =response.mcqQuestions.experience_id;
-                    var mcqQuestion =response.mcqQuestions.mcq_questions;
-                    $('#experience option[value='+experience+']').attr("selected", "selected");
+                if (response.status == 200) {
+                    var experience = response.mcqQuestions.experience_id;
+                    var mcqQuestion = response.mcqQuestions.mcq_questions;
+                    $('#experience option[value=' + experience + ']').attr("selected", "selected");
                     $("#mcq_question_edit").val(mcqQuestion);
                     $.each(response.mcqAnswers, function (key, value) {
-                        var removeBtn ='<div class="input-group-btn"><button class="btn btn-danger removeDatabase" type="button" data-id="'+value.mcq_question_id+'"><i class="glyphicon glyphicon-remove"></i> Remove</button></div>';
-                        var addBtn ='<div class="input-group-btn"><button class="btn btn-success add-more" type="button"><i class="glyphicon glyphicon-plus"></i> Add</button></div>';
+                        var removeBtn = '<div class="input-group-btn"><button class="btn btn-danger removeDatabase" type="button" data-id="' + value.mcq_question_id + '"><i class="glyphicon glyphicon-remove"></i> Remove</button></div>';
+                        var addBtn = '<div class="input-group-btn"><button class="btn btn-success add-more" type="button"><i class="glyphicon glyphicon-plus"></i> Add</button></div>';
                         var html = '<div class="control-group input-group">\n' +
-                            '<input type="text" name="mcq_answer[]" class="form-control mb-3 add-more-input" placeholder="Enter Name Here" value="'+value.mcq_answers+'"><br>';
-                        if(key == 0){
+                            '<input type="text" name="mcq_answer[]" class="form-control mb-3 add-more-input" placeholder="Enter Name Here" value="' + value.mcq_answers + '"><br>';
+                        if (key == 0) {
                             html += addBtn;
-                        }else{
+                        } else {
                             html += removeBtn;
                         }
-                        html +=  '</div>';
+                        html += '</div>';
                         $('#multipleAnswersDiv').append(html);
 
-                        if(value.status == 1){
+                        if (value.status == 1) {
                             $("#correctAnswerEdit").val(value.mcq_answers);
                         }
                     })
@@ -210,7 +210,7 @@ $(document).ready(function () {
             data: { id: id },
             dataType: "JSON",
             success: function (response) {
-                if(response.status==200) {
+                if (response.status == 200) {
                     elem.parents(".control-group").remove();
                     elem.parent().remove();
                 }
