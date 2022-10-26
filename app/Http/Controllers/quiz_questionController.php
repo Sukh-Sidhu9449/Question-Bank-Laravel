@@ -43,9 +43,10 @@ class quiz_questionController extends Controller
 
             $quizQuestionData[] = $array;
         }
-        // print '<pre>';
-        // print_r($quizQuestionData);
-        // exit;
+
+//         print '<pre>';
+//         print_r($quizQuestionData);
+//         exit;
          return view('user.mcqQuiz',['quizQuestionData'=>$quizQuestionData,'technologies'=>$technologies]);
     }
 
@@ -61,6 +62,7 @@ class quiz_questionController extends Controller
         $query = DB::table('mcq_answers')
         ->select('mcq_answers')
         ->where([['mcq_question_id',$questionId],['status','=',1]])->value('mcq_answers');
+
         return $query;
     }
 

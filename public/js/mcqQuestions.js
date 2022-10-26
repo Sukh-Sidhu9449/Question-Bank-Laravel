@@ -121,7 +121,8 @@ $(document).ready(function () {
         var inputLength = $('.add-more-input').length;
         if (inputLength <= 5) {
             $(".after-add-more").append(html);
-            $('.counter').val(counter + 1);
+            $("#multipleAnswersDiv").append(html);
+            $('.counter').val( counter + 1 );
         }
 
     })
