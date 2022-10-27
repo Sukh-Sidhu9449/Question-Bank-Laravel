@@ -124,7 +124,7 @@
 <script type="text/javascript" src="{{ asset('js/logout.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/countdown.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/countdownMcq.js') }}"></script>
-
+<script type="text/javascript" src="{{ asset('js/usermcqquiz.js') }}"></script>
 
 <script type="text/javascript" src="{{ asset('js/datatables.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/updateValidation.js') }}"></script>

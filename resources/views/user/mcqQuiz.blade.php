@@ -6,6 +6,7 @@
 
         <div class="container mt-5">
             <div class="mcqQuesSection">
+                <form  action="" method="post">
                 @csrf
                 @foreach ($quizQuestionData as $key => $mcq)
                     <input type="hidden" id="mcqStartTime" value="{{ $mcq['startedAt'] }}">
@@ -24,15 +25,20 @@
                     <div class="mcqAns form-group mt-3">
                         @foreach ($mcq['answer'] as $mcqAnswer)
                             <div class="mcqEachAns">
-                                <input class="form-group-input" type="radio" name="answerRadio{{$q}}"
+                                <input class="form-group-input answerRadio" type="radio" name="answerRadio{{$q}}"
                                     id="answerRadio{{$q}}{{$loop->iteration}}">
-                                <label class="form-group-label mx-2"
-                                    for="answerRadio{{$q}}{{$loop->iteration}}">{{ $mcqAnswer->mcq_answers }}</label>
+                                <label class="form-group-label mx-2 mcqlabel" for="answerRadio{{$q}}{{$loop->iteration}}">{{ $mcqAnswer->mcq_answers }}</label>
                             </div>
                         @endforeach
-                        <input type="hidden" id="correctAnswer" value="{{ $mcq['correctAnswer'] }}">
+                        <input type="hidden" name="correctAnswer" id="correctAnswer" value="{{ $mcq['correctAnswer'] }}">
+                        <button class="btn btn-primary mt-2 mb-5 mcq_insert" hidden>Insert</button>
+
+                        {{-- <button class="btn btn-primary mt-2 mb-5 mcq_edit">Edit</button> --}}
                     </div>
-                @endforeach
+                    @endforeach
+                    <input type="hidden" name="totalMcqQuestions" id="totalMcqQuestions" value="{{$q}}">
+                </form>
+                <button class="btn btn-primary mt-2 mb-5" id="mcq_submit">Submit Quiz</button>
             </div>
         </div>
     </div>
