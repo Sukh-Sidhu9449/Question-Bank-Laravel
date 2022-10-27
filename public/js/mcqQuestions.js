@@ -145,8 +145,6 @@ $(document).ready(function () {
             experience_id: { required: true },
             mcq_question: { required: true },
             correctAnswer: { required: true },
-
-
         },
         messages: {
             experience_id: {

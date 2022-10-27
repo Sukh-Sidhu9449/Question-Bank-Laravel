@@ -33,9 +33,9 @@ class quiz_questionController extends Controller
         foreach($query as $key=> $userTech)
         {
             $array['quizId'] = $userTech->quizId;
-            $array['block_id'] = $userTech->block_id;
+            $array['blockId'] = $userTech->block_id;
             $array['timer'] = $userTech->timer;
-            $array['started_at'] = $userTech->started_at;
+            $array['startedAt'] = $userTech->started_at;
             $array['blockQuestionIid'] = $userTech->blockQuestionIid;
             $array['question'] = $userTech->question;
             $array['answer'] = $this->getMcqAnswer($userTech->questionId);
