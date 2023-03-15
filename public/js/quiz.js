@@ -270,7 +270,7 @@ $(document).ready(function () {
                     var questions_data = "";
                     $.each(response.questions, function (key, value) {
                         questions_data += `<tr>
-                                            <td><input type="checkbox" class="ques_checkbox" value="`+ value.id + `"></td>
+                                            <td><input type="checkbox" class="ques_checkbox" data-id="`+ value.id + `"></td>
                                             <td>`+ i + `</td>
                                             <td>`+ value.question + `</td>
                                          </tr>`;
@@ -340,6 +340,7 @@ $(document).ready(function () {
                 insert.push($(this).data('id'));
             }
         });
+        // console.log(insert,"insert");
         insert = insert.toString();
         $(this).attr('disabled', true);
         if (insert == '') {

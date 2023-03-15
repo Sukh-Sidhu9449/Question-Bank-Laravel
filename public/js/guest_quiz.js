@@ -6,6 +6,8 @@ $(document).ready(function () {
     $('.update').hide();
     $('.skipText').hide();
     $('#submit').hide();
+    let test_user_id = $('#user_id').val();
+    // console.log(test_user_id);
     checkSubmit();
     function checkSubmit(){
         let last_id_get=$(document).find('.last_id');
@@ -42,7 +44,7 @@ $(document).ready(function () {
     }
     checkAnswerValue();
 
-    // **********************************Choose manual or BOT to start quiz code area****************
+    // **********************************for okk to start quiz code area****************
     $(document).on('click', "#start_quiz", function (e) {
         e.preventDefault();
         let u_id = $('#user_id').val();
@@ -50,7 +52,6 @@ $(document).ready(function () {
         let block_id = $(this).data("id");
         $('#block_id').val(block_id);
         let block_type = $(this).data('type');
-        
         // console.log(block_id);
         $('#exampleModal').hide();
         $.ajax({
@@ -59,47 +60,22 @@ $(document).ready(function () {
             dataType: "json",
             success: function (response) {
                 if (response.status == 200) {
-                    swal.fire({
-                        title: "Are you sure?",
-                        html:  
-                        "<br>" +
-                        '<button type="button" role="button" tabindex="0" data-id= "' + block_id + '" data-type="' + block_type + '" data-user="' + u_id + '" class="manual_quiz customSwalBtn">' + 'Manually' + '</button>' +
-                        '<button type="button" role="button" tabindex="0" class="bot_quiz customSwalBtn">' + 'With BOT' + '</button>',
-                        icon: "warning",
-                        showConfirmButton: false,
-                        showCancelButton: false
-                      });
+                    swal.fire("Start your quiz").then(function () {
+                        // get_question(block_id);
+                        if(block_type == 'MCQ'){
+                            window.location = "/mcq/" + block_id + "/" + u_id;
+                        }else{
+                            window.location = "/quiz/" + block_id + "/" + u_id;
+                        }
+                    })
                 }
 
             }
         });
+
+
+
     });
-
-    //Manual Quiz Route
-    $(document).on('click', '.manual_quiz', function() {
-        //Some code 1
-        let quiz_id=$(this).data('id');
-        let type=$(this).data('type');
-        let user_id=$(this).data('user');
-        // console.log(quiz_id,type,user_id,'Button 1');
-        if(type == 'MCQ'){
-            window.location = "/mcq/" + quiz_id + "/" + user_id;
-        }else{
-            window.location = "/quiz/" + quiz_id + "/" + user_id;
-        }
-        swal.clickConfirm();
-    });
-
-    //Bot Quiz Route
-    $(document).on('click', '.bot_quiz', function() {
-        //Some code 2 
-        console.log('%cBOT Overload','color: magenta');
-        window.location = "/video";
-        swal.clickConfirm();
-    });
-
-
-
     $(document).on('click', "#checked_quiz", function (e) {
 
         e.preventDefault();
@@ -151,12 +127,12 @@ $(document).ready(function () {
             }
             $.ajax({
                 type: "post",
-                url: "/insertanswer",
+                url: "/guest-insert-answer",
                 context: this,
                 data: {
                     answer: ans_value,
                     question_id: question_id,
-                    // block_id:block_id,
+                    user_id:test_user_id,
                     quiz_id: quiz_id
                 },
                 dataType: "json",
@@ -202,11 +178,11 @@ $(document).ready(function () {
         $.ajax({
 
             type: "post",
-            url: "/skipAnswer",
+            url: "/guest-skip-answer",
             context: this,
             data: {
                 question_id: question_id,
-                // block_id:block_id,
+                user_id:test_user_id,
                 quiz_id: quiz_id
 
             },
@@ -280,12 +256,12 @@ $(document).ready(function () {
 
         $.ajax({
             type: "put",
-            url: "/updateanswer",
+            url: "/guest-update-answer",
             data: {
                 last: last,
                 answer: answer,
                 // question_id:question_id,
-                // block_id:block_id,
+                user_id:test_user_id,
                 // quiz_id:quiz_id
             },
             dataType: "json",
@@ -322,11 +298,12 @@ $(document).ready(function () {
                 }
                 $.ajax({
                     type: "post",
-                    url: "/insertanswer",
+                    url: "/guest-insert-answer",
                     data: {
                         answer: ans,
                         question_id: question_id,
-                        quiz_id: quiz_id
+                        quiz_id: quiz_id,
+                        user_id:test_user_id
                     },
                     dataType: "json",
                     success: function (response) {
@@ -354,11 +331,11 @@ $(document).ready(function () {
         let block_id = $(document).find('#block_id').val();
         // console.log(block_id);
         $.ajax({
-
             type: "put",
-            url: "/upatestatus",
+            url: "/update-status",
             data: {
-                block_id: block_id
+                block_id: block_id,
+                user_id:test_user_id
             },
             dataType: "json",
             success: function (response) {
@@ -372,10 +349,8 @@ $(document).ready(function () {
                         timer: 1500
                     }).then(function () {
                         // get_question(block_id);
-                        window.location = "/dashboard";
+                        window.location = "/guest-thankyou";
                     })
-
-
                 }
                 else {
                     $.toast({

@@ -1,4 +1,4 @@
-@extends('user_layout.template')
+@extends('guest_layout.template')
 @section('main-content')
 
 <div class="container-fluid p-0">
@@ -43,6 +43,7 @@
     </form>
     {{-- {{ $quizQuestionData->links() }} --}}
         <button class="btn btn-primary mt-2 mb-5" name="submit" id="submit">Submit Quiz</button>
+        <input type="text" name="user_id" id="user_id" value="{{$userId}}" hidden>
     </div>
 </div>
 

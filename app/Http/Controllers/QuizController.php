@@ -175,6 +175,7 @@ class QuizController extends Controller
         $admin_id = Auth::user()->id;
         $block_name = $request->block_name;
         $insert_data = $request->insert;
+        // dd($insert_data);
         $timer = $request->timer;
         $data=[
             'block_name' => $block_name,

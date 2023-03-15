@@ -1,43 +1,47 @@
 $(document).ready(function () {
+    let test_user_id = $('#user_id').val();
 
     $(function () {
-        var mcqTimer = $('#mcqTimer').val();
-        var mcqStartTime = $('#mcqStartTime').val();
-        // console.log(mcqStartTime);
-        // console.log(mcqTimer);
-        if (mcqTimer == '') {
-            $('#gettingMcqTimer').hide();
+        var timer = $('#quiz_timer').val();
+        var quizStartTime = $('#quiz_started_at').val();
+        // console.log(quizStartTime,timer);
+        if (timer == '') {
+            $('#getting').hide();
         } else {
-            if (mcqStartTime == '') {
-                var d4 = new Date();
-                var cHour = d4.getHours();
-                var cMin = d4.getMinutes();
-                var cSec = d4.getSeconds();
-                var d4sec = parseInt(cHour * 3600) + parseInt(cMin * 60) + parseInt(cSec);
+            if (quizStartTime == '') {
+                var d2 = new Date();
+                var cHour = d2.getHours();
+                var cMin = d2.getMinutes();
+                var cSec = d2.getSeconds();
+                var d2sec = parseInt(cHour * 3600) + parseInt(cMin * 60) + parseInt(cSec);
 
-                var d3 = new Date();
-                var d3cHour = d3.getHours();
-                var d3cMin = d3.getMinutes();
-                var d3cSec = d3.getSeconds();
-                var d3sec = parseInt(d3cHour * 3600) + parseInt(d3cMin * 60) + parseInt(d3cSec) + parseInt(mcqTimer * 60);
+                var d1 = new Date();
+                var d1cHour = d1.getHours();
+                var d1cMin = d1.getMinutes();
+                var d1cSec = d1.getSeconds();
+                var d1sec = parseInt(d1cHour * 3600) + parseInt(d1cMin * 60) + parseInt(d1cSec) + parseInt(timer * 60);
             } else {
 
-                var d4 = new Date();
-                var cHour = d4.getHours();
-                var cMin = d4.getMinutes();
-                var cSec = d4.getSeconds();
-                var d4sec = parseInt(cHour * 3600) + parseInt(cMin * 60) + parseInt(cSec);
+                var d2 = new Date();
+                var cHour = d2.getHours();
+                var cMin = d2.getMinutes();
+                var cSec = d2.getSeconds();
+                var d2sec = parseInt(cHour * 3600) + parseInt(cMin * 60) + parseInt(cSec);
 
-                var d3 = new Date(mcqStartTime);
-                var d3cHour = d3.getHours();
-                var d3cMin = d3.getMinutes();
-                var d3cSec = d3.getSeconds();
-                var d3sec = parseInt(d3cHour * 3600) + parseInt(d3cMin * 60) + parseInt(d3cSec) + parseInt(mcqTimer * 60);
+                var d1 = new Date(quizStartTime);
+                var d1cHour = d1.getHours();
+                var d1cMin = d1.getMinutes();
+                var d1cSec = d1.getSeconds();
+                var d1sec = parseInt(d1cHour * 3600) + parseInt(d1cMin * 60) + parseInt(d1cSec) + parseInt(timer * 60);
             }
+            // console.log(d2sec,d1sec);
 
-            var diff = (parseInt(d3sec - d4sec));
-            console.log(diff);
-            $('#gettingMcqTimer').countdown({ until: diff });
+            var diff = (parseInt(d1sec - d2sec));
+            // console.log(diff);
+            $('#getting').countdown({ until: diff, onExpiry: disableFunction });
+            if(diff < 0){
+                window.location = "/guest-thankyou";
+            }
 
             function disableFunction() {
                 $('.enter').each(function () {
@@ -54,11 +58,12 @@ $(document).ready(function () {
                         }
                         $.ajax({
                             type: "post",
-                            url: "/insertanswer",
+                            url: "/guest-insert-answer",
                             data: {
                                 answer: ans,
                                 question_id: question_id,
-                                quiz_id: quiz_id
+                                quiz_id: quiz_id,
+                                user_id:test_user_id,
                             },
                             dataType: "json",
                             success: function (response) {
@@ -84,9 +89,10 @@ $(document).ready(function () {
                 $.ajax({
 
                     type: "put",
-                    url: "/upatestatus",
+                    url: "/update-status",
                     data: {
-                        block_id: block_id
+                        block_id: block_id,
+                        user_id:test_user_id,
                     },
                     dataType: "json",
                     success: function (response) {
@@ -98,7 +104,7 @@ $(document).ready(function () {
                                 title: 'Your work has been saved',
                                 timer: 1500
                             }).then(function () {
-                                window.location = "/dashboard";
+                                window.location = "/guest-thankyou";
                             })
                         }
                         else {

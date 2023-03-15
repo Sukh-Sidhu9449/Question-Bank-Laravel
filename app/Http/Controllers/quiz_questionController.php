@@ -26,7 +26,7 @@ class quiz_questionController extends Controller
         ->join('blocks','blocks.id','=','userquizzes.block_id')
         ->join('mcq_questions','block_questions.question_id','=','mcq_questions.id')
         ->where('userquizzes.id',$quiz_id)
-        ->select('userquizzes.id as quizId','block_questions.block_id','block_questions.id as blockQuestionIid','mcq_questions.mcq_questions as question','mcq_questions.id as questionId','blocks.timer','userquizzes.started_at')
+        ->select('userquizzes.id as quizId','block_questions.block_id','block_questions.id as blockQuestionId','mcq_questions.mcq_questions as question','mcq_questions.id as questionId','blocks.timer','userquizzes.started_at')
         ->get();
 
         $quizQuestionData = array();
@@ -36,7 +36,7 @@ class quiz_questionController extends Controller
             $array['blockId'] = $userTech->block_id;
             $array['timer'] = $userTech->timer;
             $array['startedAt'] = $userTech->started_at;
-            $array['blockQuestionIid'] = $userTech->blockQuestionIid;
+            $array['blockQuestionId'] = $userTech->blockQuestionId;
             $array['question'] = $userTech->question;
             $array['answer'] = $this->getMcqAnswer($userTech->questionId);
             $array['correctAnswer']=$this->getCorrectAnswer($userTech->questionId);

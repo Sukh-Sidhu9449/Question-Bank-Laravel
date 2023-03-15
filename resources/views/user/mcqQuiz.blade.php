@@ -13,7 +13,7 @@
                     <input type="hidden" id="mcqTimer" value="{{ $mcq['timer'] }}">
                     <input type="hidden" id="mcqQuizId" value="{{ $mcq['quizId'] }}">
                     <input type="hidden" id="mcqBlockId" value="{{ $mcq['blockId'] }}">
-                    <input type="hidden" id="mcqBlockQuestionIid" value="{{ $mcq['blockQuestionIid'] }}">
+                    <input type="hidden" id="mcqBlockQuestionId" value="{{ $mcq['blockQuestionId'] }}">
 
                     <div class="mcqQues">
                         <h4>Q{{ $key + 1 }}. {{ $mcq['question'] }}</h4>
@@ -32,7 +32,6 @@
                         @endforeach
                         <input type="hidden" name="correctAnswer" id="correctAnswer" value="{{ $mcq['correctAnswer'] }}">
                         <button class="btn btn-primary mt-2 mb-5 mcq_insert" hidden>Insert</button>
-
                         {{-- <button class="btn btn-primary mt-2 mb-5 mcq_edit">Edit</button> --}}
                     </div>
                     @endforeach

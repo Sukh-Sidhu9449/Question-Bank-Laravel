@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('last_company')->nullable();
             $table->string('experience')->nullable();
             $table->tinyInteger('status')->default(1);
-            $table->enum('role',['admin','user','editor'])->default('user');
+            $table->enum('role',['admin','user','editor','guest'])->default('user');
             $table->timestamp('last_login')->nullable();
             $table->rememberToken();
             $table->timestamps();

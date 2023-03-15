@@ -42,7 +42,7 @@ $(document).ready(function () {
         $('#show_block_data').show();
         $('#show_blocks').hide();
         $("#block_table > tbody").empty();
-        // console.log(block_id);
+        // console.log(block_id , limit , ques_count);
         $.ajax({
             type: "get",
             url: "/admin/blocks/" + block_id,
@@ -54,7 +54,7 @@ $(document).ready(function () {
             success: function (response) {
                 // console.log(response);
                 if (response.status == 200) {
-                    let i = 1;
+                    let i = parseInt((ques_count * limit) + 1);
                     var block_questions = "";
                     if(response.blockMcq == "" ){
                         $.each(response.block, function (key, value) {
@@ -65,6 +65,11 @@ $(document).ready(function () {
                             i++;
 
                         });
+                        if (response.block.length == limit) {
+                            $('#pageloader_show_block_button').show();
+                        } else {
+                            $('#pageloader_show_block_button').hide();
+                        }
                     }else{
                         $.each(response.blockMcq, function (key, value) {
                             block_questions += `<tr>
@@ -95,6 +100,83 @@ $(document).ready(function () {
             }
         });
     }
+
+    //page loader  for questions 
+
+    $('#pageloader_show_block_button').click(function () {
+        let block_id = $('#store_block_id').val();
+        // let tech_id = $('#quiz_technology_id').val();
+        // let experience_id = $('#quiz_experience').find(":selected").val();
+        let limit = $('#block_data_limit').find(":selected").text();
+        ques_count++;
+        // alert(count);
+        $('#pageloader_show_block_button').hide();
+        $('#show_block_loader_image').show();
+        $.ajax({
+            type: "get",
+            url: "/admin/blocks/" + block_id,
+            data: {
+                limit: limit,
+                ques_count: ques_count
+            },
+            dataType: "json",
+            success: function (response) {
+                // console.log(response);
+                if (response.status == 200) {
+                    let i = parseInt((ques_count * limit) + 1);
+                    var block_questions = "";
+                    if(response.blockMcq == "" ){
+                        $.each(response.block, function (key, value) {
+                            block_questions += `<tr>
+                                                <td>`+ i + `</td>
+                                                <td>`+ value.question + `</td>
+                                             </tr>`;
+                            i++;
+
+                        });
+                        let total = parseInt(ques_count * limit) + parseInt(limit);
+
+                        let totalrecord = parseInt(ques_count * limit) + parseInt(response.block.length);
+                        
+                        $('#show_block_loader_image').hide();
+
+                        if (total == totalrecord) {
+                            $('#pageloader_show_block_button').show();
+                        } else {
+                            $('#pageloader_show_block_button').hide();
+                        }
+                    }else{
+                        $.each(response.blockMcq, function (key, value) {
+                            block_questions += `<tr>
+                                                <td>`+ i + `</td>
+                                                <td>`+ value.question + `</td>
+                                             </tr>`;
+                            i++;
+
+                        });
+                        
+                    }
+                    $('#block_table').append(block_questions);
+                    $("#block_table > tfoot").empty();
+                    $("#block_table > tfoot").html('<button type="button" id="assign_users_btn" data-id="' + block_id + '" class="btn btn-info"><i class="fa-solid fa-eye"></i>&nbsp;Assign</button>');
+
+                } else
+                    if (response.status == 404) {
+                        // $('#pageloader_quiz_button').hide();
+                        // $("#users_detail_table > tbody").empty();
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'No record Found!',
+                            timer: 1000
+                        })
+
+                    }
+
+            }
+        });
+
+    });
 
     //Fetch Detail of Selected Block
     $(document).on('click', '#show_block_btn', function () {

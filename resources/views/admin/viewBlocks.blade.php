@@ -92,6 +92,11 @@
                 </div>
             </div>
         </div>
+        <div class="page_loader">
+                <button class="pageloader_button" id="pageloader_show_block_button">Load more...</button>
+                <img src="{{ asset('img/pageloader.gif') }}" alt="Show/Hide Image"
+                    class="page_loader_image"id="show_block_loader_image" height="80px" width="300px" />
+            </div>
     </div>
     <div id="load_users_list">
 
@@ -146,8 +151,6 @@
                 <img src="{{ asset('img/pageloader.gif') }}" alt="Show/Hide Image"
                     class="page_loader_image"id="quiz_page_loader_image" height="80px" width="300px" />
             </div>
-
-
 
         </div>
     </div>

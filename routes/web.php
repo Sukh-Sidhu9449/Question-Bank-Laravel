@@ -4,9 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\FrameworkController;
+use App\Http\Controllers\GuestController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\McqController;
 use App\Http\Controllers\McqQuizBlockController;
+use App\Http\Controllers\McqQuizQuestionController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\TechnologyController;
 use App\Http\Controllers\UserController;
@@ -26,7 +28,18 @@ Route::get('/', [AuthController::class, 'loadlogin']);
 Route::post('/login', [AuthController::class, 'userlogin'])->name('userlogin');
 Route::get('/logout', [AuthController::class, 'adminlogout']);
 
+Route::get('/guest',[GuestController::class, 'index']);
+Route::post('/guest',[GuestController::class, 'register']);
+Route::get('/guest/quiz/{quizId}/{userId}', [GuestController::class, 'quizQuestion']);
+Route::post('/guest-insert-answer', [GuestController::class, 'insertAnswer']);
+Route::put('/guest-update-answer', [GuestController::class, 'updateAnswer']);
+Route::post('/guest-skip-answer', [GuestController::class, 'skipAnswer']);
+Route::put('/update-status',[GuestController::class,'updateStatus']);
+Route::get('/guest-thankyou',function(){
+    return view('guest.guest_thankyou');
+});
 
+//Admin Routes
 Route::group(['middleware' => ['web', 'checkadmin']], function () {
 
     Route::get('/admin/dashboard', [AuthController::class, 'adminDashboard']);
@@ -111,6 +124,8 @@ Route::group(['middleware' => ['web', 'checkadmin']], function () {
     Route::post('/mail',[MailController::class,'sendMail']);
 
 });
+
+//User Routes
 Route::group(['middleware' => ['web', 'checkuser']], function () {
 
     Route::get('/dashboard', [AuthController::class, 'loadDashboard']);
@@ -139,11 +154,16 @@ Route::group(['middleware' => ['web', 'checkuser']], function () {
     Route::get('/user/download-pdf/{id}',[UserController::class,'downloadPDF']);
 
     Route::get('/user/mcq',[UserController::class,'getIndex']);
+    Route::post('/user/mcq-insert',[McqQuizQuestionController::class,'insertMcq']);
+    Route::put('/user/mcq-statusupdate',[McqQuizQuestionController::class,'updateMcqStatus']);
 
-
+    Route::get('/video',function(){
+        return view('video');
+    });
 
 
 });
 
+//Mail Routes
 Route::post('/admin/send-email-pdf', 'App\Http\Controllers\SendEmailController@sendMail');
 Route::get('/admin/show-data','App\Http\Controllers\SendEmailController@showDataOnMailBox');

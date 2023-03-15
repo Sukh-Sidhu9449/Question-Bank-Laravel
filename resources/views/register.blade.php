@@ -66,7 +66,6 @@
                     <div class="div">
                         <h5>confirm password</h5>
 						<input type="password" id="password_confirmation" name="password_confirmation" class="input"/>
-
                     </div>
                 </div>
 
@@ -81,9 +80,7 @@
         </div>
     </div>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript" src="{{ asset('/js/login.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('/js/register.js') }}"></script>
 </body>

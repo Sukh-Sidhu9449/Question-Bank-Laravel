@@ -30,6 +30,7 @@ class AuthController extends Controller
             'email' => 'string|email|required|max:100|unique:users',
             'password' => 'string|required|confirmed|min:8'
         ]);
+        
         $user = new User;
         $user->name = $request->name;
         $user->email = $request->email;
