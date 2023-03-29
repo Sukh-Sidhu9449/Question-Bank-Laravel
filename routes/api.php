@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\V1\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\AuthController;
+use App\Http\Controllers\Api\V1\BotInterviewController;
 use App\Http\Controllers\Api\V1\QuizQuestionController;
 use App\Http\Controllers\Api\V1\UserUpdateController;
 use App\Http\Controllers\Api\V1\NavBarController;
@@ -97,5 +98,6 @@ Route::controller(AuthController::class)->group(function(){
     // Route::post('exptable','index');
 });
 
+Route::post('interview-data',[BotInterviewController::class,'storeInterviewData']);
 
 });

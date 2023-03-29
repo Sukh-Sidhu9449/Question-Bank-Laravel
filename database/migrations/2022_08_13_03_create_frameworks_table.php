@@ -19,6 +19,8 @@ return new class extends Migration
             $table->foreign('technology_id')->references('id')->on('technologies')->onDelete('cascade');
             $table->string('framework_name');
             $table->text('framework_description');
+            $table->integer('avg_global_score')->default(0);
+            $table->integer('total_interviews')->default(0);
             $table->timestamps();
         });
     }

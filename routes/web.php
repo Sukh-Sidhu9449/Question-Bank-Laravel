@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\BotInterviewController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ExperienceController;
@@ -161,9 +162,14 @@ Route::group(['middleware' => ['web', 'checkuser']], function () {
         return view('video');
     });
 
+    Route::get('/chatbot-questions',[quiz_questionController::class,'getChatbotQuiz']);
+
 
 });
 
 //Mail Routes
 Route::post('/admin/send-email-pdf', 'App\Http\Controllers\SendEmailController@sendMail');
 Route::get('/admin/show-data','App\Http\Controllers\SendEmailController@showDataOnMailBox');
+
+// Route::get('/chart',[BotInterviewController::class,"chart"]);
+

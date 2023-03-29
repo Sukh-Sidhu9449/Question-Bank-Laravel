@@ -201,4 +201,20 @@ class quiz_questionController extends Controller
             return response()->json(['status'=>200]);
     }
 
+    public function getChatbotQuiz(Request $request)
+    {
+        $quiz_id = $request->quiz_id;
+
+        $query=DB::table('userquizzes')
+        ->join('block_questions','block_questions.block_id','=','userquizzes.block_id')
+        ->join('blocks','blocks.id','=','userquizzes.block_id')
+        ->join('questions','block_questions.question_id','=','questions.id')
+        ->join('answers','answers.question_id','=','questions.id')
+        ->join('frameworks','frameworks.id','=','questions.framework_id')
+        ->where('userquizzes.id',$quiz_id)
+        ->select('userquizzes.id as quiz_id','answers.answer','block_questions.id','questions.question',"frameworks.framework_name as technology")->get();
+        return response()->json($query);
+        
+    }
+
 }

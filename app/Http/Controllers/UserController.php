@@ -265,6 +265,6 @@ class UserController extends Controller
 
         $pdf =   Pdf::loadView('PDF.viewPdf',['data'=>$data,'userdata'=>$userdata])
         ->setPaper('a4', 'portrait');
-    return $pdf->download('Question-bank.pdf');
+        return $pdf->download('Question-bank.pdf');
      }
 }
