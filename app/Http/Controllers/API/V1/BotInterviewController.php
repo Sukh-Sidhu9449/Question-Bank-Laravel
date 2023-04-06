@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Models\BotInterviews;
 use App\Models\Frameworks;
+use App\Models\User;
 use App\Models\UserQuiz;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -29,7 +30,6 @@ class BotInterviewController extends Controller
                 ];
                 return response()->json($response,409);
             }
-
             $user = UserQuiz::find($request->quizId)->value('users_id');  
             $BotData = new BotInterviews;
             $BotData->quiz_id = $request->quizId;
@@ -37,8 +37,10 @@ class BotInterviewController extends Controller
             $BotData->interview_data = $request->interviewData;
             $BotData->save();
             $id = $BotData->id;
-            $this->sendMail($request->interviewData);
-            $this->updateJsonData($request->interviewData,$id);
+            $date = $BotData->created_at;
+            $mail = $this->sendMail($request->interviewData, $user, $date);
+            // dd($mail);
+            $this->updateJsonData($request->interviewData, $id);
             $this->updateGlobalAvg($request->interviewData);
         } catch (QueryException $ex) {
             return response()->json(['message' => $ex->getMessage()], 404);
@@ -46,12 +48,22 @@ class BotInterviewController extends Controller
         return response()->json([$BotData],200);
     }
 
-    public function sendMail($jsonInterviewData = null)
+    public function sendMail($jsonInterviewData = null, $user,$date)
     {
-       $charts = $this->chart($jsonInterviewData);
+        $userInfo = User::find($user);
+        $userData = [
+            'name' => $userInfo->name,
+            'email' => $userInfo->email,
+            'designation' => $userInfo->designation,
+            'experience' => $userInfo->experience,
+            'phoneNumber' => $userInfo->phone_number,
+            'submittedAt' => $date,
+        ];
+             
+        $charts = $this->chart($jsonInterviewData);
     //    dd($charts['mainChart']);
 
-        $pdf = Pdf::loadView('PDF.chartPDF',$charts)
+        $pdf = Pdf::loadView('PDF.chartPDF',['charts'=>$charts,'userData'=>$userData])
         ->setPaper('a4', 'portrait');
         // dd($pdf);
         $data = [
@@ -60,12 +72,13 @@ class BotInterviewController extends Controller
         ];
         $charts['msg']="PDF attachments";
         // return $pdf->stream();
-        Mail::send('emails.viewEmail',$charts, function($message)use($data, $pdf) {
+        $mail = Mail::send('emails.viewEmail',$charts, function($message)use($data, $pdf) {
             $message->from('abc@yopmail.com', env('App_NAME'));
             $message->to('sukh534@yopmail.com');
             $message ->subject($data['subject']);
             $message->attachData($pdf->output(), "Interview-Result.pdf");
         });
+        return $mail;
     }
 
     public function chart($jsonInterviewData = null,$quizId = null)
@@ -77,7 +90,7 @@ class BotInterviewController extends Controller
         // $arrayData = ['overall_score' => 30,'individual_score'=>['HTML'=>20,'PHP'=>40,'Laravel'=>30]];
         if($jsonInterviewData == null){
             $setJsonData = true;
-            $BotInterviews = BotInterviews::where('quiz_id',2)->orderBy('id','desc')->first();
+            $BotInterviews = BotInterviews::where('quiz_id',$quizId)->orderBy('id','desc')->first();
             $jsonInterviewData = $BotInterviews->interview_data;
             // dd($jsonInterviewData);
             // $jsonInterviewData = '{"overall_score":40,"individual_score":{"MySQL":20,"Core Php":40,"Laravel":30}}';
@@ -116,7 +129,12 @@ class BotInterviewController extends Controller
         $data = [$arg];
         foreach ($data as  $value) {
             // $opData = [...$opData,$value.'%']; 
-            $val = 100 - $value;
+            if($value == 0){
+             $val = 100;
+             $value = 0;
+            }else{
+                $val = 100 - $value;
+            }
             $opData = [$value, $val];
             if ($value <= 30) {
                 array_unshift($background, 'rgb(247, 79, 79)');

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -42,19 +41,9 @@
         }
 
         #container2 {
-            margin-top: 170px; 
-            /* margin-left: 702px;
-            /* /* width: 500px; */
-            height: 560px; 
-            /* border: 10px #333 solid;
-            background-color: #333; */
-
+            margin-top: 170px;
+            height: 560px;
         }
-
-
-
-
-
         .button {
             margin-right: 60px;
             margin-left: 29px;
@@ -73,6 +62,7 @@
         }
 
         .button1 {
+            margin-left: 30%;
             background-color: white;
             color: black;
             border: 2px solid #4CAF50;
@@ -84,6 +74,7 @@
         }
 
         .button2 {
+            visibility: hidden;
             background-color: white;
             color: black;
             border: 2px solid #eb0b0b;
@@ -91,6 +82,20 @@
 
         .button2:hover {
             background-color: #d31010;
+            color: white;
+        }
+
+        .button4 {
+            float: right;
+            margin-right: 40px;
+            visibility: hidden;
+            background-color: white;
+            color: black;
+            border: 2px solid #f0ed3f;
+        }
+
+        .button4:hover {
+            background-color: #696413;
             color: white;
         }
 
@@ -145,8 +150,6 @@
             width: 100.33333333%;
         }
 
-        ;
-
         section.style {
             background-color: #eee;
             margin-left: 676px;
@@ -186,6 +189,55 @@
             margin-right: 45px;
             margin-left: 72px;
         }
+
+        #cover-spin {
+            position: fixed;
+            width: 100%;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.7);
+            z-index: 9999;
+            display: none;
+        }
+
+        @-webkit-keyframes spin {
+            from {
+                -webkit-transform: rotate(0deg);
+            }
+
+            to {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        #cover-spin::after {
+            content: '';
+            display: block;
+            position: absolute;
+            left: 48%;
+            top: 40%;
+            width: 40px;
+            height: 40px;
+            border-style: solid;
+            border-color: black;
+            border-top-color: transparent;
+            border-width: 4px;
+            border-radius: 50%;
+            -webkit-animation: spin .8s linear infinite;
+            animation: spin .8s linear infinite;
+        }
     </style>
 
 </head>
@@ -194,17 +246,18 @@
 
     <div id="container" enctype="multipart/form-data">
         <p><video id="video" autoplay="True" width=320></p>
-        <p><button class="button button1" id="start" 
-                >Start Call</button>
-                {{-- onclick=" startFunction(); startchatbot();  startaudioRec()" --}}
+        <p><button class="button button1" id="start">Start Call</button>
+            {{-- onclick=" startFunction(); startchatbot();  startaudioRec()" --}}
             <button class="button button2" id="stop" > Stop Call</button>
             {{-- onclick="download(); stopaudioRec();" --}}
         </p>
     </div>
+
+    <div id="cover-spin"></div>
     {{-- <a href="{% url 'binaryvideos' %}"><button class="button3" style="vertical-align:middle"><span>Go to video </span></button></a> --}}
 
 
-    <section  style="background-color: #eee;">
+    <section style="background-color: #eee;">
         <div id="container2" class="container py-5">
 
             <div class="row d-flex justify-content-center">
@@ -257,7 +310,9 @@
                 </div>
             </div>
 
+            <button class="button button4" id="skip">Skip Question</button>
         </div>
+        <input type="text" name="quizId" id="botQuizId" value="{{$quizId}}" hidden>
     </section>
     <script src='{{ asset('js/chatbot.js') }}'></script>
     <script src='{{ asset('js/video.js') }}'></script>

@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::create('bot_interviews', function (Blueprint $table) {
             $table->id('id');
             $table->unsignedBigInteger('quiz_id');
-            $table->unsignedBigInteger('users_id');
-            $table->json('interview_data');
             $table->foreign('quiz_id')->references('id')->on('userquizzes')->onDelete('cascade');
+            $table->unsignedBigInteger('users_id');
             $table->foreign('users_id')->references('id')->on('users')->onDelete('cascade');
+            $table->json('interview_data');
             $table->timestamps();
         });
     }

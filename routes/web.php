@@ -158,9 +158,10 @@ Route::group(['middleware' => ['web', 'checkuser']], function () {
     Route::post('/user/mcq-insert',[McqQuizQuestionController::class,'insertMcq']);
     Route::put('/user/mcq-statusupdate',[McqQuizQuestionController::class,'updateMcqStatus']);
 
-    Route::get('/video',function(){
-        return view('video');
-    });
+    // Route::get('/video',function(){
+    //     return view('video');
+    // });
+    Route::get('/video/{quizId}/', [quiz_questionController::class, 'videoIndex']);
 
     Route::get('/chatbot-questions',[quiz_questionController::class,'getChatbotQuiz']);
 

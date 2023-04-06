@@ -1,27 +1,26 @@
-let op = [];
-     let storedData = {'question':"what is comp",'correctAnswer':"dataArray[i].answer",'userAnswer':"userInput"};
-        op =[...op,storedData];
-        sp={'question':"what is comp",'correctAnswer':"dataArray[i].answer",'userAnswer':"userInput"};
-        op = [...op,sp];
-        dispatchArray(op);  
 
 let i = 0;
+const skipQues = document.getElementById("skip");
+skipQues.addEventListener("click", skipQuestion);
 const chatBtn = document.getElementById("chatquestion-btn");
 chatBtn.addEventListener("click", play);
+const botQuizId = document.getElementById("botQuizId").value;
+// console.log(botQuizId,"botQuizId");
 let dataArray =[];
 let outputArray =[];
+let storedData ;
 function startchatbot() {
-  $(document).ready(function() {
+  $(document).ready(function() { 
     $.ajax({
-      url: 'chatbot-questions',
+      url: '/chatbot-questions',
       type: 'get',
       data:{
-        quiz_id : 2
+        quiz_id : botQuizId
       },
       dataType: 'json',
       success:async function(data) {
         if(data.length > 0){
-          console.log(data);
+          // console.log(data[0].quiz_id);
           dataArray = data;
           botActivated();
         }
@@ -31,11 +30,16 @@ function startchatbot() {
 }
 
 async function botActivated(){
- console.log(dataArray[i].technology,"dataArray[i].technology"); 
+  if((dataArray.length) == i){
+    skipQues.style.visibility = 'hidden';
+  }else{
+    skipQues.style.visibility = 'visible';
+  }
+  storedData = {'technology':dataArray[i].technology,'question':dataArray[i].question,'correctAnswer':dataArray[i].answer,'userAnswer':"skipped"};
+//  console.log(dataArray[i].technology,"dataArray[i].technology"); 
   var countVar =false;
   let counter = 10000;
   let countRep = 0 ;
-  let opArray = [];
   // if(i != 0) await setSleep(4000);
   document.getElementById("chatquestion").innerHTML = dataArray[i].question;
   document.getElementById("chatanswer").innerHTML = '';
@@ -60,6 +64,7 @@ async function botActivated(){
   recognition.onspeechend = () => {
     console.log("Speech has stopped being detected","------>");
   };
+
   recognition.onresult = function(event) {
     
     // console.log(event.results,"res");
@@ -95,7 +100,7 @@ async function botActivated(){
             let userInput = outputHandler(event.results);
             // console.log(userInput,"user");
             document.getElementById("chatanswer").innerHTML = userInput;
-              let storedData = {'question':dataArray[i].question,'correctAnswer':dataArray[i].answer,'userAnswer':userInput};
+              storedData.userAnswer = userInput;
               outputArray = [...outputArray,storedData]
               i++;
               if (i < dataArray.length) {
@@ -103,44 +108,51 @@ async function botActivated(){
               }else{
                 recognition.stop();
                 console.log(outputArray,"outputArray");
+                // console.log(JSON.stringify(outputArray),"json");
                 dispatchArray(outputArray);
               }
           }
         return;
       }
       setTimeout(()=>{findDiff(countDownDate,count)},1000); 
-    }
-          
-    // $.ajax({
-    //   url: 'insertanswer',
-    //   type: 'post',
-    //   headers:{'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')},
-    //   dataArray: {
-    //     question_id: dataArray[i].id,
-    //     quiz_id: dataArray[i].quiz_id,
-    //  // audio: transcript,
-    //     answer: transcript
-    //   },
-    //   success: function(response) {
-    //     console.log(response);
-    //   }
-    // });
-   
+    }   
   };
 }
 
 function dispatchArray(opArr) {
+  $('#cover-spin').show(0);
+  stop.click();
   $.ajax({
-      url: 'http://10.8.21.185:8000/upload/',
+      url: 'http://10.8.14.83:9099/upload/',
       type: 'post',
-      // headers:{'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')},
       data:{
+        quiz_id:dataArray[0].quiz_id,
         file: JSON.stringify(opArr)
       },
       success: function(response) {
         console.log(response);
+        if(response != null){
+          $.ajax({
+            // url: '/api/v1/interview-data',
+            url: 'https://questionbank.appsndevs.com/api/v1/interview-data',
+            type: 'post',
+            data:{
+              quizId:2,
+              interviewData: JSON.stringify(response)
+            },
+            success: function(response) {
+              console.log(response);
+              $('#cover-spin').hide(0);
+              window.location.href = '/dashboard';
+            },
+            error: function (error) {
+              $('#cover-spin').hide(0);
+              window.location.href = '/dashboard';
+            }
+          });
+        }
       }
-    });
+  });
 }
 
 function play() {
@@ -173,6 +185,35 @@ function outputHandler(value) {
   });
   console.log(str,"str");
   return str? str:"";
+}
+
+function skipQuestion() {
+  outputArray = [...outputArray,storedData]
+  i++;
+  if (i < dataArray.length) {
+    botActivated();
+  }else{
+    skipQues.style.visibility = 'hidden';
+    console.log(outputArray,"outputArray");
+    dispatchArray(outputArray);
+  }
+}
+
+function insertAnswer() {
+     // $.ajax({
+    //   url: 'insertanswer',
+    //   type: 'post',
+    //   headers:{'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')},
+    //   dataArray: {
+    //     question_id: dataArray[i].id,
+    //     quiz_id: dataArray[i].quiz_id,
+    //  // audio: transcript,
+    //     answer: transcript
+    //   },
+    //   success: function(response) {
+    //     console.log(response);
+    //   }
+    // });
 }
 
 

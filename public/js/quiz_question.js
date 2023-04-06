@@ -64,7 +64,8 @@ $(document).ready(function () {
                         html:  
                         "<br>" +
                         '<button type="button" role="button" tabindex="0" data-id= "' + block_id + '" data-type="' + block_type + '" data-user="' + u_id + '" class="manual_quiz customSwalBtn">' + 'Manually' + '</button>' +
-                        '<button type="button" role="button" tabindex="0" class="bot_quiz customSwalBtn">' + 'With BOT' + '</button>',
+                        // '<button type="button" role="button" tabindex="0"  class="bot_quiz customSwalBtn">' + 'With BOT' + '</button>',
+                        '<button type="button" role="button" tabindex="0" data-id= "' + block_id + '" class="bot_quiz customSwalBtn">' + 'With BOT' + '</button>',
                         icon: "warning",
                         showConfirmButton: false,
                         showCancelButton: false
@@ -92,9 +93,11 @@ $(document).ready(function () {
 
     //Bot Quiz Route
     $(document).on('click', '.bot_quiz', function() {
-        //Some code 2 
+        let quiz_id=$(this).data('id');
+      
         console.log('%cBOT Overload','color: magenta');
-        window.location = "/video";
+        // window.location = "/video";
+        window.location = "/video/" + quiz_id;
         swal.clickConfirm();
     });
 

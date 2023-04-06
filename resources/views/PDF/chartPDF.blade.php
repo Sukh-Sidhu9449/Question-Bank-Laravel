@@ -114,36 +114,44 @@
         <h2 class="text-center mb-2">Candidate Feedback Report</h2>
         <div class="flex-container">
                 <div class="flex-item-left">
-                  <p>#IN0026832</p>
-                  <p style="font-size: 20px; font-weight: 500;">Username</p>  
-                  <p>React Developer</p>  
-                  <p>9990979450 | anoopa.p@codilar.com</p>  
-                  <p>Exp. 6</p>  
-                <p>July 29, 2022 05:30:00 pm IST</p>
+                  <p>#IN002{{random_int(1000, 9999)}}</p>
+                  @if($userData)
+                    <p style="font-size: 20px; font-weight: 500;">{{$userData['name']?$userData['name']:'Username'}}</p>  
+                    <p>{{$userData['designation']?$userData['designation']:'React Developer'}}</p>  
+                    <p>{{$userData['phoneNumber']?$userData['phoneNumber']:'9990979450'}} |{{$userData['email']?$userData['email']:'anoopa.p@codilar.com'}} </p>  
+                    <p>Exp.{{$userData['experience']?($userData['experience']):'6'}}</p>  
+                    <p>{{$userData['submittedAt']?$userData['submittedAt']:'July 29, 2022 05:30:00 pm IST'}}</p>   
+                  @else
+                    <p style="font-size: 20px; font-weight: 500;">Username</p>  
+                    <p>React Developer</p>  
+                    <p>9990979450 | anoopa.p@codilar.com</p>  
+                    <p>Exp. 6</p>  
+                    <p>July 29, 2022 05:30:00 pm IST</p>
+                  @endif
                 </div>
-                <img class="flex-item-center" src="https://quickchart.io/chart?w=130&h=100&c={{ $mainChart[0] }}" width="175px"  />
+                <img class="flex-item-center" src="https://quickchart.io/chart?w=130&h=100&c={{ $charts['mainChart'][0] }}" width="175px"  />
                 <img class="flex-item-right" src="{{ public_path('img/dummy-profile-pic.jpg') }}" width="125px"/>
         </div>
         <h2 class="text-center ">Analytics</h2>
         <div class="flex-container">
-            <img style="text-align: center" src="https://quickchart.io/chart?c={{ $mainChart[1] }}" width="50%" height="300px"/>
+            <img style="text-align: center" src="https://quickchart.io/chart?c={{ $charts['mainChart'][1] }}" width="50%" height="300px"/>
         </div>
         <h2 class="text-center mb-2">Candidate Assessment</h2>
         <div class="flex-container">
             <div class="candidate-assessment-left">
                 {{-- <div class="candidate-assessment-center"> --}}
-                    <img class="" src="https://quickchart.io/chart?w=120&h=100&c={{ $techChart[0] }}" width="175px" />
+                    <img class="" src="https://quickchart.io/chart?w=120&h=100&c={{ $charts['techChart'][0] }}" width="175px" />
                     <br>
                     <span >Some text is written here</span>
                 {{-- </div> --}}
             </div>
             <div class="candidate-assessment-center">
-                <img class="" src="https://quickchart.io/chart?w=120&h=100&c={{ $techChart[1] }}" width="175px" />
+                <img class="" src="https://quickchart.io/chart?w=120&h=100&c={{ $charts['techChart'][1] }}" width="175px" />
                 <br>
                 <span >Some text is written here</span>
             </div>
             <div class="candidate-assessment-right">
-                <img class="" src="https://quickchart.io/chart?w=120&h=100&c={{ $techChart[2] }}" width="175px" />
+                <img class="" src="https://quickchart.io/chart?w=120&h=100&c={{ $charts['techChart'][2] }}" width="175px" />
                 <br>
                 <span >Some text is written here</span>
             </div>

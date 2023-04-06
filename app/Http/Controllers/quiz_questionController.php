@@ -201,10 +201,15 @@ class quiz_questionController extends Controller
             return response()->json(['status'=>200]);
     }
 
+    public function videoIndex($quizId)
+    {
+        // dd($quizId);
+        return view("video",['quizId'=>$quizId]);
+    }
+
     public function getChatbotQuiz(Request $request)
     {
         $quiz_id = $request->quiz_id;
-
         $query=DB::table('userquizzes')
         ->join('block_questions','block_questions.block_id','=','userquizzes.block_id')
         ->join('blocks','blocks.id','=','userquizzes.block_id')
