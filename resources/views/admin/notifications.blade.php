@@ -2,11 +2,7 @@
 @section('main-content')
     <div class="first_section">
         <div class="bg-white">
-            <div class="row align-items-center">
-                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                    <h5 class="page-title p-3">Notification Panel</h5>
-                </div>
-            </div>
+                    <h5 class="page-title ps-4 pt-5">Notification Panel</h5>
         </div>
     </div>
 
@@ -15,8 +11,8 @@
             <!-- Column -->
             <div class="col-lg-12 col-xlg-12 col-md-12">
                 <div class="profile_box">
-                    <div class="">
-                        <table id="userBlockStatus" class="table table-light table-striped">
+                    <div class="user-datatable-outer " style="overflow-x:scroll">
+                        <table id="userBlockStatus" class="table table-light " style="table-layout: fixed;">
                             <thead>
                                 <th>#</th>
                                 <th>Name</th>
@@ -93,7 +89,7 @@
                                                 <label for="Email">Message</label>
                                                 <input type="text" class="form-control" id="emal" value ="" name="message">
                                             </div>
-                                            <button type="submit" class="btn btn-success mt-3">Send Mail</button>
+                                            <button type="submit" class="btn btn-dark-blue mt-3">Send Mail</button>
 
                                         </form>
                                     </div>

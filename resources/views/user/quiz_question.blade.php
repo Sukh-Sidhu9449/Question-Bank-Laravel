@@ -1,4 +1,4 @@
-@extends('user_layout.template')
+@extends('user_layout.template2')
 @section('main-content')
 
 <div class="container-fluid p-0">
@@ -27,7 +27,8 @@
 
             <textarea id="form22"  class="md-textarea form-control text-black text-info mb-2" data-id="{{$loop->iteration}}" rows="3" placeholder="write your Answer" value="">{{$data['answer']}}</textarea>
             <span class="skipText">Skipped</span>
-            <i class="bi bi-pen-fill btn btn-default edit" data-id=""></i>
+            <div class="button-container d-flex justify-content-between align-items-center">
+                <i class="bi bi-pen-fill btn btn-default edit" data-id=""></i>
 
             @if($data['answerid']=='')
             <input type="text" class="last_id" value=""hidden/>
@@ -38,6 +39,8 @@
             <button class="btn btn-primary enter">Submit Answer</button>
             <button class="btn btn-primary update ">Update</button>
             <input type="button" class="btn btn-warning skipAnswer" value="Skip" id="skipAnswer">
+            </div>
+            
         </div>
         @endforeach
     </form>

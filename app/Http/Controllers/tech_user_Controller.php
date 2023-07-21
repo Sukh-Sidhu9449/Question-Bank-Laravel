@@ -9,28 +9,45 @@ class tech_user_Controller extends Controller
 {
     //request
     public function index($id)
-
     {
       $tech=DB::table('technologies')->where('id',$id)->get();
       return response()->json($tech);
+    }
+
+    public function getAllTech()
+    {
+      $popularTechnologies = $this->fetchHeaderData();
+      $technologies = $this->fetchTechWithFramework();
+      $tech=DB::table('technologies')->get();
+      return view('user.allTechnologies',['popularTechnologies'=>$popularTechnologies,'technologies'=>$technologies,'allTechnologies'=> $tech]);
 
     }
-    public function show($id){
 
+    public function getFramework($id)
+    {
+      $popularTechnologies = $this->fetchHeaderData();
+      $technologies = $this->fetchTechWithFramework();
+      $framework = DB::table('frameworks')->where('id',$id)->get();
+      return view('user.framework',['popularTechnologies'=>$popularTechnologies,'technologies'=>$technologies,'framework'=> $framework]);
+    }
+
+    public function show($id){
         // $tech=DB::table('technologies')->where('id',$id)->get();
-        $technologies = DB::table('technologies')->whereBetween('id', [1,10])->get();
+        $popularTechnologies = $this->fetchHeaderData();
+        $technologies = $this->fetchTechWithFramework();
         $frame1=DB::table('frameworks')->where('technology_id',$id)->get();
         // print "<pre>";
         // print_r($frame1);
         // exit();
         $countFrame=count($frame1);
+    
 if($countFrame>0)
 {
-  return view('user.technology',['technologies'=>$technologies,'frame1'=>$frame1]);
+  return view('user.technology',['popularTechnologies'=>$popularTechnologies,'technologies'=>$technologies,'frame1'=>$frame1]);
 }
 else{
 
-  return view('user.technology',['technologies'=>$technologies,'countFrame'=>$countFrame]);
+  return view('user.technology',['popularTechnologies'=>$popularTechnologies,'technologies'=>$technologies,'countFrame'=>$countFrame]);
   
 }
 
@@ -42,7 +59,6 @@ else{
     {
 
           $fid=$request->fid;
-          $techid=$request->tech_id;
           $exp_id=$request->experience_id;
           $limit= $request->limit;
           $count= $request->count;
@@ -59,7 +75,6 @@ else{
               ->join('frameworks as f','f.id','=','q.framework_id')
               ->where([
                 ['q.framework_id',$fid],
-                ['f.technology_id',$techid]
             ]);
             // dd($d);
             }
@@ -70,7 +85,6 @@ else{
               ->join('frameworks as f','f.id','=','q.framework_id')
               ->where([
                   ['q.framework_id',$fid] ,
-                  ['f.technology_id',$techid],
                   ['q.experience_id',$exp_id]
               ]);
               // dd($d);
@@ -90,13 +104,35 @@ else{
 
                   'status'=>404
                 ]);
-
-
-
             }
 
 
     }
 // end that code************************************
 
+  public static function fetchHeaderData()
+  {
+    $popularTechnologies = DB::table('technologies')->offset(0)->limit(3)->get();
+        return $popularTechnologies;
+    
+  }
+  public static function fetchTechWithFramework()
+  {
+    $query = DB::table('technologies')->offset(0)->limit(7)->get();
+        
+        $technologies = array();
+        foreach($query as $key=> $userTech)
+        {
+            $array['technology_id'] = $userTech->id;
+            $array['technology_name'] = $userTech->technology_name;
+            $array['frameworks'] = navbarTechnologyController::getFrameworks($userTech->id);
+            
+            $technologies[] = $array;
+        }
+
+        return $technologies;
+  }
+
+  
 }
+

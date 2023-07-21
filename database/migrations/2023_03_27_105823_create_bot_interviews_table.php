@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('users_id');
             $table->foreign('users_id')->references('id')->on('users')->onDelete('cascade');
             $table->json('interview_data');
+            $table->json('user_input');
             $table->timestamps();
         });
     }

@@ -82,7 +82,7 @@ $(document).ready(function () {
                     }
                     $('#block_table').append(block_questions);
                     $("#block_table > tfoot").empty();
-                    $("#block_table > tfoot").html('<button type="button" id="assign_users_btn" data-id="' + block_id + '" class="btn btn-info"><i class="fa-solid fa-eye"></i>&nbsp;Assign</button>');
+                    $("#block_table > tfoot").html('<button  type="button"  data-id="' + block_id + '" data-bs-toggle="modal" data-bs-target="#userChoiceModal" class="btn btn-dark-blue m-2"><i class="fa-solid fa-eye"></i>&nbsp;Assign</button>');
 
                 } else
                     if (response.status == 404) {
@@ -158,7 +158,7 @@ $(document).ready(function () {
                     }
                     $('#block_table').append(block_questions);
                     $("#block_table > tfoot").empty();
-                    $("#block_table > tfoot").html('<button type="button" id="assign_users_btn" data-id="' + block_id + '" class="btn btn-info"><i class="fa-solid fa-eye"></i>&nbsp;Assign</button>');
+                    $("#block_table > tfoot").html('<button type="button"  data-id="' + block_id + '" data-bs-toggle="modal" data-bs-target="#userChoiceModal" class="btn btn-info"><i class="fa-solid fa-eye"></i>&nbsp;Assign</button>');
 
                 } else
                     if (response.status == 404) {
@@ -179,7 +179,8 @@ $(document).ready(function () {
     });
 
     //Fetch Detail of Selected Block
-    $(document).on('click', '#show_block_btn', function () {
+    $(document).on('click', '#show_block_btn', function (e) {
+        e.preventDefault();
         let block_id = $(this).data('id');
         $('#store_block_id').val(block_id);
         let limit = $('#block_data_limit').find(":selected").text();
@@ -225,32 +226,24 @@ $(document).ready(function () {
                                             <td>`+ i + `</td>
                                             <td>`+ value.name + `</td>
                                             <td>`+ value.email + `</td>
-                                            <td><td>
+                                            <td>-<td>
                                          </tr>`;
                         }
                         i++;
                     });
                     $('#users_detail_table').append(users_data);
-                    $("#users_detail_table > tfoot").html(`<tr>
-                    <td colspan="2">
-
-                    </td>
-                    <td colspan="2">
-                        <form>
-                        <button id="assign_block" data-id="`+ block_id + `"type="submit" class="btn btn-primary">Assign Block</button>
-                        </form>
-                    </td>
-                </tr>`);
+                    $("#users_detail_table > tfoot").html(`
+                        <button id="assign_block" data-id="`+ block_id + `"type="submit" class="btn btn-dark-blue m-2">Assign Block</button>`);
                     // $('#pageloader_quiz_button').show();
                     if (response.users.length == limit) {
-                        $('#pageloader_quiz_button').show();
+                        $('#pageloader_users_button').show();
                     } else {
-                        $('#pageloader_quiz_button').hide();
+                        $('#pageloader_users_button').hide();
                     }
                 }
                 else
                     if (response.status == 404) {
-                        $('#pageloader_quiz_button').hide();
+                        $('#pageloader_users_button').hide();
                         $("#users_detail_table > tbody").empty();
                         Swal.fire({
                             icon: 'error',
@@ -366,4 +359,81 @@ $(document).ready(function () {
 
         // alert($page_limit);
     });
+    $('#pageloader_users_button').click(function () {
+        let block_id = $('#store_block_id').val();
+        // let tech_id = $('#quiz_technology_id').val();
+        // let experience_id = $('#quiz_experience').find(":selected").val();
+        let limit = $('#users_list_limit').find(":selected").text();
+        // alert(users_count);
+        users_count++;
+        $('#pageloader_users_button').hide();
+        $('#users_page_loader_image').show();
+        $.ajax({
+            type: "get",
+            url: "/admin/blockusers",
+            data: {
+                limit: limit,
+                users_count: users_count,
+            },
+            dataType: "json",
+            success: function (response) {
+                // console.log(response);
+                if (response.status == 200) {
+                    let i = parseInt((users_count * limit) + 1);
+                    var users_data = "";
+                    $.each(response.users, function (key, value) {
+                        if (value.block_id == block_id) {
+                            users_data += `<tr >
+                                            <td><input type="checkbox" class="get_value" data-id="`+ value.id + `" disabled></td>
+                                            <td>`+ i + `</td>
+                                            <td>`+ value.name + `</td>
+                                            <td>`+ value.email + `</td>
+                                            <td><span class="text-danger">&nbsp;&nbsp;Already Assigned<span><td>
+                                         </tr>`;
+                        }
+                        else {
+                            users_data += `<tr>
+                                            <td><input type="checkbox" class="get_value" data-id="`+ value.id + `"></td>
+                                            <td>`+ i + `</td>
+                                            <td>`+ value.name + `</td>
+                                            <td>`+ value.email + `</td>
+                                            <td>-<td>
+                                         </tr>`;
+                        }
+                        i++;
+                    });
+                        let total = parseInt(users_count * limit) + parseInt(limit);
+    
+                        let totalrecord = parseInt(users_count * limit) + parseInt(response.users.length);
+                        
+                        $('#users_page_loader_image').hide();
+    
+                        if (total == totalrecord) {
+                            $('#pageloader_users_button').show();
+                        } else {
+                            $('#pageloader_users_button').hide();
+                        }
+                    
+                    $('#users_detail_table').append(users_data);
+                    $("#users_detail_table > tfoot").empty();
+                    $("#users_detail_table > tfoot").html(`<button id="assign_block" data-id="`+ block_id + `"type="submit" class="btn btn-dark-blue m-2">Assign Block</button>`);
+    
+                } else
+                    if (response.status == 404) {
+                        // $('#pageloader_quiz_button').hide();
+                        // $("#users_detail_table > tbody").empty();
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'No record Found!',
+                            timer: 1000
+                        })
+    
+                    }
+    
+            }
+        });
+    
+    });
 });
+

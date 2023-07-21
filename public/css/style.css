@@ -355,21 +355,23 @@ body {
     box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
   }
   .question_section{
-
-   margin-left:10%;
     font-weight: 700;
     font-size: 20px;
     padding:20px;
     width:70%;
+    margin: 0 auto;
 
   }
   #form22{
-    margin-left:10%;
+    margin: 0 auto;
     width:70%;
     margin-top:8px;
   }
+  .button-container{
+    width: 70%;
+    margin: 0 auto;
+  }
   .edit{
-    margin-left: 10%;
     padding:5px;
   }
   .pagination{
@@ -388,11 +390,11 @@ body {
      text-align:center;
   }
   .enter{
-    margin-left:120px;
+    margin-left:0px!important;
   }
   .update
   {
-    margin-left:120px;
+    margin-left:0px!important;
   }
   #submit{
     width:70%;
@@ -487,6 +489,7 @@ color: black;
 .countdown-section{
     position:sticky;
     background-color: black;
+    padding: 15px 0;
 }
 .countdown-period{
     color: white;
@@ -526,6 +529,10 @@ color: black;
     padding: 17px 15px;
     background-color: rgb(231, 231, 235);
     margin-top: 4px;
+ }
+ .is-countdown{
+  background: none!important;
+  border: none!important;
  }
 
 

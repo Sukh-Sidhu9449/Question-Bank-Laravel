@@ -4,8 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Block;
 use App\Models\Frameworks;
+use App\Models\GroupInterviews;
+use App\Models\Technologies;
 use App\Models\User;
 use App\Models\UserQuiz;
+use Carbon\Carbon;
+use Dompdf\Frame;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -90,10 +94,7 @@ class GuestController extends Controller
                     }
                 }
             }
-        }
-        // dd($questions);
-        // exit;
-        
+        }        
     }
 
     //Save New Random Block
@@ -295,5 +296,126 @@ class GuestController extends Controller
                 return $block->id;
             }
         }
+    }
+
+    public function guestInterviewIndex($params)
+    {
+        $decrypt = base64_decode($params);
+        // dd($decrypt);
+        $userData = json_decode($decrypt,true);
+        $date =Carbon::now();
+        // $dateInMills = $date->timestamp;
+        // $diff = $dateInMills - $userData['date'];
+        $date2 = $userData['date'];
+        // if($diff >= 172800000){
+        if($date->gte($date2)){
+            $groupInterview = GroupInterviews::find($userData['groupInterviewId']);
+            $groupData = $groupInterview->group_users;
+            $decodedGroupData = json_decode($groupData,true);
+            foreach ($decodedGroupData as $key=>$group) {
+                if($group['email'] == $userData['userEmail']){
+                    $userIndex = $key;
+                }
+            }
+            $decodedGroupData[$userIndex]['interviewStatus'] = "Expired";
+            $jsonData = json_encode($decodedGroupData);
+            $groupInterview->group_users = $jsonData;
+            $groupInterview->save();
+            return view('guest.guest_expiry_link'); 
+        }else{
+            // dd('active');
+            return view('guest.register',$userData);
+        }        
+    }
+
+    public function guestRegister(Request $request)
+    {
+        // dd($request->all());
+        $validator= Validator::make($request->all(),[
+            'name' => 'required|string|min:4',
+            'email' => 'required|email|max:100|unique:users',
+            'designation' => 'required|string',
+            'experience' => 'required|numeric|between:0,99.99',
+            'phone_number' => 'required|numeric|digits:10',
+        ]);
+        $groupInterview = GroupInterviews::find($request->groupInterviewId);
+        $groupData = $groupInterview->group_users;
+        $decodedGroupData = json_decode($groupData,true);
+        foreach ($decodedGroupData as $key=>$group) {
+            if($group['email'] == $request->email){
+                $userIndex = $key;
+            }
+        }
+        
+        // dd($decodedGroupData[$userIndex]);
+        $existingUser = User::where('email',$request->email)->first();
+        if($existingUser){
+            // dd($existingUser->id);
+            $user_id = $existingUser->id;
+            $userQuiz = new UserQuiz;
+            $userQuiz->users_id = $user_id;
+            $userQuiz->block_id = $groupInterview->block_id;
+            if($userQuiz->save()){
+                $quiz_id = $userQuiz->id;
+                $decodedGroupData[$userIndex]['id'] = $existingUser->id;
+                $decodedGroupData[$userIndex]['name'] = $existingUser->name;
+                $decodedGroupData[$userIndex]['interviewStatus'] = "Accepted";
+                $decodedGroupData[$userIndex]['quizId'] = $userQuiz->id;
+                $jsonData = json_encode($decodedGroupData);
+                $groupInterview->group_users = $jsonData;
+                $groupInterview->save();
+                return redirect('/guest/video/'.$quiz_id);
+            }
+        }
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+        $user = new User;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->designation =$request->designation;
+        $user->experience =$request->experience;
+        $user->phone_number =$request->phone_number;
+        $user->password = bcrypt('12345');
+        $user->role = 'guest';
+        if ($user->save()) {
+            $user_id = $user->id;
+            $userQuiz = new UserQuiz;
+            $userQuiz->users_id = $user_id;
+            $userQuiz->block_id = $groupInterview->block_id;
+            if($userQuiz->save()){
+                $quiz_id = $userQuiz->id;
+                $decodedGroupData[$userIndex]['id'] = $user->id;
+                $decodedGroupData[$userIndex]['name'] = $user->name;
+                $decodedGroupData[$userIndex]['interviewStatus'] = "Accepted";
+                $decodedGroupData[$userIndex]['quizId'] = $userQuiz->id;
+                $jsonData = json_encode($decodedGroupData);
+                $groupInterview->group_users = $jsonData;
+                $groupInterview->save();
+                return redirect('/guest/video/'.$quiz_id);
+            }
+        } else {
+            return response()->json(['status' => '404']);
+        }
+    }
+    
+    public function videoIndex($quizId)
+    {
+        $userQuiz = UserQuiz::find($quizId);
+        $user = User::find($userQuiz->users_id);
+        $block = Block::find($userQuiz->block_id);
+        // dd($block);
+        $mandateSkillArray = explode(',',$block->mandatory_skills);
+        $opSkillArray = explode(',',$block->optional_skills);
+        $mandatorySkills = Frameworks::select('framework_name as mandatory_technology')->whereIn('id',$mandateSkillArray)->get();
+        $optionalSkills = Frameworks::select('framework_name as optional_technology')->whereIn('id',$opSkillArray)->get();
+        // dd($mandatorySkills);
+        $mandatorySkills = json_encode($mandatorySkills);
+        $optionalSkills = json_encode($optionalSkills);
+
+        // dd($mandatorySkills);
+        return view('guest.video',['quizId'=>$quizId,'username'=>$user->name,'mandatorySkills'=>$mandatorySkills,'optionalSkills'=>$optionalSkills]);
     }
 }

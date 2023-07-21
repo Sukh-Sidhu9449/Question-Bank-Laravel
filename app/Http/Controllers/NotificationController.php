@@ -26,7 +26,7 @@ class NotificationController extends Controller
         if (count($query2) > 0) {
             DB::table('userquizzes')->where([['users_id', $u_id], ['status', 'C']])->update($statusAlreadyReviewed);
         }
-        $notificaton = DB::table('userquizzes')
+        $notification = DB::table('userquizzes')
             ->join('blocks', 'blocks.id', '=', 'userquizzes.block_id')
             ->where([
                 ['users_id', $u_id], ['status', '=', 'P']
@@ -38,7 +38,7 @@ class NotificationController extends Controller
             ->get();
 
         return response()->json([
-            'notification' => $notificaton,
+            'notification' => $notification,
         ]);
     }
     public function getCount(Request $request)
@@ -52,8 +52,10 @@ class NotificationController extends Controller
 
     public function NotificationPanel()
     {
+        $popularTechnologies = tech_user_Controller::fetchHeaderData();
+        $technologies = tech_user_Controller::fetchTechWithFramework();
         $user_id=Auth::user()->id;
-        $technologies = DB::table('technologies') ->offset(0)->limit(7)->get();
+        // $technologies = DB::table('technologies') ->offset(0)->limit(7)->get();
         $notificationPanel=DB::table('userquizzes')
         ->join('blocks','blocks.id','=','userquizzes.block_id')
         ->join('users', 'blocks.admin_id','=' ,'users.id' )
@@ -65,7 +67,7 @@ class NotificationController extends Controller
         ->orderBy('userquizzes.id','desc')
         ->get();
 
-       return view('user.NotificationPanel',['notificationPanel' => $notificationPanel,'technologies'=>$technologies]);
+       return view('user.NotificationPanel',['notificationPanel' => $notificationPanel,'popularTechnologies' => $popularTechnologies,'technologies' => $technologies]);
 
 
     }

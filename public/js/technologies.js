@@ -183,7 +183,7 @@ $(document).ready(function () {
             success: function (response) {
                 // window.history.pushState('new','title','/admin/frameworks/'+id);
                 if (response.status == 200) {
-                    $frame_data = '<div class="row justify-content-left">';
+                    $frame_data = '<div class="row gy-3">';
                     // console.log(response);
                     $.each(response.frameworks, function (key, value) {
                         $frame_data += `<div class="col-lg-4 col-md-12">
@@ -248,7 +248,7 @@ $(document).ready(function () {
             dataType: "json",
             success: function (response) {
                 if (response.status == 200) {
-                    $frame_data = '<div class="row justify-content-left">';
+                    $frame_data = '<div class="row gy-3">';
                     // console.log(response);
                     $.each(response.frameworks, function (key, value) {
                         $frame_data += `<div class="col-lg-4 col-md-12">
@@ -465,7 +465,7 @@ $(document).ready(function () {
             dataType: "json",
             success: function (response) {
                 if (response.status == 200) {
-                    $experience_data = '<div class="row justify-content-left">';
+                    $experience_data = '<div class="row gy-3">';
                     // console.log(response);
                     $.each(response.experience, function (key, value) {
                         $experience_data += `<div class="col-lg-4 col-md-12">
@@ -508,7 +508,7 @@ $(document).ready(function () {
             dataType: "json",
             success: function (response) {
                 if (response.status == 200) {
-                    $experience_data = '<div class="row justify-content-left">';
+                    $experience_data = '<div class="row gy-3">';
                     // console.log(response);
                     $.each(response.experience, function (key, value) {
                         $experience_data += `<div class="col-lg-4 col-md-12">
@@ -669,6 +669,7 @@ $(document).ready(function () {
 
     //Fetch Question Function
     function FetchQuestion(id, technology_id, framework_id, limit) {
+        // console.log("object");
         count = 0;
         $('#dynamic_question').empty();
         // $('.spinner-grow').show();
@@ -681,15 +682,15 @@ $(document).ready(function () {
             },
             dataType: "json",
             success: function (response) {
-                // console.log(response);
+                console.log(response);
                 if (response.status == 200) {
-                    $question_data = '<div class="row justify-content-center">';
+                    $question_data = '<div class="row gy-3">';
                     let i = 1;
                     $.each(response.Ques, function (key, value) {
                         $question_data += `<div class="col-lg-12 col-md-12">
                                                 <div id="white_boxes">
                                                     <h4><span>Q`+ i + `.</span>` + value.question + `</h4>
-                                                    <p><span>Ans.</span><button type="button" id="show_answer_modal" data-id="`+ value.id + `" data-name="` + value.question + `" class="btn btn-success mt-3 mx-5">Add Answer</button><p></p>
+                                                    <p><span>Ans.</span><button type="button" id="show_answer_modal" data-id="`+ value.id + `" data-name="` + value.question + `" class="btn btn-dark-blue mt-3 mx-5">Add Answer</button><p></p>
                                                     <span><i data-id="`+ value.id + `" id="delete_question" class="fa-solid fa-trash-can text-danger"></i>
                                                 </div>
                                             </div>`;
@@ -697,7 +698,7 @@ $(document).ready(function () {
                     });
                     $question_data += '</div>';
                     $('#dynamic_question').append($question_data);
-                    $ques_answer = '<div class="row justify-content-center">';
+                    $ques_answer = '<div class="row gy-3">';
                     $.each(response.QuesAnswer, function (key, value) {
                         $ques_answer += `<div class="col-lg-12 col-md-12">
                                     <div id="white_boxes">
@@ -733,6 +734,7 @@ $(document).ready(function () {
     //Show Questions
     $(document).on('click', '#clickexperience', function (e) {
         e.preventDefault();
+
         let id = $(this).data('id');
         let limit = $('#page_limit').find(":selected").text();
         let technology_id = $('#store_technology_id').val();
@@ -995,7 +997,7 @@ $(document).ready(function () {
                 // console.log(response);
                 if (response.status == 200) {
                     let i = (count * limit) + 1;
-                    $ques_answer = '<div class="row justify-content-center">';
+                    $ques_answer = '<div class="row gy-3">';
                     $.each(response.QuesAnswer, function (key, value) {
                         $ques_answer += `<div class="col-lg-12 col-md-12">
                                     <div id="white_boxes">

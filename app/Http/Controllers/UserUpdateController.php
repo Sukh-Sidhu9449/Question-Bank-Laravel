@@ -15,13 +15,15 @@ class UserUpdateController extends Controller
     public function index()
     {
         $id = Auth::user()->id;
-        $technologies = DB::table('technologies')->whereBetween('id', [1, 10])->get();
+        $popularTechnologies = tech_user_Controller::fetchHeaderData();
+        $technologies = tech_user_Controller::fetchTechWithFramework();
+        // $technologies = DB::table('technologies')->whereBetween('id', [1, 10])->get();
         $users = DB::table('users')->where('id', $id)->get();
         //dd($users);
         //$user = App\User::where('id',$id)->first();
         
 
-        return view('user_edit', ['users' => $users, 'technologies' => $technologies]);
+        return view('user_edit', ['users' => $users, 'popularTechnologies' => $popularTechnologies,'technologies' => $technologies]);
     }
 
     public function update(Request $request)
@@ -30,7 +32,6 @@ class UserUpdateController extends Controller
 
         $data = [
             'name' => $request->input('name'),
-            'email' => $request->input('email'),
             'gender' => $request->input('gender'),
             'address' => $request->input('address'),
             'phone_number' => $request->input('phone_number'),

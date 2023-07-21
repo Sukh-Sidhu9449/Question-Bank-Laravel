@@ -79,7 +79,7 @@
                 </div>
             </div>
         </div>
-        <div class="tech_content" id="add_tech_content">
+        <div class="tech_content p-3 " id="add_tech_content">
             <div class="first_section">
                 <div class="bg-white">
                     <div class="row align-items-center">
@@ -95,7 +95,7 @@
                             </div>
                             <div>
                                 {{-- <a href="{{url('admin/technologies/add')}}"> --}}
-                                <button type="button" id="add_tech" class="btn btn-success mt-3 mx-5"
+                                <button type="button" id="add_tech" class="btn btn-dark-blue m-3 "
                                     data-bs-toggle="modal" data-bs-target="#addTechnologyModal">Add Technologies</button>
                                 {{-- </a> --}}
                             </div>
@@ -104,7 +104,7 @@
                 </div>
             </div>
             <div class="container-fluid">
-                <div class="row justify-content-left">
+                <div class="row  gy-3">
                     @foreach ($technologies as $technology)
                         <div class="col-lg-4 col-md-12">
                             <div id="white_box">
@@ -113,12 +113,12 @@
                                             class="bi bi-arrow-right-circle icon_hover"></i></h4>
                                 </div>
                                 <div id="icons_gap">
-                                    <a id="delete_technology" data-id="{{ $technology->id }}">
+                                    <a id="delete_technology" class="me-2 text-decoration-none" data-id="{{ $technology->id }}">
                                         <i class="fa-solid fa-trash-can text-danger"></i>&nbsp;&nbsp;
                                     </a>
                                     <a id="edit_technology" data-id="{{ $technology->id }}" data-bs-toggle="modal"
                                         data-bs-target="#editTechnologyModal">
-                                        <i class="fa-solid fa-pencil"></i>
+                                        <i class="fa-solid fa-pencil "></i>
                                     </a>
                                 </div>
 
@@ -215,7 +215,7 @@
                 </div>
             </div>
         </div>
-        <div class="framework_content">
+        <div class="framework_content p-3">
             <div class="first_section">
                 <div class="bg-white">
                     <div class="row align-items-center">
@@ -234,7 +234,7 @@
                             </div>
                             <div>
                                 <button type="button" id="show_Framework_Modal" data-bs-toggle="modal"
-                                    data-bs-target="#addFrameworkModal" class="btn btn-success mt-3 mx-5">Add
+                                    data-bs-target="#addFrameworkModal" class="btn btn-dark-blue m-3">Add
                                     Frameworks</button>
                             </div>
 
@@ -310,7 +310,7 @@
                 </div>
             </div>
         </div>
-        <div class="experience_content">
+        <div class="experience_content p-3">
             <div class="first_section">
                 <div class="bg-white">
                     <div class="row align-items-center">
@@ -330,7 +330,7 @@
                             </div>
                             <div>
                                 <button type="button" id="show_Experience_Modal" data-bs-toggle="modal"
-                                    data-bs-target="#addExperienceModal" class="btn btn-success mt-3 mx-5">Add
+                                    data-bs-target="#addExperienceModal" class="btn btn-dark-blue m-3">Add
                                     Experience</button>
                             </div>
 
@@ -481,7 +481,7 @@
                 </div>
             </div>
         </div>
-        <div class="ques_ans_content">
+        <div class="ques_ans_content p-3">
             <div class="first_section">
                 <div class="bg-white">
                     <div class="row align-items-center">
@@ -511,7 +511,7 @@
                                 </div>
                                 <div>
                                     <button type="button" id="show_Question_Modal" data-bs-toggle="modal"
-                                        data-bs-target="#addQuestionModal"class="btn btn-success mt-3 mx-5">Add
+                                        data-bs-target="#addQuestionModal"class="btn btn-dark-blue m-3">Add
                                         Questions</button>
                                 </div>
                             </div>

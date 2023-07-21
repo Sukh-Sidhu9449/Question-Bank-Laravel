@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('timer');
             $table->unsignedBigInteger('admin_id');
             $table->foreign('admin_id')->references('id')->on('users');
+            $table->string('mandatory_skills')->nullable();
+            $table->string('optional_skills')->nullable();
             $table->timestamps();
         });
     }

@@ -10,7 +10,7 @@
                                     id="back_btnn"></i></span> Q&A</h5>
                     </div>
                     <div>
-                        <button type="button" class="btn btn-success mt-3 mx-5">Add Questions</button>
+                        <button type="button" class="btn btn-dark-blue mt-3 mx-5">Add Questions</button>
                     </div>
                 </div>
             </div>

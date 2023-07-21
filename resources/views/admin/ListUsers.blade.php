@@ -1,16 +1,16 @@
 @extends('admin_layout.template')
 @section('main-content')
-    <div class="Users_Data">
+    <div class="Users_Data px-4 py-2">
 
         <div class="first_section">
             <div class="bg-white">
                 <div class="row align-items-center">
-                    <div class="page_title">
+                    <div class="page_title d-flex justify-content-between align-items-center">
                         <div>
                             <h5 class="page-title p-3 mt-2">Registered Users</h5>
                         </div>
                         <div>
-                            <button type="button" id="add_user" class="btn btn-success rounded mt-3 mx-5">Add New User</button>
+                            <button type="button" id="add_user" class="btn btn-dark-blue rounded ">Add New User</button>
                         </div>
                     </div>
                 </div>
@@ -20,8 +20,8 @@
             <div class="container-fluid">
                 <div class="row justify-content-center">
 
-                    <div id="white-box table-responsive">
-                        <table id="yajra-datatable" class="table table-light">
+                    <div id="white-box  table-responsive" class="user-datatable-outer">
+                        <table id="yajra-datatable" class="table table-light ">
                             <thead>
                                 <tr>
                                     <th>S.N</th>
@@ -45,12 +45,11 @@
         </div>
         <div id="new_user_registration">
             <div class="container-fluid">
-
                 <div class="row">
-                        <div class="card" id="white_box">
-                            <header>
-                                <div class="form_header mb-4 p-4">
-                                    <h4>Users Information</h4>
+                        <div class="card user-information-outer" id="white_box">
+                            <header >
+                                <div class="form_header mb-4 p-4 ">
+                                    <h4 class="text-white">Users Information</h4>
                                 </div>
                             </header>
                             <div class="card-body">
@@ -147,7 +146,7 @@
                                     </div>
                                     <div class="form-group my-3">
                                         <div class="col-sm-12">
-                                            <button type="submit" class="btn btn-success mt-3" name="add_user"
+                                            <button type="submit" class="btn btn-dark-blue mt-3" name="add_user"
                                                 id="add_user">Add User</button>
                                         </div>
                                     </div>

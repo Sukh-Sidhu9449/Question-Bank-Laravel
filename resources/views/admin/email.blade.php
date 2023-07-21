@@ -30,7 +30,7 @@
             <label for="Email">Message</label>
             <input type="text" class="form-control" id="emal" value ="" name="message">
         </div>
-      <button type="submit" class="btn btn-success mt-3">Send Mail</button>
+      <button type="submit" class="btn btn-dark-blue mt-3">Send Mail</button>
       @endforeach
     </form>
     </div>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,6 +13,8 @@
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
+
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
     <style>
@@ -27,14 +30,14 @@
         }
 
         #video {
-            width: 481px;
+            width: 100%;
             height: 355px;
             background-color: #666;
+            margin: 0 auto;
         }
 
         #container {
-            margin-top: 20px;
-            width: 500px;
+            max-width: 100%;
             height: 375px;
             border: 10px #3333333b solid;
 
@@ -44,12 +47,11 @@
             margin-top: 170px;
             height: 560px;
         }
+
         .button {
-            margin-right: 60px;
-            margin-left: 29px;
+            padding: 5px 10px 5px 10px;
             display: inline-block;
-            padding: 15px 25px;
-            font-size: 24px;
+            font-size: 18px;
             cursor: pointer;
             text-align: center;
             text-decoration: none;
@@ -58,11 +60,13 @@
             background-color: #4CAF50;
             border: none;
             border-radius: 15px;
-            box-shadow: 0 9px #999;
+            box-shadow: 0 4px 11px #e7e7e7;
+            transition: 1s
         }
 
         .button1 {
-            margin-left: 30%;
+            visibility: hidden;
+            margin: 0 auto;
             background-color: white;
             color: black;
             border: 2px solid #4CAF50;
@@ -86,18 +90,46 @@
         }
 
         .button4 {
-            float: right;
-            margin-right: 40px;
+            width: 50%;
             visibility: hidden;
             background-color: white;
             color: black;
             border: 2px solid #f0ed3f;
+            margin: 20px 10px 20px auto;
+        }
+
+        .swal2-modal .swal2-icon,
+        .swal2-modal .swal2-success-ring {
+            margin-top: 20px !important;
+            margin-bottom: 42px;
+        }
+
+        .customSwalBtn {
+            background-color: #1f3bb3;
+            border: 0;
+            border-radius: 3px;
+            box-shadow: none;
+            color: #fff;
+            cursor: pointer;
+            font-size: 17px;
+            font-weight: 500;
+            margin: 30px 5px 0px 5px;
+            padding: 10px 32px;
+        }
+
+        @media (min-width:576px) {
+            .button4 {
+                width: 30%;
+            }
+
         }
 
         .button4:hover {
             background-color: #696413;
             color: white;
         }
+
+
 
         .button3 {
             display: inline-block;
@@ -140,10 +172,7 @@
             right: 0;
         }
 
-        .py-5 {
-            padding-top: 0rem !important;
-            padding-bottom: 0rem !important;
-        }
+
 
         .col-xl-4 {
             flex: 0 0 auto;
@@ -184,10 +213,20 @@
             height: 40px;
 
         }
-
-        .card {
-            margin-right: 45px;
-            margin-left: 72px;
+        .timerClock {
+            position: absolute;
+            top: 0px;
+            right:0px;
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background-color: #080808;
+            box-shadow: 0 2px 10px rgba(107, 106, 106, 0.1);
+            color: #eee;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 48px;
         }
 
         #cover-spin {
@@ -243,27 +282,50 @@
 </head>
 
 <body>
+    <header>
+        <div class="d-flex justify-content-between align-items-center py-3 px-4"
+            style=" 
+        background: #F4F5F7;
+    ">
+            <a href="#">
+                <img class="w-25" src="{{ asset('images/Question-Bank-Logo.webp') }}" alt="logo" />
+            </a>
 
-    <div id="container" enctype="multipart/form-data">
-        <p><video id="video" autoplay="True" width=320></p>
-        <p><button class="button button1" id="start">Start Call</button>
-            {{-- onclick=" startFunction(); startchatbot();  startaudioRec()" --}}
-            <button class="button button2" id="stop" > Stop Call</button>
-            {{-- onclick="download(); stopaudioRec();" --}}
-        </p>
-    </div>
+            <h3 class="pe-5 me-5 ">
+                @if (now()->format('H') < 12)
+                    Good Morning,
+                @elseif(now()->format('H') >= 12 && now()->format('H') < 16)
+                    Good Afternoon,
+                @elseif(now()->format('H') >= 16 && now()->format('H') < 20)
+                    Good Evening,
+                @else
+                    Good Night,
+                @endif
+                {{ auth()->user()->name ? ucfirst(auth()->user()->name) : '' }}
+            </h3>
+        </div>
+    </header>
+    <div class="timerClock" id="timerClock" style="display: none"></div>
+    <div class="container-fluid">
+        <div class="p-xl-5 py-3">
 
-    <div id="cover-spin"></div>
-    {{-- <a href="{% url 'binaryvideos' %}"><button class="button3" style="vertical-align:middle"><span>Go to video </span></button></a> --}}
+            <div class="row gy-4">
+                <div class="col-lg-5">
+                    <div class="mx-auto " enctype="multipart/form-data">
+                        <div class="mb-3 mx-auto  " id="container">
+                            <video id="video" autoplay="True" min-width=320px>
+                        </div>
+                        <div class=" d-flex flex-column justify-content-center align-items-center "><button
+                                class="button button1" id="start">Start Call</button>
+                            {{-- onclick=" startFunction(); startchatbot();  startaudioRec()" --}}
+                            <button class="button button2" id="stop"> Stop Call</button>
+                            {{-- onclick="download(); stopaudioRec();" --}}
+                        </div>
 
-
-    <section style="background-color: #eee;">
-        <div id="container2" class="container py-5">
-
-            <div class="row d-flex justify-content-center">
-                <div class="col-md-8 col-lg-6 col-xl-4">
-
-                    <div class="card">
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="card w-lg-75  me-xl-auto mx-auto">
                         <div class="card-header d-flex justify-content-between align-items-center p-3"
                             style="border-top: 4px solid #ffa900;">
                             <h5 class="mb-0">Chat messages</h5>
@@ -304,79 +366,33 @@
                             </div>
 
                         </div>
-
+                        <div style="display:flex; ">
+                            <button class="button button4" id="repeatQues">Repeat Question</button>
+                            <button class="button button4" id="skip">Skip Question</button>
+                            <button class="button button4" id="nextQues">Next Question</button>
+                        </div>
                     </div>
-
                 </div>
             </div>
-
-            <button class="button button4" id="skip">Skip Question</button>
         </div>
-        <input type="text" name="quizId" id="botQuizId" value="{{$quizId}}" hidden>
+
+    </div>
+
+    {{-- <ul id="ul"></ul> --}}
+
+    <div id="cover-spin"></div>
+    {{-- <a href="{% url 'binaryvideos' %}"><button class="button3" style="vertical-align:middle"><span>Go to video </span></button></a> --}}
+
+
+    <section>
+        <input type="text" name="quizId" id="botQuizId" value="{{ $quizId }}" hidden>
+        <input type="text" name="mandatorySkills" id="mandatorySkills" value="{{ $mandatorySkills }}" hidden>
+        <input type="text" name="optionalSkills" id="optionalSkills" value="{{ $optionalSkills }}" hidden>
     </section>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src='{{ asset('js/chatbot.js') }}'></script>
     <script src='{{ asset('js/video.js') }}'></script>
+
 </body>
 
 </html>
-
-
-
-
-{{-- <!DOCTYPE html>
-<html>
-  <head>
-    <title>Questionbank</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="keywords" content="WebRTC getUserMedia MediaRecorder API">
-    <link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <style>
-      button{
-        margin: 10px 5px;
-      }
-      li{
-        margin: 10px;
-      }
-      body{
-        width: 90%;
-        max-width: 960px;
-        margin: 0px auto;
-      }
-      #btns{
-        display: none;
-      }
-      h1{
-        margin: 100px;
-      }
-    </style>
-  </head>
-  <body>
-    <h1> MediaRecorder</h1>
-
-    {{-- <p> For now it is supported only in Firefox(v25+) and Chrome(v47+)</p> --}}
-{{-- <div id='gUMArea'>
-      <div>
-      Record:
-        <input type="radio" name="media" value="video" checked id='mediaVideo'>Video
-        <input type="radio" name="media" value="audio">audio
-      </div>
-      <button class="btn btn-default"  id='gUMbtn'>Request Stream</button>
-    </div>
-    <div id='btns'>
-      <button  class="btn btn-default" id='start'>Start</button>
-      <button  class="btn btn-default" id='stop'>Stop</button>
-    </div>
-    <div>
-      <ul  class="list-unstyled" id='ul'></ul>
-    </div> --}}
-{{-- <button id="close_account">Show</button> --}}
-{{-- <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
-    <script src='{{ asset('js/video.js') }}'></script>
-
-  </body> --}}
-{{-- </html> --}}

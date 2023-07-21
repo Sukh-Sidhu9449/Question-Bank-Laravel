@@ -11,7 +11,7 @@ use App\Http\Controllers\Api\V1\QuizQuestionController;
 use App\Http\Controllers\Api\V1\UserUpdateController;
 use App\Http\Controllers\Api\V1\NavBarController;
 use App\Http\Controllers\Api\V1\NotificationController;
-
+use App\Http\Controllers\UserDashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,61 +43,64 @@ Route::prefix('v1')->group(function () {
         Route::put('/questions/{id}', 'update');
         Route::delete('/questions/{id}', 'destroy');
     });
-    Route::controller(UserController::class)->group(function (){
-    Route::post('/users', 'store');
-    Route::get('/users/list', 'getUsers');
-    Route::get('/admin/userassessment/{quizId}', 'getAssessment');
-    Route::get('/admin/assessmentdata', 'getSubmittedBlock');
-    Route::post('/admin/userassessment','insertIndividualMarks');
-    Route::post('/admin/assessmentaggregate','aggregateBlock');
-    Route::post('/admin/feedback','feedbackData');
-    Route::get('/admin/getpdfdata/{id}','getPdfData');
+    Route::controller(UserController::class)->group(function () {
+        Route::post('/users', 'store');
+        Route::get('/users/list', 'getUsers');
+        Route::get('/admin/userassessment/{quizId}', 'getAssessment');
+        Route::get('/admin/assessmentdata', 'getSubmittedBlock');
+        Route::post('/admin/userassessment', 'insertIndividualMarks');
+        Route::post('/admin/assessmentaggregate', 'aggregateBlock');
+        Route::post('/admin/feedback', 'feedbackData');
+        Route::get('/admin/getpdfdata/{id}', 'getPdfData');
     });
 });
 
 Route::prefix('v1')->group(function () {
-Route::middleware(['auth:sanctum'])->group(function(){
+    Route::middleware(['auth:sanctum'])->group(function () {
+        Route::controller(UserDashboard::class)->group(function () {
 
-    Route::controller(AuthController::class)->group(function(){
+            Route::get('dashboard-data', 'index');
+        });
+        Route::controller(AuthController::class)->group(function () {
 
-    Route::get('logout','logout');
-    Route::put('update','update');
-    Route::delete('delete','delete');
+            Route::get('logout', 'logout');
+            Route::put('update', 'update');
+            Route::delete('delete', 'delete');
+        });
+        Route::controller(QuizQuestionController::class)->group(function () {
 
-
-    });
-    Route::controller(QuizQuestionController::class)->group(function(){
-
-        Route::get('Question/{block_id}','quizQuestion');
-        Route::post('insertAns','insertAnswer');
-        Route::post('skipAns','skipAnswer');
-        Route::put('updateAns','updateAnswer');
-        Route::put('updateStatus','updateStatus');
+            Route::get('Question/{block_id}', 'quizQuestion');
+            Route::post('insertAns', 'insertAnswer');
+            Route::post('skipAns', 'skipAnswer');
+            Route::put('updateAns', 'updateAnswer');
+            Route::put('updateStatus', 'updateStatus');
         });
 
 
-        Route::controller(UserUpdateController::class)->group(function(){
+        Route::controller(UserUpdateController::class)->group(function () {
 
-            Route::get('userGet','index');
-            Route::post('userUpdate','update');
-            });
+            Route::get('userGet', 'index');
+            Route::post('userUpdate', 'update');
+        });
 
-        Route::controller(NavBarController::class)->group(function(){
-            Route::post('navBar','show');
-            });
+        Route::controller(NavBarController::class)->group(function () {
+            Route::post('navBar', 'show');
+        });
 
 
-        Route::controller(NotificationController::class)->group(function(){
-            Route::post('getNotification','getNotification');
-            });
-});
+        Route::controller(NotificationController::class)->group(function () {
+            Route::post('getNotification', 'getNotification');
+        });
+    });
 
-Route::controller(AuthController::class)->group(function(){
-    Route::post('login','login');
-    Route::post('register','register');
-    // Route::post('exptable','index');
-});
+    Route::controller(AuthController::class)->group(function () {
+        Route::post('login', 'login');
+        Route::post('register', 'register');
+        // Route::post('exptable','index');
+    });
 
-Route::post('interview-data',[BotInterviewController::class,'storeInterviewData']);
-
+    Route::post('interview-data', [BotInterviewController::class, 'storeInterviewData']);
+    // Route::get('interview-data', function(){
+    //     echo "Testing...";
+    // });
 });

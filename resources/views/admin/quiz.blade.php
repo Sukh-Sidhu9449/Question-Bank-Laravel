@@ -4,10 +4,12 @@
     <input type="text" name="quiz_technology_name" id="quiz_technology_name" hidden>
     <input type="text" name="quiz_framework_id" id="quiz_framework_id" hidden>
     <input type="text" name="quiz_framework_name" id="quiz_framework_name" hidden>
-
+    <input type="text" name="mandateTechId" id="mandateTechId" hidden>
+    <input type="text" name="opTechId" id="opTechId" hidden>
+    
     <div id='load_technologies_quiz'>
 
-        <div class="tech_content" id="add_tech_content">
+        <div class="tech_content p-3" id="add_tech_content">
             <div class="first_section">
                 <div class="bg-white">
                     <div class="row align-items-center">
@@ -27,23 +29,23 @@
                 </div>
             </div>
             <div class="container-fluid">
-                <div class="row justify-content-left">
+                <div class="row gy-3">
                     @foreach ($technologies as $technology)
-                        <div class="col-lg-4 col-md-12">
-                            <div id="white_box">
-                                <div id="clickable_quiz" data-id="{{ $technology->id }}">
-                                    <h4>{{ $technology->technology_name }}</h4>
+                        <div class="col-lg-3 col-md-4 col-6">
+                            <div id="white_box" class="click-tech-div" data-id="{{ $technology->id }}">
+                                <div id="clickable_quiz">
+                                    <h5 class=" text-center mb-0">{{ $technology->technology_name }}</h5>
                                 </div>
-                                <div id="icons_gap">
+                                {{-- <div id="icons_gap">
                                     <input type="checkbox" data-id="{{ $technology->id }}" class="technology_check">
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     @endforeach
 
                 </div>
                 <div>
-                    <button id="techGoBtn" class="btn btn-success">Next </button>
+                    <button id="techGoBtn" class="btn btn-dark-blue my-3 px-4 py-2">Next </button>
                 </div>
             </div>
         </div>
@@ -53,10 +55,10 @@
 
     <div id='load_frameworks_quiz'>
 
-        <div class="framework_content">
+        <div class="framework_content p-3 ">
             <div class="first_section">
                 <div class="bg-white">
-                    <div class="row align-items-center">
+                    <div class="row gy-3">
                         <div class="page_title">
                             <div>
                                 <h6 class="page-title p-3 mt-2">
@@ -81,13 +83,48 @@
 
 
             </div>
+             {{-- Modal choosing Mandatory and Optional skill --}}
+             <div class="modal fade" id="techCategoryModal" tabindex="-1" aria-labelledby="techCategoryModalLabel"
+             aria-hidden="true">
+             <div class="modal-dialog">
+                 <div class="modal-content"style=" width: 150%;">
+                     <div class="modal-header">
+                         <h5 class="modal-title" id="techCategoryModalLabel">Mandatory / Optional Technologies</h5>
+                         {{-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> --}}
+                     </div>
+                     <div class="modal-body">
+                         <div class="bg-white">
+                             <table id="techCategoryTable" class="table table-responsive text-center">
+                                <thead class="table-secondary">
+                                    <th>S.No</th>
+                                    <th>Technology Name</th>
+                                    <th>Mandatory</th>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>PHP</td>
+                                        <td><input type="checkbox" class="" ></td>
+                                    </tr>
+                                </tbody>
+                             </table>
+                             <div class="text-center">
+                                <button id="techCategoryBtn" class="btn btn-dark-blue">Submit</button>
+                             </div>
+                         </div>
+                     </div>
+
+                 </div>
+             </div>
+         </div>
+
         </div>
 
     </div>
 
     <div id="load_question_quiz">
 
-        <div class="ques_ans_content">
+        <div class="ques_ans_content p-3">
             <div class="first_section">
                 <div class="bg-white">
                     <div class="row align-items-center">
@@ -108,7 +145,7 @@
                             </div>
                             <div class="d-flex">
                                 <div class="random_btn">
-                                    <button id="randomBtn" class="btn btn-primary aaa" data-bs-toggle="modal"
+                                    <button id="randomBtn" class="btn btn-dark-blue aaa" data-bs-toggle="modal"
                                         data-bs-target="#randomQuesModal">Random</button>
                                 </div>
                                 <div>
@@ -164,7 +201,7 @@
                                             <input type="text" name="test_timer" id="test_timer" class="test_timer"
                                                 placeholder="In Minutes">
                                             <div class="text-danger errorspan"></div>
-                                            <button type="submit" class="btn btn-primary make_test">Create Quiz</button>
+                                            <button type="submit" class="btn btn-dark-blue mb-2 make_test">Create Quiz</button>
                                         </form>
                                     </td>
                                 </tr>
@@ -211,7 +248,7 @@
 
                         </div>
                         <div class="modal-footer">
-                            <button type="button" id="genterateRandom" class="btn btn-primary">Generate
+                            <button type="button" id="genterateRandom" class="btn btn-dark-blue">Generate
                                 Questions</button>
                         </div>
                     </div>
@@ -252,7 +289,7 @@
                                                     <input type="text" name="randomTestTimer" id="randomTestTimer"
                                                         class="test_timer" placeholder="In Minutes">
                                                     <div class="text-danger errorspan"></div>
-                                                    <button type="submit" class="btn btn-primary makeRandomQuesTest">Create Quiz</button>
+                                                    <button type="submit" class="btn btn-dark-blue m-2 makeRandomQuesTest">Create Quiz</button>
                                                 </form>
                                             </td>
                                         </tr>
@@ -265,6 +302,8 @@
                 </div>
             </div>
 
+           
+            
             <div class="page_loader">
                 <button class="pageloader_button" id="pageloader_quiz_button">Load more...</button>
                 <img src="{{ asset('img/pageloader.gif') }}" alt="Show/Hide Image"

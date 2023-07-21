@@ -1,13 +1,11 @@
-@extends('user_layout.template')
-@section('main-content')
+@extends('newuser-layout.template')
+@section('newuser-main-content')
 
-
-
-<div class="container-fluid p-0">
+<div class="container-fluid  p-0">
     <h4 class="mt-2 bg-dark text-white h-20 p-4 text-center">Notification Panel</h4>
-    <div class="notificationPanel mt-3">
-        <table  id="datatable"class="table">
-            <thead>
+    <div class="notificationPanel mt-3 px-5 py-3">
+        <table  id="datatable"class="table  py-4">
+            <thead class="table-head-notification ">
                 <th>S. No.</th>
                 <th>Blockname</th>
                 <th>created by</th>
@@ -53,7 +51,6 @@
             </tbody>
         </table>
     </div>
-
 </div>
 
 

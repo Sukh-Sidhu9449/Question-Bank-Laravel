@@ -54,9 +54,9 @@ class UserController extends Controller
             })
             // ->editColumn('name', 'Shri: {{$name}}')
             ->setRowId('id')
-            ->setRowClass(function ($user) {
-                return $user->id % 2 == 0 ? 'alert-success' : 'alert-warning';
-            })
+            // ->setRowClass(function ($user) {
+            //     return $user->id % 2 == 0 ? 'alert-success' : 'alert-warning';
+            // })
             ->removeColumn('id')
             ->make(true);
     }

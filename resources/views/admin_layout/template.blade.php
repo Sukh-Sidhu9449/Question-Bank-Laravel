@@ -58,6 +58,7 @@
 <script src="{{ asset('js/McqQuizBlock.js') }}"></script>
 
 <script src="{{ asset('js/email.js') }}"></script>
+<script src="{{ asset('js/guestGroupInterview.js') }}"></script>
 
 
 </body>

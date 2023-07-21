@@ -91,7 +91,7 @@
                                     </div>
                                     <div class="form-group my-3">
                                         <div class="col-sm-12">
-                                            <button class="btn btn-success mt-3">Update Profile</button>
+                                            <button class="btn btn-dark-blue mt-3">Update Profile</button>
                                         </div>
                                     </div>
                                 </form>

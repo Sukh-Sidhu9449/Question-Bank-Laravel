@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Frameworks;
+use App\Models\GroupInterviews;
 use Carbon\Carbon;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Validator;
+
+use Mail;
+
 
 date_default_timezone_set("Asia/Calcutta");
 class QuizController extends Controller
@@ -19,6 +26,13 @@ class QuizController extends Controller
 
     public function fetchFrameworks(Request $request)
     {
+        if (isset($request->frameworksId)) {
+            $frameworkId = $request->frameworksId;
+            $frame_id = explode(',', $frameworkId);
+            $frameworks = Frameworks::select('id','framework_name')->whereIn('id', $frame_id)->get();
+
+            return response()->json(['status' => 200, 'frameworks' => $frameworks]);
+        }
         $technology_id = $request->technology_id;
         $id = explode(',', $technology_id);
         $frameworks = DB::table('frameworks as f')
@@ -26,8 +40,26 @@ class QuizController extends Controller
             ->whereIn('f.technology_id', $id)
             ->select('f.id', 'f.framework_name', 'f.technology_id', 't.technology_name')
             ->get();
+        $checkDatabaseExist = $this->checkValueInObject($frameworks,'Database');
+        $checkDeploymentExist = $this->checkValueInObject($frameworks,'Cloud Services');
+        // dd((string)$checkDeploymentExist);
+        if(((string)$checkDatabaseExist == '' &&  (string)$checkDeploymentExist == '') ||  (string)$checkDatabaseExist == '' && (string)$checkDeploymentExist != '0'){
+            $database = DB::table('frameworks as f')
+                ->join('technologies as t', 't.id', '=', 'f.technology_id')
+                ->where('t.technology_name', 'Database')
+                ->select('f.id', 'f.framework_name', 'f.technology_id', 't.technology_name')
+                ->get();
+            $frameworks = $frameworks->merge($database);
+        }
+        if(((string)$checkDeploymentExist == '' &&  (string)$checkDatabaseExist == '') || (string)$checkDeploymentExist == '' && (string)$checkDatabaseExist != '0'){
+            $deployment = DB::table('frameworks as f')
+                ->join('technologies as t', 't.id', '=', 'f.technology_id')
+                ->where('t.technology_name', 'Cloud Services')
+                ->select('f.id', 'f.framework_name', 'f.technology_id', 't.technology_name')
+                ->get();
+            $frameworks = $frameworks->merge($deployment);
+        }
 
-        // return view('admin.technologies.index');
         if (count($frameworks) > 0) {
             return response()->json([
                 'frameworks' => $frameworks,
@@ -44,6 +76,13 @@ class QuizController extends Controller
                 'status' => 404
             ]);
         }
+    }
+
+    public function checkValueInObject($object,$search)
+    {
+       return  $object->filter(function ($group) use ($search) { 
+            return in_array($search, (array)$group); 
+        })->keys()->first();
     }
 
     public function getQuestions(Request $request)
@@ -175,16 +214,20 @@ class QuizController extends Controller
         $admin_id = Auth::user()->id;
         $block_name = $request->block_name;
         $insert_data = $request->insert;
-        // dd($insert_data);
+        $mandateTechnologies = $request->mandateTechId;
+        $optionalTechnologies = $request->opTechId;
+
         $timer = $request->timer;
-        $data=[
+        $data = [
             'block_name' => $block_name,
-            'timer'=>$timer,
-            'admin_id'=>$admin_id,
+            'mandatory_skills' => $mandateTechnologies,
+            'optional_skills' => $optionalTechnologies,
+            'timer' => $timer,
+            'admin_id' => $admin_id,
             'created_at' => date('Y:m:d H:i:s')
         ];
-        if(isset($request->type)){
-            $data['type']= $request->type;
+        if (isset($request->type)) {
+            $data['type'] = $request->type;
         }
 
         $questions = explode(",", $insert_data);
@@ -225,7 +268,7 @@ class QuizController extends Controller
     public function fetchAllBlocks(Request $request)
     {
         $blocks = DB::table('blocks as b')
-            ->select('b.id', 'b.block_name','b.type', DB::raw("(SELECT COUNT(question_id) FROM block_questions
+            ->select('b.id', 'b.block_name', 'b.type', DB::raw("(SELECT COUNT(question_id) FROM block_questions
                     WHERE block_id = b.id GROUP BY b.id) as question_count"))
             ->whereNull('deleted_at')
             ->get();
@@ -233,16 +276,14 @@ class QuizController extends Controller
             ->addIndexColumn()
 
             ->addColumn('action', function ($blocks) {
-                return '<button id="show_block_btn" type="button" data-id="' . $blocks->id . '"
-        class="btn btn-info"><i class="fa-solid fa-eye"></i>&nbsp;Show</button>
-        <a href="/viewBlocks/destroy/' . $blocks->id . '"> <button id="show_block_btn" type="button"
-        class="btn btn-danger"><i class="fa-solid fa-eye"></i>&nbsp;Delete</button></a>
+                return '<a id="show_block_btn" href="" data-id="' . $blocks->id . '"><i class="fa-solid fa-eye pe-1 text-black"></i></a>
+        <a href="/viewBlocks/destroy/' . $blocks->id . '"><i class="fa-solid fa-trash pe-1 text-danger"></i></a>
         ';
             })
             ->setRowId('id')
-            ->setRowClass(function ($blocks) {
-                return $blocks->id % 2 == 0 ? 'alert-success' : 'alert-primary';
-            })
+            // ->setRowClass(function ($blocks) {
+            //     return $blocks->id % 2 == 0 ? 'alert-success' : 'alert-primary';
+            // })
             ->removeColumn('id')
             ->make(true);
     }
@@ -259,13 +300,13 @@ class QuizController extends Controller
             ->addColumn('action', function ($blocks) {
                 return '
        <a href="/admin/restoreBlocks/' . $blocks->id . '"><button id="show_block_btn" type="button"
-        class="btn btn-danger"><i class="fa-solid fa-eye"></i>&nbsp;Restore</button></a>
+        class="btn btn-danger"><i class="fa-solid fa-history pe-1"></i></button></a>
         ';
             })
             ->setRowId('id')
-            ->setRowClass(function ($blocks) {
-                return $blocks->id % 2 == 0 ? 'alert-success' : 'alert-primary';
-            })
+            // ->setRowClass(function ($blocks) {
+            //     return $blocks->id % 2 == 0 ? 'alert-success' : 'alert-primary';
+            // })
             ->removeColumn('id')
             ->make(true);
     }
@@ -283,28 +324,27 @@ class QuizController extends Controller
         $blockMcqQuestions = "";
         $block_questions = "";
 
-        $blockType = DB::table('blocks')->where('id',$id)->select('type')->value('type');
-        if($blockType == 'MCQ'){
+        $blockType = DB::table('blocks')->where('id', $id)->select('type')->value('type');
+        if ($blockType == 'MCQ') {
             $blockMcqQuestions = DB::table('block_questions as bq')->where('bq.block_id', $id)
-            ->join('mcq_questions as mq', 'bq.question_id', '=', 'mq.id')
-            ->select('mq.mcq_questions as question')
-            ->offset($offset)->limit($limit)
-            ->get();
-        }else{
+                ->join('mcq_questions as mq', 'bq.question_id', '=', 'mq.id')
+                ->select('mq.mcq_questions as question')
+                ->offset($offset)->limit($limit)
+                ->get();
+        } else {
             $block_questions = DB::table('block_questions as bq')->where('bq.block_id', $id)
                 ->join('questions as q', 'bq.question_id', '=', 'q.id')
                 ->select('q.question')
                 ->offset($offset)->limit($limit)
                 ->get();
         }
-        if ($block_questions != "" || $blockMcqQuestions != "" ) {
+        if ($block_questions != "" || $blockMcqQuestions != "") {
             return response()->json([
                 'block' => $block_questions,
                 'blockMcq' => $blockMcqQuestions,
                 'status' => 200
             ]);
-        }
-        else{
+        } else {
             return response()->json([
                 'status' => 404
             ]);
@@ -323,7 +363,7 @@ class QuizController extends Controller
         }
         $users = DB::table('users as u')->where('u.role', '=', 'user')
             ->select('u.id', 'u.name', 'u.email', DB::raw("(SELECT block_id FROM userquizzes
-                    WHERE status = 'P' && users_id= u.id) as block_id"))
+                    WHERE status = 'P' && users_id= u.id ORDER BY id DESC LIMIT 1) as block_id"))
             ->offset($offset)
             ->limit($limit)
             ->get();
@@ -359,5 +399,82 @@ class QuizController extends Controller
                 'status' => 404
             ]);
         }
+    }
+
+    public function assignGuestInterview(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'emails' => 'required',
+                'blockId' => 'required',
+            ]);
+            if ($validator->fails()) {
+                $response = [
+                    'message' => $validator->errors()
+                ];
+                return response()->json(['response' => $response, 'code' => 422]);
+            }
+            $assignedBy = Auth::user()->id;
+            $groupInterview = new GroupInterviews;
+            $groupInterview->block_id = $request->blockId;
+            $groupInterview->assigned_by = $assignedBy;
+            $groupInterview->save();
+
+            $date = Carbon::now();
+            $date->addDays(2);
+            // $dateInMills = $date->timestamp;
+            // dd($dateInMills);
+            $users = json_decode($request->emails, true);
+            $data = [];
+            $groupData = [];
+            $i = 0;
+            foreach ($users as $user) {
+                $i++;
+                $data = [
+                    'email' => $user,
+                    'subject' => 'Interview Scheduled',
+                ];
+                $jsonData = [
+                    'email' => $user,
+                    'id' => '',
+                    'name' => '',
+                    'interviewStatus' => '',
+                    'interviewResult' => '',
+                    'quizId' => '',
+                    'date' => $date,
+                ];
+                $groupData = [...$groupData, $jsonData];
+                $urlData = [
+                    'userEmail' => $user,
+                    'groupInterviewId' => $groupInterview->id,
+                    'date' => $date,
+                ];
+                $toEncryptData = json_encode($urlData);
+                $encrypt = base64_encode($toEncryptData);
+                // dd($encrypt);
+
+                $userData = [
+                    'name' => "Someone",
+                    'encrypt' => $encrypt,
+                ];
+                // dd()
+                $mail = Mail::send('emails.interviewEmail', ['userData'=>$userData], function ($message) use ($data) {
+                    $message->from('qb@yopmail.com', env('App_NAME'));
+                    $message->to($data['email']);
+                    $message->subject($data['subject']);
+                });
+            }
+            $jsonGroupData = json_encode($groupData);
+            // dd($jsonGroupData); 
+            $groupInterview->group_users = $jsonGroupData;
+            $groupInterview->total_candidates = $i;
+            $groupInterview->save();
+        } catch (QueryException $ex) {
+            return response()->json(['message' => $ex->getMessage()], 404);
+        }
+        return response()->json([
+            'message' => "mails sent successfully",
+            'code' => 200
+        ], 200);
     }
 }

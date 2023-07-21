@@ -5,7 +5,6 @@
             <div class="col-md-8">
                 <div class="card" style="width:100%; height:auto;">
                     <div class="card-header">{{ __('Register') }}</div>
-                    {{-- {{dd($frameworks)}} --}}
                     <div class="card-body">
                         <form method="POST" action="{{url('/guest')}}">
                             @csrf
@@ -16,7 +15,7 @@
                                 <div class="col-md-6">
                                     <input id="name" type="text"
                                         class="form-control @error('name') is-invalid @enderror" name="name"
-                                        value="{{ old('name') }}"  autocomplete="name" autofocus>
+                                        value="{{ old('name') }}" autocomplete="name" autofocus>
 
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">
@@ -31,6 +30,11 @@
                                     class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                                 <div class="col-md-6">
+                                    @isset($userEmail)
+                                    <input id="email" type="email"
+                                    class="form-control @error('email') is-invalid @enderror" name="email"
+                                    value="{{ old('email')?old('email'):$userEmail }}"  autocomplete="email">
+                                    @endisset
                                     <input id="email" type="email"
                                         class="form-control @error('email') is-invalid @enderror" name="email"
                                         value="{{ old('email') }}"  autocomplete="email">

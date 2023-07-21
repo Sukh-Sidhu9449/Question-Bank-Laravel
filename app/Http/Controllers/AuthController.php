@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\navbarTechnologyController;
 use Illuminate\Support\Facades\Cookie;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Validator;
+
 
 class AuthController extends Controller
 {
@@ -25,11 +27,17 @@ class AuthController extends Controller
     public function userRegister(Request $request)
 
     {
-        $request->validate([
-            'name' => 'string|required|min:4',
-            'email' => 'string|email|required|max:100|unique:users',
-            'password' => 'string|required|confirmed|min:8'
+        $validator = Validator::make($request->all(),[
+            'name' => 'required|min:4|string',
+            'email' => 'required|email|max:100|unique:users',
+            'password' => 'required|confirmed|min:8'
         ]);
+        if($validator->fails()){
+            $response = [
+                'message' => $validator->errors()
+            ];
+            return response()->json($response,409);
+        }
         
         $user = new User;
         $user->name = $request->name;
@@ -55,8 +63,8 @@ class AuthController extends Controller
     {
         $request->validate([
 
-            'email' => 'string|required|email',
-            'password' => 'string|required'
+            'email' => 'required|email',
+            'password' => 'required'
 
         ]);
         if ($request->rememberme === null) {
@@ -151,10 +159,13 @@ class AuthController extends Controller
         $user = count($user);
         $questions = DB::table('questions')->get();
         $questions = count($questions);
+        $frameworks = DB::table('frameworks')->get();
+        $frameworks = count($frameworks);
         return response()->json([
             'technologies' => $technology,
             'users' => $user,
             'questions' => $questions,
+            'frameworks' => $frameworks,
         ]);
     }
 
@@ -214,17 +225,17 @@ class AuthController extends Controller
 
             ->editColumn('status', function ($notificationData) {
                 if ($notificationData->status == 'P')
-                    return '<p class="text-danger">Pending</p>';
+                    return '<p class="text-black">Pending</p>';
                 elseif ($notificationData->status == 'I')
-                    return '<p class="text-info">Initiated</p>';
+                    return '<p class="text-black">Initiated</p>';
                 elseif ($notificationData->status == 'S')
-                    return '<p class="text-success">Submitted</p>';
+                    return '<p class="text-black">Submitted</p>';
                 elseif ($notificationData->status == 'U')
-                    return '<p class="text-warning">Under Review</p>';
+                    return '<p class="text-black">Under Review</p>';
                 elseif ($notificationData->status == 'C')
-                    return '<p class="text-secondary">Reviewed</p>';
+                    return '<p class="text-black">Reviewed</p>';
                 elseif ($notificationData->status == 'AR')
-                    return '<p class="text-secondary">Reviewed</p>';
+                    return '<p class="text-black">Reviewed</p>';
             })
 
             ->editColumn('block_aggregate', function ($notificationData) {
@@ -268,7 +279,7 @@ class AuthController extends Controller
 
     public function loadDashboard()
     {
-        return navbarTechnologyController::show();
+        return navbarTechnologyController::newShow();
     }
     public function adminDashboard()
     {

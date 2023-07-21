@@ -1,8 +1,8 @@
-<div class="sidebar">
-    <div class="logo">
-        <img src="{{ asset('/img/index.png') }}" alt="logo" width="100px" height="100px"><b>Seasia</b> Infotech
+<div class="sidebar py-3 ps-3">
+    <div class="logo ps-2 pt-4">
+        <img class="top-logo-img" src="{{ asset('/images/Question-Bank-Logo.webp') }}" alt="logo">
     </div>
-    <div class="sidebar_menu mt-3">
+    <div class="sidebar_menu mt-4">
         <ul id="sidebarnav">
             <li class="sidebar-item pt-3">
                 <a class="sidebar-link" href="{{ url('admin/dashboard') }}" aria-expanded="false">
@@ -32,19 +32,25 @@
             <li class="sidebar-item pt-3">
                 <a class="sidebar-link" href="{{ url('/admin/quiz') }}" aria-expanded="false">
                     <i class="bi bi-patch-question-fill"></i>
-                    <span class="hide-menu">Quizzes</span>
+                    <span class="hide-menu">Schedule Interview</span>
                 </a>
             </li>
             <li class="sidebar-item pt-3">
                 <a class="sidebar-link" href="{{ url('/admin/indexblock') }}" aria-expanded="false">
                     <i class="bi bi-archive-fill"></i>
-                    <span class="hide-menu">View Quiz Blocks</span>
+                    <span class="hide-menu">View Interview Blocks</span>
                 </a>
             </li>
             <li class="sidebar-item pt-3">
                 <a class="sidebar-link" href="{{ url('/admin/indexNotification') }}" aria-expanded="false">
                     <i class="bi bi-bell-fill"></i>
-                    <span class="hide-menu">Test Info</span>
+                    <span class="hide-menu">Statistics</span>
+                </a>
+            </li>
+            <li class="sidebar-item pt-3">
+                <a class="sidebar-link" href="{{ url('/admin/group-interview-stats') }}" aria-expanded="false">
+                    <i class="bi bi-bell-fill"></i>
+                    <span class="hide-menu">Group Interview Statistics</span>
                 </a>
             </li>
             <!-- <li class="sidebar-item pt-3">
@@ -81,15 +87,17 @@
                             </span>
                         </span>
                     </div>
-                    <div class="modal fade" id="notificationModal" tabindex="-1" aria-labelledby="notificationModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="notificationModal" tabindex="-1"
+                        aria-labelledby="notificationModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
-                        <div class="modal-content" style="margin-top: 91px; margin-left: -123px; width: 75%; ">
-                            <div class="modal-header">
-                            <h5 class="modal-title text-dark" id="notificationModalLabel">Notifications</h5>
+                            <div class="modal-content" style="margin-top: 91px; margin-left: -123px; width: 75%; ">
+                                <div class="modal-header">
+                                    <h5 class="modal-title text-dark" id="notificationModalLabel">Notifications</h5>
+                                </div>
+                                <div class="modal-body" id="notifications_desc"
+                                    class="dropdown-content notication_heading">
+                                </div>
                             </div>
-                            <div class="modal-body" id="notifications_desc" class="dropdown-content notication_heading">
-                            </div>
-                        </div>
                         </div>
                     </div>
                 </div>
@@ -99,23 +107,28 @@
 
         <div class="dropdown">
             <div class="user_icon">
-                <div class="profile">
+                <div class="profile m-0 p-0">
                     <img src="{{ Auth::user()->image }}" alt="user-img" width="40" height="35px"
                         class="img_circle">
                 </div>
-                <div class="text-white font-medium">{{ Auth::user()->name }}</div>
-                <form action="" method="">
-                    <div class="dropdown-menu">
+                <div class="text-black font-medium">{{ Auth::user()->name }}</div>
+
+                <div class="dropdown-menu p-0">
+                    <div>
                         <a href="{{ url('admin/profile') }}">
-                            <button type="button" class="profile_details">Update Profile</button>
+                            <button type="button" class="profile_details py-2">Profile</button>
                         </a>
-                        <a id="logout" style="text-decoration: none;" ><button
-                                type="button" class="logout" name="logout">Logout
+                    </div>
+                    <div>
+                        <a id="logout" style="text-decoration: none; "><button type="button" class="logout py-2"
+                                name="logout">Logout
                             </button>
                         </a>
+                    </div>
 
-                </form>
+
+
+                </div>
             </div>
         </div>
     </div>
-</div>

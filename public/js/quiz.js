@@ -1,4 +1,56 @@
 $(document).ready(function () {
+    $(document).on('change','.ques_checkbox',function() {
+        let timer = $('#test_timer');
+        console.log(timer);
+        if(this.checked){
+            if(timer.val() == ''){
+                timer.val('2');
+            }else{
+                let value = parseInt(timer.val()) + 2;
+                timer.val(value.toString());
+            }
+        }else{
+            let value = parseInt(timer.val()) - 2;
+            timer.val(value.toString());
+        }
+    });
+
+    $(document).on('change','.randomQuesCheckbox',function() {
+        let timer = $('#randomTestTimer');
+        console.log(timer);
+        if(this.checked){
+            if(timer.val() == ''){
+                timer.val('2');
+            }else{
+                let value = parseInt(timer.val()) + 2;
+                timer.val(value.toString());
+            }
+        }else{
+            let value = parseInt(timer.val()) - 2;
+            timer.val(value.toString());
+        }
+    });
+
+    $('.click-tech-div').click(function(){
+        $(this).toggleClass('active');
+        // alert();
+    });
+    $(document).on('click','.check-frame-div',function(){
+        $(this).toggleClass('active');
+        // alert();
+    });
+
+    // $(document).on('click','#frameGoBtn1',function(){
+    //     let technology_id=[]
+    //     $('.check-frame-div').each(function () {
+    //         if ($(this).hasClass("active")) {
+    //             technology_id.push($(this).data('id'));
+    //         }
+    //     });
+    //     console.log(technology_id,"Framework");
+    // });
+
+    
 
     //JqValidation for Create  quiz block
     $('#testDescriptionForm').validate({
@@ -76,8 +128,8 @@ $(document).ready(function () {
         $('#dynamic_frameworks_quiz').empty();
         $('.spinner-grow').show();
         let technology_id = [];
-        $('.technology_check').each(function () {
-            if ($(this).is(":checked")) {
+        $('.click-tech-div').each(function () {
+            if ($(this).hasClass("active")) {
                 technology_id.push($(this).data('id'));
             }
         });
@@ -95,17 +147,14 @@ $(document).ready(function () {
                 // console.log(response);
                 // window.history.pushState('new','title','/admin/frameworks/'+id);
                 if (response.status == 200) {
-                    $frame_data = '<div class="row justify-content-left">';
+                    $frame_data = '<div class="row gy-3">';
                     // console.log(response);
                     $.each(response.frameworks, function (key, value) {
-                        $frame_data += `<div class="col-lg-4 col-md-12">
-                                        <div id="white_boxx">
+                        $frame_data += `<div class="col-lg-3 col-md-4">
+                                        <div id="white_boxx" class="check-frame-div" data-id="`+ value.id + `">
                                             <div id="clickframeworkquiz" data-id="`+ value.id + `" data-name="` + value.framework_name + `">
-                                                <h4>`+ value.framework_name + `</h4>
-                                            </div>
-                                            <div id="icons_gap">
-                                    <input type="checkbox" data-id="`+ value.id + `" class="frameworks_check">
-                                </div>
+                                                <h5 class="mb-0 text-center">`+ value.framework_name + `</h5>
+                                            </div>  
                                         </div>
                                     </div>`;
 
@@ -115,7 +164,7 @@ $(document).ready(function () {
 
                     });
                     $frame_data += `</div><div>
-                    <button id="frameGoBtn" class="btn btn-success">Next </button>
+                    <button id="frameGoBtn" class="btn btn-dark-blue mt-5 px-4 py-2">Next</button>
                 </div>`;
                     $('.spinner-grow').hide();
                     $('#dynamic_frameworks_quiz').append($frame_data);
@@ -209,36 +258,98 @@ $(document).ready(function () {
     //Click Event for Fetching Questions
     $(document).on('click', '#frameGoBtn', function (e) {
         e.preventDefault();
+        
         let frameworks_id = [];
-        $('.frameworks_check').each(function () {
-            if ($(this).is(":checked")) {
+        $('.check-frame-div').each(function () {
+            if ($(this).hasClass("active")) {
                 frameworks_id.push($(this).data('id'));
             }
         });
         frameworks_id = frameworks_id.toString();
         // console.log(frameworks_id);
-        $('#load_frameworks_quiz').hide();
-        $('#load_question_quiz').show();
+        
         // let tech_id = $('#quiz_technology_id').val();
         // let id = $(this).data('id');
         // let name = $(this).data('name');
-        let exp_id = 0;
-        let limit = $('#quiz_page_limit').find(":selected").text();
+        
         $('#quiz_framework_id').val(frameworks_id);
         // $('#quiz_framework_name').val(name);
         // let technology_name = $('#quiz_technology_name').val();
         // $('.bread_technology').text(technology_name);
         // $('.bread_frame').text(name);
         // console.log(limit);
-        FetchQuizQuestion(frameworks_id, exp_id, limit);
-
+        $('#techCategoryModal').modal('show');
+        $("#techCategoryTable > tbody").empty();
+        $.ajax({
+            type: "get",
+            url: "/admin/quiz/frameworks",
+            data: {
+                frameworksId:frameworks_id,
+            },
+            dataType: "json",
+            success: function (response) {
+                let i = 1;
+                let html="";
+                $.each(response.frameworks, function (key, value) {
+                    html +=`<tr>
+                        <td>`+ i + `</td>
+                        <td>`+ value.framework_name + `</td>
+                        <td><input type="checkbox" data-id="`+ value.id + `" class="techCategoryCheck" ></td>
+                    </tr>`;
+                    i++;
+                });
+                $('#techCategoryTable').append(html);
+                // console.log(response.frameworks);
+            }
+        });
+        return;
+        
+       
     });
+
+    $('#techCategoryBtn').click(function(e){
+        e.preventDefault();
+        let mandateTechId = [];
+        let opTechId = [];
+        $('.techCategoryCheck').each(function () {
+            if (this.checked) {
+                mandateTechId.push($(this).data('id'));
+            }else{
+                opTechId.push($(this).data('id'));
+            }
+        });
+        mandateTechId = mandateTechId.toString();
+        opTechId = opTechId.toString();
+        $('#mandateTechId').val(mandateTechId);
+        $('#opTechId').val(opTechId);
+        $('#techCategoryModal').modal('hide');
+        $('#load_frameworks_quiz').hide();
+        $('#load_question_quiz').show();
+        let frameworks_id = $('#quiz_framework_id').val();
+        let exp_id = 0;
+        let limit = $('#quiz_page_limit').find(":selected").text();
+        // console.log(mandateTechId,"mandateTechId");
+        // console.log(opTechId,"opTechId");
+        FetchQuizQuestion(frameworks_id, exp_id, limit);
+    });
+
+
 
     //Select all Functionality
     $(document).on('click', '#select-all-ques', function (event) {
         var $that = $(this);
+        let timer = $('#test_timer');
+        timer.val('');
         $('.ques_checkbox').each(function () {
             this.checked = $that.is(':checked');
+            if(this.checked){
+                if(timer.val() == ''){
+                    timer.val('2');
+                }else{
+                    let value = parseInt(timer.val()) + 2;
+                    timer.val(value.toString());
+                }
+            }
         });
     });
 
@@ -340,7 +451,7 @@ $(document).ready(function () {
                 insert.push($(this).data('id'));
             }
         });
-        // console.log(insert,"insert");
+        console.log(insert,"insert");
         insert = insert.toString();
         $(this).attr('disabled', true);
         if (insert == '') {
@@ -356,12 +467,17 @@ $(document).ready(function () {
             })
             return false;
         }
+        let mandateTechId = $('#mandateTechId').val();
+        let opTechId = $('#opTechId').val();
+
 
         // console.log(insert);
         $.ajax({
             type: "Post",
             url: "/admin/quiz/questions",
             data: {
+                mandateTechId:mandateTechId,
+                opTechId:opTechId,
                 block_name: block_name,
                 insert: insert,
                 timer: timer
@@ -477,8 +593,18 @@ $(document).ready(function () {
 
     $(document).on('click', '#select-all-random', function (event) {
         var $that = $(this);
+        let timer = $('#randomTestTimer');
+        timer.val('');
         $('.randomQuesCheckbox').each(function () {
             this.checked = $that.is(':checked');
+            if(this.checked){
+                if(timer.val() == ''){
+                    timer.val('2');
+                }else{
+                    let value = parseInt(timer.val()) + 2;
+                    timer.val(value.toString());
+                }
+            }
         });
     });
 

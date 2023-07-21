@@ -1,22 +1,28 @@
-const inputs = document.querySelectorAll(".input");
+// const inputs = document.querySelectorAll(".input");
 
-function addcl() {
-    let parent = this.parentNode.parentNode;
-    parent.classList.add("focus");
-}
+// function addcl() {
+//     let parent = this.parentNode.parentNode;
+//     parent.classList.add("focus");
+// }
 
-function remcl() {
-    let parent = this.parentNode.parentNode;
-    if (this.value == "") {
-        parent.classList.remove("focus");
-    }
-}
+// function remcl() {
+//     let parent = this.parentNode.parentNode;
+//     if (this.value == "") {
+//         parent.classList.remove("focus");
+//     }
+// }
 
 
-inputs.forEach(input => {
-    input.addEventListener("focus", addcl);
-    input.addEventListener("blur", remcl);
-});
+// inputs.forEach(input => {
+//     input.addEventListener("focus", addcl);
+//     input.addEventListener("blur", remcl);
+// });
+
+$('input').focus(function(){
+    // console.log("object");
+   let div= $(this).parent().children('span').html('');
+//    console.log(div);
+})
 
 $(document).ready(function(){
 
@@ -42,12 +48,10 @@ $('#register').click(function(e){
         },
         // dataType:"JSON",
         success:function(response){
-            $('#invalid').html('');
+            $("span[id^=invalid]").html('');
             console.log(response);
-            // var success=response.success;
             if(response.status==200){
-				// $('#invalid').append('<div class="alert alert-success"style="margin-bottom:15px;">'+success+'</div');
-                // window.location="";
+				
                 Swal.fire({
                     title: 'Success!',
                     text: 'Registration Successfully.',
@@ -59,10 +63,9 @@ $('#register').click(function(e){
             }
         },
         error:function(xhr){
-
-            $('#invalid').html('');
-                  $.each(xhr.responseJSON.errors, function(key,value) {
-                $('#invalid').append('<div class="alert alert-danger"style="margin-bottom:15px;">'+value+'</div');
+            $("span[id^=invalid]").html('');
+                  $.each(xhr.responseJSON.message, function(key,value) {
+                $('#invalid-'+key+'').html(value);
             });
        }
 

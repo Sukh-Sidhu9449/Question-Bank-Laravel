@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\FrameworkController;
+use App\Http\Controllers\GroupInterviewsController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\McqController;
@@ -19,12 +20,19 @@ use App\Http\Controllers\UserUpdateController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\quiz_questionController;
 use App\Http\Controllers\SoftDeleteController;
+use App\Http\Controllers\UserDashboard;
 
 Route::get('/register', [AuthController::class, 'loadRegister']);
 Route::post('/register', [AuthController::class, 'userRegister'])->name('userRegister');
 Route::get('/login', function () {
     return redirect('/');
 });
+
+Route::get('/new-login', function () {
+    return view('new-register');
+});
+
+
 Route::get('/', [AuthController::class, 'loadlogin']);
 Route::post('/login', [AuthController::class, 'userlogin'])->name('userlogin');
 Route::get('/logout', [AuthController::class, 'adminlogout']);
@@ -39,6 +47,8 @@ Route::put('/update-status',[GuestController::class,'updateStatus']);
 Route::get('/guest-thankyou',function(){
     return view('guest.guest_thankyou');
 });
+
+
 
 //Admin Routes
 Route::group(['middleware' => ['web', 'checkadmin']], function () {
@@ -115,6 +125,7 @@ Route::group(['middleware' => ['web', 'checkadmin']], function () {
     Route::get('/admin/blockusers', [QuizController::class, 'fetchUsers']);
     Route::post('/admin/asssignblock', [QuizController::class, 'assignBlock']);
 
+    Route::post('/admin/multi-users-interview',[QuizController::class,'assignGuestInterview']);
 
     Route::get('/viewBlocks/destroy/{id}',[SoftDeleteController::class, 'destroy']);
     Route::get('/admin/restoreBlocks/{id}',[SoftDeleteController::class, 'restore']);
@@ -124,14 +135,24 @@ Route::group(['middleware' => ['web', 'checkadmin']], function () {
     Route::get('/mail/{id}',[MailController::class,'Mail']);
     Route::post('/mail',[MailController::class,'sendMail']);
 
+    Route::get('/admin/group-interview-stats/{id?}',[GroupInterviewsController::class,'index']);
+    Route::post('/admin/add-group-interview-candidate',[GroupInterviewsController::class,'store']);
+    Route::post('/admin/resend-interview-email',[GroupInterviewsController::class,'resendEmail']);
+
 });
 
 //User Routes
 Route::group(['middleware' => ['web', 'checkuser']], function () {
+    Route::get('/new-dashboard',function () {
+        return view('newpage');
+    });
 
     Route::get('/dashboard', [AuthController::class, 'loadDashboard']);
     Route::get('/tech_data/{id}', [tech_user_Controller::class, 'index']);
     Route::get('/user_tech/{id}', [tech_user_Controller::class, 'show']);
+    Route::get('/user_framework/{id}', [tech_user_Controller::class, 'getFramework']);
+    Route::get('/all_technologies', [tech_user_Controller::class, 'getAllTech']);
+
 
     Route::get('/user_edit', [UserUpdateController::class, 'index']);
     Route::post('/user_edit', [UserUpdateController::class, 'update'])->name('user_edit');
@@ -142,6 +163,10 @@ Route::group(['middleware' => ['web', 'checkuser']], function () {
     Route::put('/notification/{u_id}', [NotificationController::class, 'getNotification']);
     Route::get('/get_count_value', [NotificationController::class, 'getCount']);
     Route::get('/quiz/{quizId}/{userId}', [quiz_questionController::class, 'quizQuestion']);
+
+    //Fetch Dashboard Data
+    Route::get('/dashboard-data', [UserDashboard::class, 'index']);
+
 
     Route::post('/insertanswer', [quiz_questionController::class, 'insertAnswer']);
     Route::put('/updateanswer', [quiz_questionController::class, 'updateAnswer']);
@@ -158,13 +183,10 @@ Route::group(['middleware' => ['web', 'checkuser']], function () {
     Route::post('/user/mcq-insert',[McqQuizQuestionController::class,'insertMcq']);
     Route::put('/user/mcq-statusupdate',[McqQuizQuestionController::class,'updateMcqStatus']);
 
-    // Route::get('/video',function(){
-    //     return view('video');
-    // });
     Route::get('/video/{quizId}/', [quiz_questionController::class, 'videoIndex']);
 
     Route::get('/chatbot-questions',[quiz_questionController::class,'getChatbotQuiz']);
-
+    Route::post('/save-chatbot-questions',[quiz_questionController::class,'saveVideoData']);
 
 });
 
@@ -172,5 +194,14 @@ Route::group(['middleware' => ['web', 'checkuser']], function () {
 Route::post('/admin/send-email-pdf', 'App\Http\Controllers\SendEmailController@sendMail');
 Route::get('/admin/show-data','App\Http\Controllers\SendEmailController@showDataOnMailBox');
 
-// Route::get('/chart',[BotInterviewController::class,"chart"]);
+Route::get('/guest-interview/{params}',[GuestController::class,"guestInterviewIndex"]);
+Route::post('/guest-interview',[GuestController::class,"guestRegister"]);
+Route::get('/guest/video/{quizId}', [GuestController::class, 'videoIndex']);
+Route::get('/guest/chatbot-questions', [quiz_questionController::class, 'getChatbotQuiz']);
+
+// Route::get('/check-devices',function(){
+//     return view('checkDevices');
+// });
+
+Route::get('/chart/{id?}',[BotInterviewController::class,'chart']);
 

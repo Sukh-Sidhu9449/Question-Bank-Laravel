@@ -1,4 +1,6 @@
 $(document).ready(function () {
+    fetchCounts();
+    fetchNotifications();
     $('#userBlockStatus').DataTable({
         processing: true,
         serverSide: true,
@@ -95,23 +97,23 @@ $(document).ready(function () {
                 marks = parseInt($(this).find(":selected").val());
                 total = total + marks;
             });
-            let aggergate = "";
+            let aggregate = "";
             if (total == 0) {
-                aggergate = 0;
+                aggregate = 0;
             } else {
-                aggergate = parseFloat(total / totalQues);
-                aggergate = aggergate.toFixed(2);
+                aggregate = parseFloat(total / totalQues);
+                aggregate = aggregate.toFixed(2);
             }
             let QuizId = $('#store_quiz_id').val();
-            $('#store_aggregate').val(aggergate);
+            $('#store_aggregate').val(aggregate);
             $('.individual_marks').prop('disabled', true);
-            $('#AggergateMarks').val(aggergate);
+            $('#AggergateMarks').val(aggregate);
             $.ajax({
                 type: "POST",
                 url: "/admin/assessmentfeedback",
                 data: {
                     QuizId: QuizId,
-                    Aggergate: aggergate
+                    Aggergate: aggregate
                 },
                 dataType: "JSON",
                 success: function (response) {
@@ -121,7 +123,7 @@ $(document).ready(function () {
                             swal.fire({
                                 title: 'Success!!',
                                 icon: 'success',
-                                html: "<p><b>Aggregate Marks</b>: "+aggergate+"</p>",
+                                html: "<p><b>Aggregate Marks</b>: "+aggregate+"</p>",
                                 timer: 2000
                             }).then(function () {
                                 window.location.href='/admin/indexNotification';
@@ -138,9 +140,7 @@ $(document).ready(function () {
 
     $('#feedback_div').hide();
     $('.red_circle').hide();
-    Fetch_Counts();
-    Fetch_Notifications();
-    function Fetch_Counts() {
+    function fetchCounts() {
         $.ajax({
             type: "get",
             url: "/admin/dashboard-data",
@@ -157,12 +157,15 @@ $(document).ready(function () {
                     if (response.questions != null || response.questions != undefined) {
                         $('#questions_count').html(response.questions);
                     }
+                    if (response.frameworks != null || response.frameworks != undefined) {
+                        $('#frameworks_count').html(response.frameworks);
+                    }
                 }
             }
         });
     }
 
-    function Fetch_Notifications() {
+    function fetchNotifications() {
         $.ajax({
             type: "get",
             url: "/admin/notifiications",
@@ -187,9 +190,27 @@ $(document).ready(function () {
                     $.each(response.notifications, function (key, value) {
                         // $('.notication_heading').show();
                         if(value.status=='S'){
-                        notifications_desc += `<a class="notification_div" href="/admin/userassessment/` + value.id + `" ><p> <b>` + value.name + `</b> submitted ` + value.block_name + `</p></a><hr class="hr">`;
+                        // notifications_desc += `<a class="notification_div" href="/admin/userassessment/` + value.id + `" ><p> <b>` + value.name + `</b> submitted ` + value.block_name + `</p></a><hr class="hr">`;
+                        notifications_desc += `<a class="dropdown-item preview-item py-3 notify-preview d-flex justify-content-start align-items-center" href="/admin/userassessment/` + value.id + `" id="start_quiz">
+                                <div class="preview-thumbnail">
+                                <i class="bi bi-info-circle-fill fs-2 me-3  text-black"></i>
+                                </div>
+                                <div class="preview-item-content">
+                                <h6 class="preview-subject fw-normal text-dark mb-1">Interview Pending For Review</h6>
+                                <p class="fw-light small-text mb-0"> `+ value.name + ` </p>
+                                </div>
+                            </a>`;
                         }else if(value.status=='U'){
-                            notifications_desc += `<a class="notification_div" href="/admin/userassessment/` + value.id + `" ><p> <b>` + value.name + `</b> under review ` + value.block_name + `</p></a><hr class="hr">`;
+                            // notifications_desc += `<a class="notification_div" href="/admin/userassessment/` + value.id + `" ><p> <b>` + value.name + `</b> under review ` + value.block_name + `</p></a><hr class="hr">`;
+                            notifications_desc += `<a class="dropdown-item preview-item py-3 notify-preview d-flex justify-content-start align-items-center" href="/admin/userassessment/` + value.id + `" id="start_quiz">
+                                <div class="preview-thumbnail">
+                                    <i class="bi bi-info-circle-fill m-auto text-black fs-2 me-3 "></i>
+                                </div>
+                                <div class="preview-item-content">
+                                    <h6 class="preview-subject fw-normal text-dark mb-1">Interview Review Initiated</h6>
+                                    <p class="fw-light small-text mb-0"> `+ value.name + ` </p>
+                                </div>
+                            </a>`;
                         }
                     });
                     $('#notifications_desc').append(notifications_desc);
@@ -221,7 +242,7 @@ $(document).ready(function () {
                 // console.log(response);
                 if (response.status == 200) {
                     let i = 1;
-                    var submitted_data = '<div class="row justify-content-center">';
+                    var submitted_data = '<div class="row gy-3">';
                     var store_quiz_id = "";
                     var store_count_questions='';
                     $.each(response.submitted_data, function (key, value) {
